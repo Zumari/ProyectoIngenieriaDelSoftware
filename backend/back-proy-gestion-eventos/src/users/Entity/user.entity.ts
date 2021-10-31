@@ -7,19 +7,19 @@ export class User{
     @Column()
     middleName: string;
     @Column()
-    firstSurname: string;
+    Lastname : string;
     @Column()
-    secondSurname: string;
+    secondLastname : string;
     @Column()
     academicTraining: string;
     @Column()
-    description: string;
+    description_: string;
     @Column()
     Interests: string;
     @Column()
     email: string;
     @Column()
-    password: string;
+    password_: string;
     @Column()
     institution_representing: number;
 }
