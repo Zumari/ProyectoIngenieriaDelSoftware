@@ -2,12 +2,12 @@
 export interface createUser{
     firstName : string;
     middleName  : string;
-    firstSurname  : string;
-    secondSurname  : string;
+    Lastname : string;
+    secondLastname : string;
     academicTraining  : string;
-    description : string;
+    description_ : string;
     Interests : string;
     email: string;
-    password: string;
-    institution_representing :number;
+    password_: string;
+    institution :number;
 }
