@@ -16,11 +16,11 @@ export class createUserDto{
 
     @IsNotEmpty()
     @IsString()
-    Lastname : string;
+    lastName : string;
 
     @IsNotEmpty()
     @IsString()
-    secondLastname : string;
+    secondLastName : string;
 
     @IsNotEmpty()
     @IsString()
@@ -32,13 +32,13 @@ export class createUserDto{
 
     @IsNotEmpty()
     @IsString()
-    Interests : string;
+    interests : string;
 
     @IsNotEmpty()
     password_: string;
 
     @IsNotEmpty()
     @IsString()
-    institution_representing:string;
+    institutionRepresenting:string;
 
 }
