@@ -3,11 +3,11 @@ export interface createUser{
     email: string;
     firstName : string;
     middleName  : string;
-    Lastname : string;
-    secondLastname : string;
+    lastname : string;
+    secondLastName : string;
     academicTraining  : string;
     description_ : string;
-    Interests : string;
+    interests : string;
     password_: string;
-    institution :string;
+    institutionRepresenting :string;
 }
