@@ -1,15 +1,15 @@
 import { Repository } from 'typeorm';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Users_ } from './Entities/user.entity';
+import { Users} from './Entities/user.entity';
 import { createUser } from './interfaces/createUser.interface';
 import { createUserDto } from './DTO/createUser.dto';
 
 @Injectable()
 export class UsersService {
     constructor(
-        @InjectRepository(Users_)
-        private usersRepository: Repository<Users_>,
+        @InjectRepository(Users)
+        private usersRepository: Repository<Users>,
       ) {}
 
     async addUser(userNew:createUserDto){
