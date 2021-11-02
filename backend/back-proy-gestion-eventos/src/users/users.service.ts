@@ -29,7 +29,7 @@ export class UsersService {
     }
 
     async updateUser(email:string,user:createUserDto){
-         const post =this.usersRepository.findOne(email);
+         const post = await this.usersRepository.findOne(email);
          if(!post) throw new NotFoundException('usuario no existe');
 
          const editPost =Object.assign(post,user);
