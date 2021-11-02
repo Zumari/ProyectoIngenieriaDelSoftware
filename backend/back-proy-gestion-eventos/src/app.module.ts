@@ -6,23 +6,35 @@ import { UsersService } from './users/users.service';
 import { UsersModule } from './users/users.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Connection } from 'typeorm';
-import { User } from './users/Entity/user.entity';
+import { Users_ } from './users/Entities/user.entity';
 
 @Module({
-  imports: [UsersModule,TypeOrmModule.forRoot({
+  imports: [TypeOrmModule.forRoot({
     type: 'mssql',
     host: 'localhost',
     port: 1433,
     username: 'kevin',
     password: 'Ge1potato1',
-    database: 'AcademicEvents',
-    entities: [User],
+    database: 'eventService',
+    entities: ["dist/**/*.entity{.ts,.js}"],
     synchronize: true,
-  }),
+    autoLoadEntities: true,
+    options: {
+      encrypt: true,
+      cryptoCredentialsDetails: {// me tiraba error por una version  de tlsv2 que no es compatible con sql server
+          minVersion: 'TLSv1'
+      }
+    },
+    extra:{
+      trustServerCertificate: true ,
+      validateConnection: false,
+      IntegratedSecurity: false,
+    }
+  }),UsersModule
 ],
   controllers: [AppController, UsersController],
   providers: [AppService, UsersService],
 })
 export class AppModule {
-  constructor(private connection: Connection) {}
+ // constructor(private connection: Connection) {}
 }

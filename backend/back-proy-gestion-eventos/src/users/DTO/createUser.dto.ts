@@ -1,6 +1,11 @@
 import { IsEmail, isEmpty, IsInt, IsNotEmpty, IsString, isString} from "class-validator";
 
 export class createUserDto{
+
+    @IsNotEmpty()
+    @IsEmail()
+    email: string;
+    
     @IsNotEmpty()
     @IsString()
     firstName : string;
@@ -30,14 +35,10 @@ export class createUserDto{
     Interests : string;
 
     @IsNotEmpty()
-    @IsEmail()
-    email: string;
-
-    @IsNotEmpty()
     password: string;
 
     @IsNotEmpty()
     @IsInt()
-    institution:number;
+    institution:string;
 
 }

@@ -1,23 +1,54 @@
-import { Injectable } from '@nestjs/common';
+import { Repository } from 'typeorm';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Users_ } from './Entities/user.entity';
 import { createUser } from './interfaces/createUser.interface';
+import { createUserDto } from './DTO/createUser.dto';
 
 @Injectable()
 export class UsersService {
+    constructor(
+        @InjectRepository(Users_)
+        private usersRepository: Repository<Users_>,
+      ) {}
 
-    addUser(userNew:createUser){
-    
+    async addUser(userNew:createUserDto){
+    const post= this.usersRepository.create(userNew);
+    const exists= await this.usersRepository.findOne(userNew.email);
+    if(!exists) return await this.usersRepository.save(post);
+
+    return {
+        "message":"Este usuario ya esta  Registrado",
+        "data":userNew
+    }
     }
 
-    deleteUser(){
-
+   async deleteUser(email:string){
+       return await this.usersRepository.delete(email);
     }
 
-    updateUser(){
+    async updateUser(email:string,user:createUser){
+         const post =this.usersRepository.findOne(email);
+         if(!post) throw new NotFoundException('usuario no existe');
 
+         const editPost =Object.assign(post,user);
+         return await this.usersRepository.save(editPost);
     }
 
-    findAll(){
-        
+    async findAll(){
+        const data= await this.usersRepository.find();
+        return {
+            "message":"exit",
+            data
+        }
+    }
+
+    async findOne(email:string){
+        const data= await this.usersRepository.findOne(email);
+        return {
+            "message":"exit",
+            data
+        }
     }
 
 

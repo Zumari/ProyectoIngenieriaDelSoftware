@@ -1,5 +1,6 @@
 
 export interface createUser{
+    email: string;
     firstName : string;
     middleName  : string;
     Lastname : string;
@@ -7,7 +8,6 @@ export interface createUser{
     academicTraining  : string;
     description_ : string;
     Interests : string;
-    email: string;
     password_: string;
-    institution :number;
+    institution :string;
 }

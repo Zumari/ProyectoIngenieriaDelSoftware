@@ -1,35 +1,36 @@
-import { Body, Controller, Delete, Get, Param,ParseIntPipe,Post, Put } from '@nestjs/common';
-import { brotliDecompressSync } from 'zlib';
+import { Body, Controller, Delete, Get, Param,Post, Put } from '@nestjs/common';
 import { createUserDto } from './DTO/createUser.dto';
 import { createUser } from './interfaces/createUser.interface';
+import{UsersService} from './users.service'
 
 @Controller('users')
 export class UsersController {
 
-    constructor(private userService:createUser){}
+    constructor(private userService: UsersService){}
     
     @Get('/getUser/:email')
-    getUser(@Param('email') id:string){
+    async getUser(@Param('email') id:string){
+        return await  this.userService.findOne(id);
         
     }
 
     @Post('/createUser')
-    createNewUsers(@Body() createNewUser:createUserDto){
-        
+    async createNewUsers(@Body() createNewUser:createUserDto){
+        return await this.userService.addUser(createNewUser)
     }
 
     @Get('/getAllUsers')
-    getAllUsers(){
-        
+   async  getAllUsers(){
+      return this.userService.findAll()  
     }
 
     @Delete('/deleteUser/:email')
-    deleteUser(@Param('email') id:string){
-        
+    async deleteUser(@Param('email') id:string){
+        return this.deleteUser(id);
     }
 
     @Put('/updateUser/:email')
-    updateUser(@Param('email') id:string,@Body() user:createUserDto){
-        
+    async updateUser(@Param('email') id:string,@Body() user:createUserDto){
+      return this.updateUser(id,user)  ;
     }
 }
