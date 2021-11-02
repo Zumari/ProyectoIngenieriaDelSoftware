@@ -10,7 +10,8 @@ export class UsersController {
     
     @Get('/getUser/:email')
     async getUser(@Param('email') id:string){
-        return await  this.userService.findOne(id);
+       return  await  this.userService.findOne(id);
+      
         
     }
 
@@ -26,7 +27,7 @@ export class UsersController {
 
     @Delete('/deleteUser/:email')
     async deleteUser(@Param('email') id:string){
-        return this.deleteUser(id);
+        return await this.userService.deleteUser(id)  
     }
 
     @Put('/updateUser/:email')

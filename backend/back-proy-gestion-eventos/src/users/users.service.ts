@@ -25,7 +25,13 @@ export class UsersService {
     }
 
    async deleteUser(email:string){
-       return await this.usersRepository.delete(email);
+       const user=await this.usersRepository.findOne(email);
+       if(!user) return {"mesage":"Este usuario no existe dentro de la aplicacion"}
+
+       await this.usersRepository.delete(email);
+       return{
+           "message":"usuario eliminado con exito",
+           user}
     }
 
     async updateUser(email:string,user:createUserDto){
@@ -44,11 +50,13 @@ export class UsersService {
         }
     }
 
-    async findOne(email:string){
-        const data= await this.usersRepository.findOne(email);
+    async findOne(id:string){
+        const user= await this.usersRepository.findOne(id);
+        if(!user) return {"mesage":"Este usuario no existe dentro de la aplicacion"}
+
         return {
             "message":"exit",
-            data
+            user
         }
     }
 
