@@ -9,7 +9,7 @@ export class Users{
     @Column()
     middleName: string;
     @Column()
-    lastname : string;
+    lastName : string;
     @Column()
     secondLastName : string;
     @Column()
