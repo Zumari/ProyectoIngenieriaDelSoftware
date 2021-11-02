@@ -28,17 +28,17 @@ export class createUserDto{
 
     @IsNotEmpty()
     @IsString()
-    description : string;
+    description_ : string;
 
     @IsNotEmpty()
     @IsString()
     Interests : string;
 
     @IsNotEmpty()
-    password: string;
+    password_: string;
 
     @IsNotEmpty()
-    @IsInt()
-    institution:string;
+    @IsString()
+    institution_representing:string;
 
 }

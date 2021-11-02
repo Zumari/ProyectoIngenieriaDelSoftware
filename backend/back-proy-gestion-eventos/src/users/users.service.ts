@@ -15,7 +15,9 @@ export class UsersService {
     async addUser(userNew:createUserDto){
     const post= this.usersRepository.create(userNew);
     const exists= await this.usersRepository.findOne(userNew.email);
-    if(!exists) return await this.usersRepository.save(post);
+    if(!exists){
+        return await this.usersRepository.save(post);
+    } 
 
     return {
         "message":"Este usuario ya esta  Registrado",
@@ -27,7 +29,7 @@ export class UsersService {
        return await this.usersRepository.delete(email);
     }
 
-    async updateUser(email:string,user:createUser){
+    async updateUser(email:string,user:createUserDto){
          const post =this.usersRepository.findOne(email);
          if(!post) throw new NotFoundException('usuario no existe');
 
