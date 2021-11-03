@@ -3,11 +3,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Users} from './Entities/user.entity';
 import { createUserDto } from './DTO/createUser.dto';
-<<<<<<< Updated upstream
-=======
-import { updateUsers } from './DTO/updateUser.dto';
-import * as bcrypt from 'bcrypt';
->>>>>>> Stashed changes
+import* as bcrypt from'bcrypt';
 
 @Injectable()
 export class UsersService {
