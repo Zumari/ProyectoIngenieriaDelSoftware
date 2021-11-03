@@ -8,14 +8,14 @@ export class InstitutionsController {
     constructor(private institutionsService: InstitutionsService){}
     
     @Get('getInstitution/:InstitutionId')
-    getOneInstitution(@Param('InstitutionId') InstitutionId:string){
-        return this.institutionsService.getOneInstitution(InstitutionId);
+    async getOneInstitution(@Param('InstitutionId') InstitutionId:string){
+        return await this.institutionsService.getOneInstitution(InstitutionId);
         
     }
 
     @Post('createInstitution')
-    createInstitution(@Body() body:InstitutionsDto){
-        return this.institutionsService.createInstitution(body)
+    async createInstitution(@Body() body:InstitutionsDto){
+        return await this.institutionsService.createInstitution(body)
         
     }
 
@@ -25,12 +25,12 @@ export class InstitutionsController {
     }
 
     @Delete('deleteInstitution/:InstitutionId')
-    deleteIsntitution(@Param('InstitutionId') InstitutionId:string){
-        return this.institutionsService.deleteInstitution(InstitutionId);
+    async deleteInstitution(@Param('InstitutionId') InstitutionId:string){
+        return await this.institutionsService.deleteInstitution(InstitutionId);
     }
 
     @Put('updateInstitution/:InstitutionId')
-    updateUser(@Param('InstitutionId') InstitutionId:string,@Body() body:InstitutionsDto){
-      return this.institutionsService.updateInstitution(InstitutionId,body)  ;
+    async updateInstitution(@Param('InstitutionId') InstitutionId:string,@Body() body:InstitutionsDto){
+      return await this.institutionsService.updateInstitution(InstitutionId,body)  ;
     }
 }
