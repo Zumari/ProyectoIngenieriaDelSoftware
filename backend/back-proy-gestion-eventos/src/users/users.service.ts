@@ -20,7 +20,11 @@ export class UsersService {
             const salt= await bcrypt.genSalt();
             const hashedPassword= await bcrypt.hash(password_,salt);
             const post= this.usersRepository.create({email,firstName,middleName,lastName,secondLastName,academicTraining, description_,interests ,password_:hashedPassword, institutionRepresenting});
-            return await this.usersRepository.save(post);
+            await this.usersRepository.save(post);
+            return{
+                "message":"Registro realizado con exito"
+            }
+
         } 
         return {
             "message":"Este usuario ya esta  Registrado",

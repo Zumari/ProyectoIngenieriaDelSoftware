@@ -14,6 +14,11 @@ formato de json que se espera en el back
 "institutionRepresenting":"UNAH"
 }
 
+respuesta del backend:
+{
+ "message":"Registro realizado con exito"
+ }
+
 
 GET:http://localhost:3000/users/getAllUsers -> pra obtener todos los usuarios de la base de datos
 formato de json que se envia del back
