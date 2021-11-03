@@ -9,7 +9,6 @@ import { UserComponent } from './components/user/user.component';
 import { DashboardComponent } from './components/user/dashboard/dashboard.component';
 import { MyeventsComponent } from './components/user/myevents/myevents.component';
 import { StatisticsComponent } from './components/user/statistics/statistics.component';
-import {HttpClientModule} from '@angular/common/http' 
 
 @NgModule({
   declarations: [
@@ -23,8 +22,7 @@ import {HttpClientModule} from '@angular/common/http'
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
-    HttpClientModule
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -6,7 +6,7 @@ import { UsersService } from './users/users.service';
 import { UsersModule } from './users/users.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Connection } from 'typeorm';
-
+import { Users} from './users/Entities/user.entity';
 
 @Module({
   imports: [TypeOrmModule.forRoot({

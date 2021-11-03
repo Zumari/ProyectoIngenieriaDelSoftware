@@ -3,7 +3,6 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Users} from './Entities/user.entity';
 import { createUserDto } from './DTO/createUser.dto';
-import { updateUsers } from './DTO/updateUser.dto';
 
 @Injectable()
 export class UsersService {
@@ -35,7 +34,7 @@ export class UsersService {
            user}
     }
 
-    async updateUser(email:string,user:updateUsers){
+    async updateUser(email:string,user:createUserDto){
          const post = await this.usersRepository.findOne(email);
          if(!post) throw new NotFoundException('usuario no existe');
 
