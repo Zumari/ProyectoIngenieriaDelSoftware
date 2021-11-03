@@ -4,6 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Users} from './Entities/user.entity';
 import { createUserDto } from './DTO/createUser.dto';
 import* as bcrypt from'bcrypt';
+import { updateUser } from './DTO/updateUser.dto';
 
 @Injectable()
 export class UsersService {
@@ -38,7 +39,7 @@ export class UsersService {
            user}
     }
 
-    async updateUser(email:string,user:createUserDto){
+    async updateUser(email:string,user:updateUser){
          const post = await this.usersRepository.findOne(email);
          if(!post) throw new NotFoundException('usuario no existe');
 
