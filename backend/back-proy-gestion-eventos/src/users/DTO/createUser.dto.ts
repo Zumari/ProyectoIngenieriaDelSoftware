@@ -35,7 +35,7 @@ export class createUserDto{
     interests : string;
 
     @IsNotEmpty()
-    password_: string;
+     password_: string;
 
     @IsNotEmpty()
     @IsString()

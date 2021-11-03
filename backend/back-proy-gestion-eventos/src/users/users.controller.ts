@@ -11,13 +11,11 @@ export class UsersController {
     @Get('/getUser/:email')
     async getUser(@Param('email') id:string){
        return  await  this.userService.findOne(id);
-      
-        
     }
 
-    @Post('/createUser')
+    @Post('/register')
     async createNewUsers(@Body() createNewUser:createUserDto){
-        return await this.userService.addUser(createNewUser)
+        return await this.userService.addUser(createNewUser); 
     }
 
     @Get('/getAllUsers')

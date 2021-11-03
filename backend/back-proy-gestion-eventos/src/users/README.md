@@ -1,4 +1,4 @@
-POST :http://localhost:3000/users/createUser 
+POST :http://localhost:3000/users/register 
 
 formato de json que se espera en el back
 {

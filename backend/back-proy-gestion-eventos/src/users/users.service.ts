@@ -3,6 +3,11 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Users} from './Entities/user.entity';
 import { createUserDto } from './DTO/createUser.dto';
+<<<<<<< Updated upstream
+=======
+import { updateUsers } from './DTO/updateUser.dto';
+import * as bcrypt from 'bcrypt';
+>>>>>>> Stashed changes
 
 @Injectable()
 export class UsersService {
@@ -12,16 +17,19 @@ export class UsersService {
       ) {}
 
     async addUser(userNew:createUserDto){
-    const post= this.usersRepository.create(userNew);
-    const exists= await this.usersRepository.findOne(userNew.email);
-    if(!exists){
-        return await this.usersRepository.save(post);
-    } 
-
-    return {
-        "message":"Este usuario ya esta  Registrado",
-        "data":userNew
-    }
+        const {email,firstName,middleName,lastName,secondLastName,academicTraining, description_,interests ,password_, institutionRepresenting}=userNew;
+        const exists= await this.usersRepository.findOne(userNew.email);
+        if(!exists){
+            const salt= await bcrypt.genSalt();
+            const hashedPassword= await bcrypt.hash(password_,salt);
+            const post= this.usersRepository.create({email,firstName,middleName,lastName,secondLastName,academicTraining, description_,interests ,password_:hashedPassword, institutionRepresenting});
+            return await this.usersRepository.save(post);
+        } 
+        return {
+            "message":"Este usuario ya esta  Registrado",
+            "data":userNew
+        }
+        
     }
 
    async deleteUser(email:string){
