@@ -10,6 +10,7 @@ import { GeneralUserService } from 'src/app/services/user/general-user/general-u
 })
 export class UserComponent implements OnInit {
   user: User= {  email: '',
+    password_: '',
     firstName : '',
     middleName  : '',
     lastname : '',
@@ -17,7 +18,6 @@ export class UserComponent implements OnInit {
     academicTraining  : '',
     description_ : '',
     interests : '',
-    password_: '',
     institutionRepresenting :''
   };
   constructor(private generalUserService:GeneralUserService) { }
