@@ -22,6 +22,7 @@ import { Users} from './users/Entities/user.entity';
     options: {
       encrypt: true,
       cryptoCredentialsDetails: {// me tiraba error por una version  de tlsv2 que no es compatible con sql server
+                                //↑↑↑↑↑ a weno, gracias por la info crack
           minVersion: 'TLSv1'
       }
     },
