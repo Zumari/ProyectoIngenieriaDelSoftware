@@ -33,6 +33,6 @@ export class UsersController {
 
     @Put('/updateUser/:email')
     async updateUser(@Param('email') id:string,@Body() user:updateUsers){
-      return this.updateUser(id,user)  ;
+      return this.userService.updateUser(id,user)  ;
     }
 }
