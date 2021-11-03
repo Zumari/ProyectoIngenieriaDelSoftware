@@ -7,6 +7,12 @@ import { UsersModule } from './users/users.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Connection } from 'typeorm';
 import { Users} from './users/Entities/user.entity';
+import { InstitutionsController } from './institutions/institutions.controller';
+import { InstitutionsModule } from './institutions/institutions.module';
+import { InstitutionsService } from './institutions/institutions.service';
+import { StatusModule } from './status/status.module';
+import { StatusController } from './status/status.controller';
+import { StatusService } from './status/status.service';
 
 @Module({
   imports: [TypeOrmModule.forRoot({
@@ -31,10 +37,10 @@ import { Users} from './users/Entities/user.entity';
       validateConnection: false,
       IntegratedSecurity: false,
     }
-  }),UsersModule
+  }),UsersModule,InstitutionsModule,StatusModule
 ],
-  controllers: [AppController, UsersController],
-  providers: [AppService, UsersService],
+  controllers: [AppController, UsersController,InstitutionsController,StatusController],
+  providers: [AppService, UsersService,InstitutionsService,StatusService],
 })
 export class AppModule {
  // constructor(private connection: Connection) {}
