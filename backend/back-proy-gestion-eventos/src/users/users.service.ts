@@ -17,9 +17,9 @@ export class UsersService {
         const {email,firstName,middleName,lastName,secondLastName,academicTraining, description_,interests ,password_, institutionRepresenting}=userNew;
         const exists= await this.usersRepository.findOne(userNew.email);
         if(!exists){
-            const salt= await bcrypt.genSalt();
-            const hashedPassword= await bcrypt.hash(password_,salt);
-            const post= this.usersRepository.create({email,firstName,middleName,lastName,secondLastName,academicTraining, description_,interests ,password_:hashedPassword, institutionRepresenting});
+            //const salt= await bcrypt.genSalt();
+            //const hashedPassword= await bcrypt.hash(password_,salt);
+            const post= this.usersRepository.create({email,firstName,middleName,lastName,secondLastName,academicTraining, description_,interests ,password_, institutionRepresenting});
             await this.usersRepository.save(post);
             return{
                 "message":"Registro realizado con exito"
@@ -69,5 +69,17 @@ export class UsersService {
         }
     }
 
+    async findUserAuth(id:string):Promise<Users>{
+        const user= await this.usersRepository.findOne(id);
+        if(!user) return null
+
+        return user;
+    }
+
+    async findUserAuthDto(id:string):Promise<createUserDto>{
+        const user= await this.usersRepository.findOne(id);
+        if(!user) return null
+        return user;
+    }
 
 }
