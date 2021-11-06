@@ -41,8 +41,8 @@ export class Users{
     institutionRepresenting: string;
     @BeforeInsert()
     async hashPassword() {
-      //const salt = await bcrypt.genSalt();
-      this.password_ = await bcrypt.hash(this.password_, 10);
+      const salt = await bcrypt.genSalt();
+      this.password_ = await bcrypt.hash(this.password_, salt);
     }
   
     async validatePassword(password: string): Promise<boolean> { 

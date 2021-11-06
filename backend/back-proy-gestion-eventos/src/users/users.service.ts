@@ -17,17 +17,14 @@ export class UsersService {
         const {email,firstName,middleName,lastName,secondLastName,academicTraining, description_,interests ,password_, institutionRepresenting}=userNew;
         const exists= await this.usersRepository.findOne(userNew.email);
         if(!exists){
-            //const salt= await bcrypt.genSalt();
-            //const hashedPassword= await bcrypt.hash(password_,salt);
             const post= this.usersRepository.create({email,firstName,middleName,lastName,secondLastName,academicTraining, description_,interests ,password_, institutionRepresenting});
             await this.usersRepository.save(post);
             return{
                 "message":"Registro realizado con exito"
             }
-
         } 
         return {
-            "message":"Este usuario ya esta  Registrado",
+            "message":`El  usuario ${firstName} ya existe dentro de la aplicacion`,
             "data":userNew
         }
         
@@ -36,11 +33,11 @@ export class UsersService {
    async deleteUser(email:string){
        const user=await this.usersRepository.findOne(email);
        if(!user) return {"mesage":"Este usuario no existe dentro de la aplicacion"}
-
+       
        await this.usersRepository.delete(email);
        return{
-           "message":"usuario eliminado con exito",
-           user}
+           "message":`usuario ${user.firstName}con correo ${user.email} ha sido eliminado con exito`
+        }
     }
 
     async updateUser(email:string,user:updateUser){
@@ -61,7 +58,7 @@ export class UsersService {
 
     async findOne(id:string){
         const user= await this.usersRepository.findOne(id);
-        if(!user) return {"mesage":"Este usuario no existe dentro de la aplicacion"}
+        if(!user) return {"mesage":`El usuario ${user.firstName} con correo ${user.email} no existe dentro de la aplicacion`}
 
         return {
             "message":"exit",
@@ -75,11 +72,4 @@ export class UsersService {
 
         return user;
     }
-
-    async findUserAuthDto(id:string):Promise<createUserDto>{
-        const user= await this.usersRepository.findOne(id);
-        if(!user) return null
-        return user;
-    }
-
 }
