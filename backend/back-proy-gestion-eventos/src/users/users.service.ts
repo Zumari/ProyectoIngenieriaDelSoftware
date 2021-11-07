@@ -16,49 +16,31 @@ export class UsersService {
         private institutionService : InstitutionsService,
       ) {}
 
-    async addUser(userNew:createUserDto){
+      async addUser(userNew:createUserDto){
         const {email,firstName,middleName,lastName,secondLastName,academicTraining, description_,interests ,password_, institutionRepresenting}=userNew;
-        let exists= await this.usersRepository.findOne(userNew.email);
-      //  const institutionFound= await this.institutionService.getOneInstitution(institutionRepresenting);
-      let institutionFound=new Institutions()
-      institutionFound.InstitutionID=userNew.institutionRepresenting;
-      institutionFound.name="equisde"
-
-      if(!exists){
-            const salt= await bcrypt.genSalt();
-            const hashedPassword= await bcrypt.hash(password_,salt);
-            exists.email=userNew.email
-            exists.firstName=userNew.firstName
-            exists.middleName=userNew.middleName
-            exists.lastName=userNew.lastName
-            exists.secondLastName=userNew.secondLastName
-            exists.academicTraining=userNew.academicTraining
-            exists.description_=userNew.description_
-            exists.interests=userNew.interests
-            exists.password_=hashedPassword
-            exists.institutionRepresenting=institutionFound
-            const post= this.usersRepository.create(exists);
+        const exists= await this.usersRepository.findOne(userNew.email);
+        const institutionUser= await this.institutionService.getOneInstitution(institutionRepresenting);
+        if(!exists){
+            const post= this.usersRepository.create({email,firstName,middleName,lastName,secondLastName,academicTraining, description_,interests ,password_, institutionRepresenting:institutionUser});
             await this.usersRepository.save(post);
             return{
                 "message":"Registro realizado con exito"
             }
-
         } 
         return {
-            "message":"Este usuario ya esta  Registrado",
+            "message":`El  usuario ${firstName} ya existe dentro de la aplicacion`,
             "data":userNew
-        }
-        
+        }        
     }
 
    async deleteUser(email:string){
        const user=await this.usersRepository.findOne(email);
        if(!user) return {"mesage":"Este usuario no existe dentro de la aplicacion"}
-
+       
        await this.usersRepository.delete(email);
        return{
-           "message":"usuario eliminado con exito",
-           user}
+           "message":`usuario ${user.firstName}con correo ${user.email} ha sido eliminado con exito`
+        }
     }
 
     async updateUser(email:string,user:updateUser){
@@ -79,7 +61,7 @@ export class UsersService {
 
     async findOne(id:string){
         const user= await this.usersRepository.findOne(id);
-        if(!user) return {"mesage":"Este usuario no existe dentro de la aplicacion"}
+        if(!user) return {"mesage":`El usuario ${user.firstName} con correo ${user.email} no existe dentro de la aplicacion`}
 
         return {
             "message":"exit",
@@ -87,5 +69,10 @@ export class UsersService {
         }
     }
 
+    async findUserAuth(id:string):Promise<Users>{
+        const user= await this.usersRepository.findOne(id);
+        if(!user) return null
 
+        return user;
+    }
 }

@@ -13,6 +13,7 @@ import { InstitutionsService } from './institutions/institutions.service';
 import { StatusModule } from './status/status.module';
 import { StatusController } from './status/status.controller';
 import { StatusService } from './status/status.service';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [TypeOrmModule.forRoot({
@@ -37,7 +38,7 @@ import { StatusService } from './status/status.service';
       validateConnection: false,
       IntegratedSecurity: false,
     }
-  }),UsersModule,InstitutionsModule,StatusModule
+  }),UsersModule,InstitutionsModule,StatusModule, AuthModule
 ],
   controllers: [AppController, UsersController,InstitutionsController,StatusController],
   providers: [AppService, UsersService,InstitutionsService,StatusService],

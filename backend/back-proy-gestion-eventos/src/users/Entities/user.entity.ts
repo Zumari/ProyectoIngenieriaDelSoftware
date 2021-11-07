@@ -1,8 +1,24 @@
 import { Institutions } from "src/institutions/Entities/Institutions.entity";
-import { Column, Entity, ManyToOne, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
+import { BeforeInsert, Column,ManyToOne, Entity, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
+import* as bcrypt from'bcrypt';
+import { Console } from "console";
 
 @Entity('Users')
 export class Users{
+
+    constructor(email: string, firstName: string, middleName: string,lastName,secondLastName:string,
+      academicTraining: string,description_ :string,interests:string,password_:string,institutionRepresenting:Institutions) {
+      this.email=email;
+      this.password_=password_;
+      this.academicTraining=academicTraining;
+      this.description_=description_;
+      this.firstName=firstName;
+      this.middleName=middleName;
+      this.institutionRepresenting=institutionRepresenting;
+      this.interests=interests;
+      this.lastName=lastName;
+      this.secondLastName=secondLastName;
+    }
 
     @PrimaryColumn()
     email: string;
@@ -25,5 +41,16 @@ export class Users{
     
     @ManyToOne(type => Institutions,Institutions => Institutions.InstitutionID)
     institutionRepresenting!: Institutions;
-    
+
+    @BeforeInsert()
+    async hashPassword() {
+      const salt = await bcrypt.genSalt();
+      this.password_ = await bcrypt.hash(this.password_, salt);
+    }
+  
+    async validatePassword(password: string): Promise<boolean> { 
+     const result= await bcrypt.compare(password,this.password_)
+     console.log(result,this.email,this.password_);
+     return result;
+    }
 }
