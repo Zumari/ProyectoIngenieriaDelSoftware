@@ -50,7 +50,6 @@ export class Users{
   
     async validatePassword(password: string): Promise<boolean> { 
      const result= await bcrypt.compare(password,this.password_)
-     console.log(result,this.email,this.password_);
      return result;
     }
 }
