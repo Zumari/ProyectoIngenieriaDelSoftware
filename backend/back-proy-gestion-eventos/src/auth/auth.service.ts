@@ -16,7 +16,7 @@ export class AuthService {
       }
     
       async generateAccessToken(email: string) {
-        const user = await this.usersService.findUserAuthDto(email);
+        const user = await this.usersService.findUserAuth(email);
         const payload: JWTPayload = { email: user.email,firstName:user.firstName };
         return {
           access_token: this.jwtService.sign(payload),
