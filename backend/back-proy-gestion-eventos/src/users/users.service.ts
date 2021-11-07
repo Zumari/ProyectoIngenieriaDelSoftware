@@ -35,7 +35,7 @@ export class UsersService {
 
    async deleteUser(email:string){
        const user=await this.usersRepository.findOne(email);
-       if(!user) return {"mesage":"Este usuario no existe dentro de la aplicacion"}
+       if(!user) throw new NotFoundException(`El usuario ${user.firstName} con correo ${user.email} no existe dentro de la aplicacion`);
        
        await this.usersRepository.delete(email);
        return{
@@ -71,28 +71,8 @@ export class UsersService {
 
     async findUserAuth(id:string):Promise<Users>{
         const user= await this.usersRepository.findOne(id);
-        if(!user) return null
+        if(!user) throw new NotFoundException(`El usuario ${user.firstName} con correo ${user.email} no existe dentro de la aplicacion`);
 
         return user;
     }
-
-    //trabaja jimmy
-/*
-        ..8888888..     ..8888888..
-      .8:::::::::::8. .8:::::::::::8.
-    .8:::::::::::::::8:::::::::::::::8.
-   .8:::::::::::::::::::::::::::::::::8.
-   8::::::  ::::' ':::' '::::  :  :::::8
-   8::::::  :::     '     :::  :  :::::8
-   8::::::  :::           :::  :  :::::8
-   '8:::::  ::::.       .::::  :  ::::8'
-    '8::::  ::::::.   .::::::  :  :::8'
-     '8:::  ::::::::.::::::::.   .::8'
-       '8:::::::::::::::::::::::::8'
-         '8:::::::::::::::::::::8'
-           '8:::::::::::::::::8'
-              '8:::::::::::8'
-                 '8:::::8'
-                    '8'
-*/
 }
