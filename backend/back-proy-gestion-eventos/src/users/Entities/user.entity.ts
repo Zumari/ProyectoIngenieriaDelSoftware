@@ -1,7 +1,9 @@
-import { Column, Entity, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
+import { Institutions } from "src/institutions/Entities/Institutions.entity";
+import { Column, Entity, ManyToOne, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('Users')
 export class Users{
+
     @PrimaryColumn()
     email: string;
     @Column()
@@ -20,6 +22,8 @@ export class Users{
     interests: string;
     @Column()
     password_: string;
-    @Column()
-    institutionRepresenting: string;
+    
+    @ManyToOne(type => Institutions,Institutions => Institutions.InstitutionID)
+    institutionRepresenting!: Institutions;
+    
 }
