@@ -9,10 +9,14 @@ export class InstitutionsService {
     constructor(
         @InjectRepository(Institutions)
         private readonly institutionsRepository: Repository<Institutions>){}
+    
+    
     async findAllInstitutions(): Promise<Institutions[]>{
         return await this.institutionsRepository.find();
     }
     async createInstitution(body){
+        const institution=await this.institutionsRepository.findOne(body);
+        if(institution) throw new NotFoundException('Esta institución ya está registrada')
         const newInstitution = this.institutionsRepository.create(body)
         return await this.institutionsRepository.save(newInstitution);
     }
