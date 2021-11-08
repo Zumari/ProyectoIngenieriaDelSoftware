@@ -10,15 +10,25 @@ export class HomeComponent implements OnInit {
 
   faBookmark = faBookmark;
   faLock = faLock;
-
+  eventosLista : Event[]=[]; //Arreglo de eventos para recorrer y pintar el html con NGFOR
   eventos: any = [{
     titulo: 'Prueba',
     fecha: '2021-11',
     modalidad: 'Virtual'
   }];
-  constructor() { }
+  constructor(private eventServ: EventsService) { }
 
   ngOnInit(): void {
+    this.getEvents();
+  }
+ 
+
+  getEvents(){
+    this.eventServ.getAllEvents().subscribe(
+      res =>  {this.events=res},
+      error => console.log(error)
+              
+    )
   }
 
 }
