@@ -10,7 +10,7 @@ import{UsersService} from './users.service'
 export class UsersController {
     constructor(private userService: UsersService){}
 
-    @UseGuards(AuthGuard('jwt'))
+    //@UseGuards(AuthGuard('jwt'))
     @Get('/getUser/:email')
     async getUser(@Param('email') id:string){
        return  await  this.userService.findOne(id);
