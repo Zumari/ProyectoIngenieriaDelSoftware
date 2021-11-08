@@ -1,3 +1,4 @@
+import { Event } from "src/events/entities/event.entity";
 import { Users } from "src/users/Entities/user.entity";
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
@@ -11,4 +12,7 @@ export class Institutions{
 
     @OneToMany( type => Users,Users=>Users.institutionRepresenting)
     Users: Users[];
+    
+    @OneToMany( type => Event,Event=>Event.InstitutionID)
+    event: Event[];
 }

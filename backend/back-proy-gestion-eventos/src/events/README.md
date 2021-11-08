@@ -57,13 +57,12 @@ _____
 
 ```json
 {
-    "eventId": 1,
     "name": "Semana de la carrera IS",
     "description_": "Evento de la semana de la carrera de ingeniería en sistemas",
     "startDate": "2021-01-01 00:00:00",
     "endDate": "2022-01-01 00:00:00",
-    "places": 10
-
+    "places": 10,
+    "openEvent": true
 }
 ```
 _______

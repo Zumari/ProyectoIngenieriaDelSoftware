@@ -4,10 +4,11 @@ import { UpdateEventDto } from './dto/update-event.dto';
 import { TypeOrmCrudService } from '@nestjsx/crud-typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Event } from './entities/event.entity';
+import { InstitutionsService } from 'src/institutions/institutions.service';
 
 @Injectable()
 export class EventsService extends TypeOrmCrudService<Event> {
-  constructor(@InjectRepository(Event) repo) {
+  constructor(@InjectRepository(Event) repo, private institutionService: InstitutionsService) {
     super(repo);
   }
   
@@ -22,8 +23,9 @@ export class EventsService extends TypeOrmCrudService<Event> {
         --> No poder crear un evento si la hora de inicio es igual a la de finalizacion
         --> No poder crear un evento si es cerrado y no se define cuantas personas asistiran
     */
-    const {name, description_, startDate, endDate, places, openEvent} = createEventDto;
-    const post= this.repo.create({name, description_, startDate, endDate, places, openEvent});
+    const {name, description_, startDate, endDate, places, openEvent,institutionId} = createEventDto;
+    const institutionEvent = await this.institutionService.getOneInstitution(institutionId)
+    const post= this.repo.create({name, description_, startDate, endDate, places, openEvent,InstitutionID:institutionEvent});
     await this.repo.save(post);
     return{
       "result": `El evento con el nombre ${name} se ha creado con exito`

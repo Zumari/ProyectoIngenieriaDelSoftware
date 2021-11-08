@@ -1,8 +1,8 @@
+import { Institutions } from 'src/institutions/Entities/Institutions.entity';
 import { Entity, Column, PrimaryGeneratedColumn, OneToOne, ManyToOne, OneToMany, JoinColumn, AfterUpdate, BeforeUpdate, BeforeInsert } from 'typeorm';
 /*
 import { UserEntity } from '../../users/Entities/user.entity';
 import { StatusEntity } from '../../status/Entities/status.entity';
-import { InstitutionEntity } from '../../institutions/Entities/Institutions.entity';
 */
 
 @Entity('Event')
@@ -28,14 +28,13 @@ export class Event {
     
     @Column({type: 'bit', default: true , nullable:false})
     openEvent: boolean;
+    
+    @ManyToOne(type => Institutions,Institutions => Institutions.InstitutionID)
+    InstitutionID!: Institutions;
 
     /*
     @OneToOne(type => StatusEntity, status => status.event)
     statusId: StatusEntity;
-    
-    @ManyToOne(type => InstitutionEntity, institution => institution.events)
-    institutionId: InstitutionEntity;
-    
     @ManyToOne(type => UserEntity, user => user.events)
     organizerId: UserEntity;
     */
