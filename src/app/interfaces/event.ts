@@ -2,8 +2,8 @@
 export interface Event{
     name: string,
     description: string,
-    startDate:Date,
-    endDate: Date,
+    startDate: string,
+    endDate: string,
     places: number,
     openEvent: boolean
    
