@@ -42,7 +42,7 @@ formato de json que se envia del back
 }
 
 
-GET oneUser=http://localhost:3000/users/getUser/kevinvarela@gmail.com ; donde  kevinvarela@gmail.com es el parametro que se espera en el backend
+GET oneUser=http://localhost:3000/users/getUser ; donde  kevinvarela@gmail.com es el parametro que se espera en el backend
 
 json que se envia del back
 {

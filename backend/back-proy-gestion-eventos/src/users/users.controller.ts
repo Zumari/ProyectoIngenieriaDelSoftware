@@ -1,16 +1,27 @@
-import { Body, Controller, Delete, Get, Param,Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param,Post, Put, UseGuards } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
+import { ApiTags } from '@nestjs/swagger';
 import { createUserDto } from './DTO/createUser.dto';
 import { updateUser } from './DTO/updateUser.dto';
 import{UsersService} from './users.service'
 
+@ApiTags('users')
 @Controller('users')
 export class UsersController {
     constructor(private userService: UsersService){}
-    
+
+    @UseGuards(AuthGuard('jwt'))
     @Get('/getUser/:email')
     async getUser(@Param('email') id:string){
        return  await  this.userService.findOne(id);
     }
+
+    /*    @UseGuards(AuthGuard('jwt'))
+    @Get('/getUser')
+    async getUser(@Request() req: any){
+      const {email,firstName}=req.user;
+       return  await  this.userService.findOne(email);
+    }*/ 
 
     @Post('/register')
     async createNewUsers(@Body() createNewUser:createUserDto){
