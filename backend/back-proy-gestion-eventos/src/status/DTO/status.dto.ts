@@ -2,10 +2,10 @@ import { IsNumber, IsNotEmpty, IsString, Min} from "class-validator";
 
 export class StatusDto{
 
-    @IsNotEmpty()
+/*  @IsNotEmpty()
     @IsNumber()
     @Min(1)
-    StatusID: number;
+    StatusID: number; */
     
     @IsNotEmpty()
     @IsString()

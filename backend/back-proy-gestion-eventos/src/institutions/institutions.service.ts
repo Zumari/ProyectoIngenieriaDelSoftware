@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { runInThisContext } from 'vm';
+
 import { Institutions } from './Entities/Institutions.entity';
 
 @Injectable()
@@ -9,10 +9,14 @@ export class InstitutionsService {
     constructor(
         @InjectRepository(Institutions)
         private readonly institutionsRepository: Repository<Institutions>){}
+    
+    
     async findAllInstitutions(): Promise<Institutions[]>{
         return await this.institutionsRepository.find();
     }
     async createInstitution(body){
+        const institution=await this.institutionsRepository.findOne(body);
+        if(institution) throw new NotFoundException('Esta institución ya está registrada')
         const newInstitution = this.institutionsRepository.create(body)
         return await this.institutionsRepository.save(newInstitution);
     }
