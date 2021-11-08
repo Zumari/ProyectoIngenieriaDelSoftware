@@ -14,14 +14,15 @@ import { StatusModule } from './status/status.module';
 import { StatusController } from './status/status.controller';
 import { StatusService } from './status/status.service';
 import { AuthModule } from './auth/auth.module';
+import { EventsModule } from './events/events.module';
 
 @Module({
   imports: [TypeOrmModule.forRoot({
     type: 'mssql',
     host: 'localhost',
     port: 1433,
-    username: 'kevin',
-    password: 'Ge1potato1',
+    username: 'KEJ',
+    password: '4321',
     database: 'EventServe',
     entities: ["dist/**/*.entity{.ts,.js}"],
     synchronize: true,
@@ -38,7 +39,7 @@ import { AuthModule } from './auth/auth.module';
       validateConnection: false,
       IntegratedSecurity: false,
     }
-  }),UsersModule,InstitutionsModule,StatusModule, AuthModule
+  }),UsersModule,InstitutionsModule,StatusModule, AuthModule, EventsModule
 ],
   controllers: [AppController, UsersController,InstitutionsController,StatusController],
   providers: [AppService, UsersService,InstitutionsService,StatusService],
