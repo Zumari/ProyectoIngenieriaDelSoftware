@@ -1,0 +1,47 @@
+<header div="bg-primary navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+  <div class="bg-primary d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+    <span></span>
+    <div><img src="" alt=""></div>
+    <div>
+      <button type="button" style="color: white;" class="btn btn-warning mx-2">Registrarse</button>
+      <button type="button" style="color: white;" class="btn btn-warning mx-2">Iniciar sesión</button>
+    </div>
+  </div>
+</header>
+<main>
+  <div class="d-flex justify-content-end">
+    <div class="col-lg-3 col-md-4 col-sm-12 col-12 mx-2">
+      <div class="input-group mb-3">
+        <input type="text" class="form-control" aria-label="Buscar">
+  <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Filtrar</button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><a class="dropdown-item" href="#">Disponibilidad</a></li>
+    <li><a class="dropdown-item" href="#">Privacidad</a></li>
+    <li><a class="dropdown-item" href="#">Nombre</a></li>
+    <li><a class="dropdown-item" href="#">Organizador</a></li>
+  </ul>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="card col-lg-3 col-xl-3 col-md-4 col-col-sm-6 col-12" style="width: 18rem;" *ngFor="let evento of eventos; let i = index">
+      <img [src]="evento.imagen" class="card-img-top" alt="...">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-10">
+            <h5 class="card-title">{{evento.titulo}}</h5>
+        <div class="card-text">{{evento.fecha}}</div>
+        <div class="card-text">{{evento.modalidad}}</div>
+          </div>
+          <div class="col-2" style="position: relative;">
+            <fa-icon style="color: red;" class="fs-2" [icon]="faBookmark"></fa-icon>
+            <fa-icon style="color: white; position: absolute;
+            left: 18px;
+            top: 10px;
+            font-size: 0.8rem;" [icon]="faLock"></fa-icon>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
