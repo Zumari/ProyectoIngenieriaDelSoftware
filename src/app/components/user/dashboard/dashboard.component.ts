@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { EventsService } from 'src/app/services/user/events/events.service';
 import { Event } from 'src/app/interfaces/event';
@@ -28,7 +29,8 @@ export class DashboardComponent implements OnInit {
     openEvent: true,
     modalidad: 'virtual'
   }]; //Arreglo de eventos para recorrer y pintar el html con NGFOR
-  constructor(private eventServ: EventsService) { }
+
+  constructor(private eventServ: EventsService, private router: Router) { }
 
     ngOnInit(): void {
       this.getEvents()
@@ -51,5 +53,7 @@ export class DashboardComponent implements OnInit {
     this.privacy = val == 1 ? 'publico' : 'privado';
   }
 
-
+  viewEvent(name: string) {
+    this.router.navigate(['usuario/evento/:'+name]);
+  }
 }

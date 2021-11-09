@@ -1,3 +1,4 @@
+import { faCertificate, faEye, faPlusCircle, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,6 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MyeventComponent implements OnInit {
 
+  faPlus = faPlusCircle;
+  faEye = faEye;
+  faAsterisk = faCertificate;
+  faTrash = faTrash;
   constructor() { }
 
   ngOnInit(): void {
