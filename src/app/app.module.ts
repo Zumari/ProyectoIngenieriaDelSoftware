@@ -14,6 +14,7 @@ import { EventComponent } from './components/user/event/event.component';
 import { HomeComponent } from './components/home/home.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {HttpClientModule} from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import {HttpClientModule} from '@angular/common/http';
     BrowserModule,
     AppRoutingModule,
     FontAwesomeModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
