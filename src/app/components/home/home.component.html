@@ -56,25 +56,27 @@
         <div class="mb-3">
           <div style="z-index: 5; position: relative;">
             <div class="bg-primary d-flex justify-content-start" style="height: 8vw;">
-              <img src="../../../assets/images/ESLogo.svg" alt="...">
+              <img src="" alt="...">
             </div>
           </div>
         </div>
-        <div>
-          <div class="row px-5">
-            <div class="mb-3">
-              <label for="correo" class="form-label">Correo electrónico:</label>
-              <input type="email" class="form-control" id="correo" placeholder="">
-            </div>
-            <div class="mb-3">
-              <label for="contrasenia" class="form-label">Contraseña:</label>
-              <input type="password" class="form-control" id="contrasenia" placeholder="">
-            </div>
-            <div class="mb-3 d-flex justify-content-center">
-              <button type="button" class="btn btn-warning">Inisiar sesión</button>
+        <form [formGroup]="loginForm">
+          <div>
+            <div class="row px-5">
+              <div class="mb-3">
+                <label for="correo" class="form-label">Correo electrónico:</label>
+                <input type="email" formControlName="email" class="form-control" id="correo" placeholder="">
+              </div>
+              <div class="mb-3">
+                <label for="contrasenia" class="form-label">Contraseña:</label>
+                <input type="password" formControlName="password_" class="form-control" id="contrasenia" placeholder="">
+              </div>
+              <div class="mb-3 d-flex justify-content-center">
+                <button type="button" class="btn btn-warning" (click)="Onlogin()">Iniciar sesión</button>
+              </div>
             </div>
           </div>
-        </div>
+        </form>
       </div>
     </div>
   </div>
@@ -89,60 +91,62 @@
         <div style="position: relative;">
           <div style="z-index: 5; position: relative;">
             <div class="bg-primary d-flex justify-content-start" style="height: 8vw;">
-              <img src="../../../assets/images/ESLogo.svg" alt="...">
+              <img src="" alt="...">
             </div>
           </div>
           <div style="z-index: 10; background-color: gray; border-radius: 100%; height: 10vw; width: 10vw; margin: auto; top: -4vw; position: relative;">
             <img src="" alt="">
           </div>
         </div>
-        <div>
-          <div class="row px-5">
-            <div class="mb-3">
-              <label for="nombre" class="form-label">Nombre:</label>
-              <input type="text" class="form-control" id="nombre" placeholder="">
-            </div>
-            <div class="mb-3">
-              <label for="institucion" class="form-label">Institución que representa:</label>
-              <select class="form-select form-select" name="institucion" aria-label=".form-select-sm institucion">
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
-              </select>
-            </div>
-            <div class="mb-3">
-              <label for="otra" class="form-label">Otra:</label>
-              <input type="text" class="form-control" id="otra" placeholder="">
-            </div>
-            <div class="mb-3">
-              <label for="correo" class="form-label">Correo electrónico:</label>
-              <input type="email" class="form-control" id="correo" placeholder="">
-            </div>
-            <div class="mb-3">
-              <label for="contrasenia" class="form-label">Contraseña:</label>
-              <input type="password" class="form-control" id="contrasenia" placeholder="">
-            </div>
-            <div class="mb-3">
-              <label for="contrasenia2" class="form-label">Confirme su contraseña:</label>
-              <input type="password" class="form-control" id="contrasenia2" placeholder="">
-            </div>
-            <div class="mb-3">
-              <label for="formacion" class="form-label">Formación académica:</label>
-              <input type="text" class="form-control" id="formacion" placeholder="">
-            </div>
-            <div class="mb-3">
-              <label for="descripcion" class="form-label">Descripción:</label>
-              <textarea class="form-control" id="descripcion" rows="4"></textarea>
-            </div>
-            <div class="mb-3">
-              <label for="intereses" class="form-label">Intereses:</label>
-              <input type="text" class="form-control" id="intereses" placeholder="">
-            </div>
-            <div class="mb-5 d-flex justify-content-center">
-              <button type="button" class="btn btn-warning">Registrarme</button>
+        <form [formGroup]="registerForm">
+          <div>
+            <div class="row px-5">
+              <div class="mb-3">
+                <label for="nombre" class="form-label">Nombre:</label>
+                <input type="text" formControlName="firstName" class="form-control" id="nombre" placeholder="">
+              </div>
+              <div class="mb-3">
+                <label for="institucion" class="form-label">Institución que representa:</label>
+                <select class="form-select form-select" name="institucion" aria-label=".form-select-sm institucion">
+                  <option value="1">One</option>
+                  <option value="2">Two</option>
+                  <option value="3">Three</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="otra" class="form-label">Otra:</label>
+                <input type="text" class="form-control" id="otra" placeholder="">
+              </div>
+              <div class="mb-3">
+                <label for="correo" class="form-label">Correo electrónico:</label>
+                <input type="email" formControlName="email" class="form-control" id="correo" placeholder="">
+              </div>
+              <div class="mb-3">
+                <label for="contrasenia" class="form-label">Contraseña:</label>
+                <input type="password" formControlName="password_" class="form-control" id="contrasenia" placeholder="">
+              </div>
+              <div class="mb-3">
+                <label for="contrasenia2" class="form-label">Confirme su contraseña:</label>
+                <input type="password" class="form-control" id="contrasenia2" placeholder="">
+              </div>
+              <div class="mb-3">
+                <label for="formacion" class="form-label">Formación académica:</label>
+                <input type="text" class="form-control" id="formacion" placeholder="">
+              </div>
+              <div class="mb-3">
+                <label for="descripcion" class="form-label">Descripción:</label>
+                <textarea formControlName="description_" class="form-control" id="descripcion" rows="4"></textarea>
+              </div>
+              <div class="mb-3">
+                <label for="intereses" class="form-label">Intereses:</label>
+                <input type="text" formControlName="interests" class="form-control" id="intereses" placeholder="">
+              </div>
+              <div class="mb-5 d-flex justify-content-center">
+                <button type="button" class="btn btn-warning" (click)="CreateUser()">Registrarme</button>
+              </div>
             </div>
           </div>
-        </div>
+        </form>
       </div>
     </div>
   </div>
