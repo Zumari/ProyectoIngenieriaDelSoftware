@@ -1,8 +1,10 @@
-import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { EventsService } from 'src/app/services/user/events/events.service';
 import { Event } from 'src/app/interfaces/event';
 import { faBookmark, faLock, faPlus, faPlusCircle } from '@fortawesome/free-solid-svg-icons';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { InstitutionService } from 'src/app/services/institutions/institutions.service';
+import { institution } from 'src/app/interfaces/institution';
 
 
 @Component({
@@ -30,12 +32,41 @@ export class DashboardComponent implements OnInit {
     modalidad: 'virtual'
   }]; //Arreglo de eventos para recorrer y pintar el html con NGFOR
 
-  constructor(private eventServ: EventsService, private router: Router) { }
+  eventoForm = new FormGroup({
+    nombreEvento: new FormControl('',[Validators.required, Validators.maxLength(30), Validators.pattern('[a-zA-Z ]*')]),
+    description:new FormControl('',[Validators.required, Validators.maxLength(30), Validators.pattern('[a-zA-Z ]*')]),
+    startDate: new FormControl('', [Validators.required]),
+    endDate: new FormControl('', [Validators.required]),
+    places:  new FormControl(0, [Validators.required]),
+    openEvent:  new FormControl(true, [Validators.required]),
+    institutionRepresenting: new FormControl(0,[Validators.required]),
+    modalidad: new FormControl('', Validators.required)
+  })
+
+  institutions: institution[]=[{
+    institutionID: 0,
+    name: 'UNAH'
+  },
+  {institutionID:1,
+  name:'UNITEC'}
+  ];
+
+
+  constructor(private eventServ: EventsService, private institutionServ: InstitutionService) { }
 
     ngOnInit(): void {
       this.getEvents()
     }
 
+  createEvents(){
+    console.log(this.eventoForm.value);
+    
+    this.eventServ.createEvent(this.eventoForm.value).subscribe(
+      res =>  {console.log(res)
+      },
+      error => console.log(error)
+    )
+  }  
 
   getEvents(){
     this.eventServ.getAllEvents().subscribe(
@@ -44,6 +75,15 @@ export class DashboardComponent implements OnInit {
 
     )
   }
+
+  getInstitution(){
+    this.institutionServ.getInstitutions().subscribe(
+      res =>  {this.institutions=res},
+      error => console.log(error)
+
+    )
+  }
+
 
   changeMod(val: number) {
     this.mode = val == 1 ? 'virtual' : 'presencial';
