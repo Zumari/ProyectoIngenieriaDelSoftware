@@ -1,10 +1,7 @@
 import { Institutions } from 'src/institutions/Entities/Institutions.entity';
 import { Status } from 'src/status/Entities/status.entity';
+import { Users } from 'src/users/Entities/user.entity';
 import { Entity, Column, PrimaryGeneratedColumn, OneToOne, ManyToOne, OneToMany, JoinColumn, AfterUpdate, BeforeUpdate, BeforeInsert } from 'typeorm';
-/*
-import { UserEntity } from '../../users/Entities/user.entity';
-import { StatusEntity } from '../../status/Entities/status.entity';
-*/
 
 @Entity('Event')
 export class Event {
@@ -36,12 +33,6 @@ export class Event {
     @ManyToOne(type => Status,Status => Status.StatusID)
     StatusID!: Status;
 
-
-    /*
-    @OneToOne(type => StatusEntity, status => status.event)
-    statusId: StatusEntity;
-    @ManyToOne(type => UserEntity, user => user.events)
-    organizerId: UserEntity;
-    */
-
+    @ManyToOne(type => Users, Users=> Users.email) 
+    UsersID!: Users;
 }

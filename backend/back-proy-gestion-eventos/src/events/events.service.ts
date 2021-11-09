@@ -6,12 +6,14 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Event } from './entities/event.entity';
 import { InstitutionsService } from 'src/institutions/institutions.service';
 import { StatusService } from 'src/status/status.service';
+import { UsersService } from 'src/users/users.service';
 
 @Injectable()
 export class EventsService extends TypeOrmCrudService<Event> {
   constructor(@InjectRepository(Event) repo,
     private institutionService: InstitutionsService,
-    private statusService: StatusService) {
+    private statusService: StatusService, 
+    private userService: UsersService) {
     super(repo);
   }
   
@@ -29,6 +31,7 @@ export class EventsService extends TypeOrmCrudService<Event> {
     const {name, description_, startDate, endDate, places, openEvent,institutionId} = createEventDto;
     const institutionEvent = await this.institutionService.getOneInstitution(institutionId)
     const StatusEvent= await this.statusService.getOneStatus({name:"inactivo"})
+    //const UserEvent= await this.userService.findOne()
     const post= this.repo.create({name, description_, startDate, endDate, places, openEvent,InstitutionID:institutionEvent,StatusID:StatusEvent});
     await this.repo.save(post);
     return{
