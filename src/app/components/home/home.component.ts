@@ -18,7 +18,14 @@ export class HomeComponent implements OnInit {
 
   faBookmark = faBookmark;
   faLock = faLock;
-  eventosLista : Event[]=[]; //Arreglo de eventos para recorrer y pintar el html con NGFOR
+  eventosLista : Event[]=[{name: '',
+    description: '',
+    startDate: '',
+    endDate: '',
+    places: 0,
+    openEvent: true}]; //Arreglo de eventos para recorrer y pintar el html con NGFOR
+  
+  
   eventos: any = [{
     titulo: 'Prueba',
     fecha: '2021-11',
