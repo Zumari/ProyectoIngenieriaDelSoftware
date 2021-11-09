@@ -23,12 +23,28 @@ export class HomeComponent implements OnInit {
     titulo: 'Prueba',
     fecha: '2021-11',
     modalidad: 'Virtual'
+  },{
+    titulo: 'Prueba',
+    fecha: '2021-11',
+    modalidad: 'Virtual'
+  },{
+    titulo: 'Prueba',
+    fecha: '2021-11',
+    modalidad: 'Virtual'
+  },{
+    titulo: 'Prueba',
+    fecha: '2021-11',
+    modalidad: 'Virtual'
+  },{
+    titulo: 'Prueba',
+    fecha: '2021-11',
+    modalidad: 'Virtual'
   }];
-  
+
   //Para recorrer y llenar el select-list de instituciones
   institutions: institution[]=[];
 
-loginForm = new FormGroup({  
+loginForm = new FormGroup({
   email: new FormControl('',[Validators.required, Validators.pattern('/^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i')]),
   firstName : new FormControl('',[Validators.required, Validators.maxLength(30), Validators.pattern('[a-zA-Z ]*')]),
   password_: new FormControl('',[Validators.required, Validators.minLength(5)]),
@@ -45,17 +61,17 @@ loginForm = new FormGroup({
   ngOnInit(): void {
     this.getEvents();
   }
- 
+
 
   getEvents(){
     this.eventServ.getAllEvents().subscribe(
       res =>  {this.eventosLista=res},
       error => console.log(error)
-              
+
     )
   }
-  
-  
+
+
   CreateUser(){
     this.generalUserService.createUser(this.loginForm.value).subscribe(
       res => {console.log(res)
@@ -69,7 +85,7 @@ loginForm = new FormGroup({
     this.institutionServ.getInstitutions().subscribe(
       res =>  {this.institutions=res},
       error => console.log(error)
-              
+
     )
   }
 

@@ -3,8 +3,8 @@
     <span></span>
     <div><img src="" alt=""></div>
     <div>
-      <button type="button" style="color: white;" class="btn btn-warning mx-2">Registrarse</button>
-      <button type="button" style="color: white;" class="btn btn-warning mx-2">Iniciar sesión</button>
+      <button type="button" style="color: white;" class="btn btn-warning mx-2" data-bs-toggle="modal" data-bs-target="#registro">Registrarse</button>
+      <button type="button" style="color: white;" class="btn btn-warning mx-2" data-bs-toggle="modal" data-bs-target="#login">Iniciar sesión</button>
     </div>
   </div>
 </header>
@@ -24,24 +24,127 @@
     </div>
   </div>
   <div class="container">
-    <div class="card col-lg-3 col-xl-3 col-md-4 col-col-sm-6 col-12" style="width: 18rem;" *ngFor="let evento of eventos; let i = index">
-      <img [src]="evento.imagen" class="card-img-top" alt="...">
-      <div class="card-body">
-        <div class="row">
-          <div class="col-10">
-            <h5 class="card-title">{{evento.titulo}}</h5>
-        <div class="card-text">{{evento.fecha}}</div>
-        <div class="card-text">{{evento.modalidad}}</div>
-          </div>
-          <div class="col-2" style="position: relative;">
-            <fa-icon style="color: red;" class="fs-2" [icon]="faBookmark"></fa-icon>
-            <fa-icon style="color: white; position: absolute;
-            left: 18px;
-            top: 10px;
-            font-size: 0.8rem;" [icon]="faLock"></fa-icon>
+    <div class="d-flex flex-wrap">
+      <div class="card col-lg-3 col-xl-3 col-md-3 col-sm-6 col-12 p-0 m-2" style="width: 18vw;" *ngFor="let evento of eventos; let i = index">
+        <img [src]="evento.imagen == undefined ? '../../../assets/images/default.jpg': evento.imagen" class="card-img-top" alt="...">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-10">
+              <h5 class="card-title">{{evento.titulo}}</h5>
+          <div class="card-text">{{evento.fecha}}</div>
+          <div class="card-text">{{evento.modalidad}}</div>
+            </div>
+            <div class="col-2" style="position: relative;">
+              <fa-icon style="color: red;" class="fs-2" [icon]="faBookmark"></fa-icon>
+              <fa-icon style="color: white; position: absolute;
+              left: 18px;
+              top: 10px;
+              font-size: 0.8rem;" [icon]="faLock"></fa-icon>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
 </main>
+
+<!-- Modal -->
+<div class="modal fade" id="login" tabindex="-1" aria-labelledby="loginLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body p-0">
+        <div class="mb-3">
+          <div style="z-index: 5; position: relative;">
+            <div class="bg-primary d-flex justify-content-start" style="height: 8vw;">
+              <img src="" alt="...">
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="row px-5">
+            <div class="mb-3">
+              <label for="correo" class="form-label">Correo electrónico:</label>
+              <input type="email" class="form-control" id="correo" placeholder="">
+            </div>
+            <div class="mb-3">
+              <label for="contrasenia" class="form-label">Contraseña:</label>
+              <input type="password" class="form-control" id="contrasenia" placeholder="">
+            </div>
+            <div class="mb-3 d-flex justify-content-center">
+              <button type="button" class="btn btn-warning">Inisiar sesión</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="registro" tabindex="-1" aria-labelledby="registroLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body p-0">
+        <div style="position: relative;">
+          <div style="z-index: 5; position: relative;">
+            <div class="bg-primary d-flex justify-content-start" style="height: 8vw;">
+              <img src="" alt="...">
+            </div>
+          </div>
+          <div style="z-index: 10; background-color: gray; border-radius: 100%; height: 10vw; width: 10vw; margin: auto; top: -4vw; position: relative;">
+            <img src="" alt="">
+          </div>
+        </div>
+        <div>
+          <div class="row px-5">
+            <div class="mb-3">
+              <label for="nombre" class="form-label">Nombre:</label>
+              <input type="text" class="form-control" id="nombre" placeholder="">
+            </div>
+            <div class="mb-3">
+              <label for="institucion" class="form-label">Institución que representa:</label>
+              <select class="form-select form-select" name="institucion" aria-label=".form-select-sm institucion">
+                <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="otra" class="form-label">Otra:</label>
+              <input type="text" class="form-control" id="otra" placeholder="">
+            </div>
+            <div class="mb-3">
+              <label for="correo" class="form-label">Correo electrónico:</label>
+              <input type="email" class="form-control" id="correo" placeholder="">
+            </div>
+            <div class="mb-3">
+              <label for="contrasenia" class="form-label">Contraseña:</label>
+              <input type="password" class="form-control" id="contrasenia" placeholder="">
+            </div>
+            <div class="mb-3">
+              <label for="contrasenia2" class="form-label">Confirme su contraseña:</label>
+              <input type="password" class="form-control" id="contrasenia2" placeholder="">
+            </div>
+            <div class="mb-3">
+              <label for="formacion" class="form-label">Formación académica:</label>
+              <input type="text" class="form-control" id="formacion" placeholder="">
+            </div>
+            <div class="mb-3">
+              <label for="descripcion" class="form-label">Descripción:</label>
+              <textarea class="form-control" id="descripcion" rows="4"></textarea>
+            </div>
+            <div class="mb-3">
+              <label for="intereses" class="form-label">Intereses:</label>
+              <input type="text" class="form-control" id="intereses" placeholder="">
+            </div>
+            <div class="mb-5 d-flex justify-content-center">
+              <button type="button" class="btn btn-warning">Registrarme</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
