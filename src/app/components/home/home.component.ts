@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 
 
 
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -84,51 +85,48 @@ loginForm = new FormGroup({
   
   
   get emailForm() {
-    return this.logForm.get('email');
-  }
-  
-  get passwordF_() {
-    return this.logForm.get('password_');
-  }
-  
-
-
-  
-  get email() {
     return this.loginForm.get('email');
   }
   
+  get passwordF_() {
+    return this.loginForm.get('password_');
+  }
+  
+  get email() {
+    return this.registerForm.get('email');
+  }
+  
   get firstName() {
-    return this.loginForm.get('firstName');
+    return this.registerForm.get('firstName');
   }
   
   get password_() {
-    return this.loginForm.get('password_');
+    return this.registerForm.get('password_');
   }
   get middleName() {
-    return this.loginForm.get('middleName');
+    return this.registerForm.get('middleName');
   }
 
   get lastName() {
-    return this.loginForm.get('lastName');
+    return this.registerForm.get('lastName');
   }
 
   get secondLastName(){
-    return this.loginForm.get('secondLastName');
+    return this.registerForm.get('secondLastName');
   }
 
   get academicTraining(){
-    return this.loginForm.get('academicTrainig')
+    return this.registerForm.get('academicTrainig')
   }
    get description_(){
-     return this.loginForm.get('description_')
+     return this.registerForm.get('description_')
    } 
   get interests(){
-    return this.loginForm.get('interests')
+    return this.registerForm.get('interests')
   } 
     
   get institutionRepresenting(){
-    return this.loginForm.get('institutionRepresenting')
+    return this.registerForm.get('institutionRepresenting')
   }
 
   getEvents(){
@@ -141,7 +139,7 @@ loginForm = new FormGroup({
 
 
   CreateUser(){
-    this.generalUserService.createUser(this.loginForm.value).subscribe(
+    this.generalUserService.createUser(this.registerForm.value).subscribe(
       res => {console.log(res)
       },
       err =>console.log(err)
@@ -149,7 +147,7 @@ loginForm = new FormGroup({
   }
 
   Onlogin():void{
-    this.generalUserService.login(this.logForm.value).subscribe((res)=>{
+    this.generalUserService.login(this.loginForm.value).subscribe((res)=>{
       if(res){
         this.router.navigate(['usuario']);   //DENTRO DE CORCHETES PONER DIRECCIÓN A LA QUE REDIRIGE AL HACER CLICK EN BOTON LOGIN     
       }
