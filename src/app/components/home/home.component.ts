@@ -10,7 +10,6 @@ import { Router } from '@angular/router';
 
 
 
-
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -54,7 +53,13 @@ export class HomeComponent implements OnInit {
   }];
 
   //Para recorrer y llenar el select-list de instituciones
-  institutions: institution[]=[];
+  institutions: institution[]=[{
+    institutionID: 0,
+    name: 'UNAH'
+  },
+  {institutionID:1,
+  name:'UNITEC'}
+  ];
 
 registerForm = new FormGroup({
   email: new FormControl('',[Validators.required, Validators.pattern('/^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i')]),
@@ -69,7 +74,6 @@ registerForm = new FormGroup({
   institutionRepresenting :new FormControl('',[Validators.required])
 });
 
-
 loginForm = new FormGroup({  
   email: new FormControl('',[Validators.required, Validators.pattern('/^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i')]),
   
@@ -82,31 +86,20 @@ loginForm = new FormGroup({
     this.getEvents();
   }
 
-  
-  
-  get emailForm() {
-    return this.loginForm.get('email');
-  }
-  
-  get passwordF_() {
-    return this.loginForm.get('password_');
-  }
-  
   get email() {
     return this.registerForm.get('email');
   }
+
   
   get firstName() {
     return this.registerForm.get('firstName');
   }
   
-  get password_() {
-    return this.registerForm.get('password_');
-  }
   get middleName() {
     return this.registerForm.get('middleName');
   }
 
+  
   get lastName() {
     return this.registerForm.get('lastName');
   }
@@ -127,7 +120,7 @@ loginForm = new FormGroup({
     
   get institutionRepresenting(){
     return this.registerForm.get('institutionRepresenting')
-  }
+  } 
 
   getEvents(){
     this.eventServ.getAllEvents().subscribe(
@@ -137,23 +130,23 @@ loginForm = new FormGroup({
     )
   }
 
-
-  CreateUser(){
-    this.generalUserService.createUser(this.registerForm.value).subscribe(
+  createInstitution(){
+    this.institutionServ.createInstitution(this.institutionRepresenting?.value).subscribe(
       res => {console.log(res)
       },
       err =>console.log(err)
     )
   }
 
-  Onlogin():void{
-    this.generalUserService.login(this.loginForm.value).subscribe((res)=>{
-      if(res){
-        this.router.navigate(['usuario']);   //DENTRO DE CORCHETES PONER DIRECCIÓN A LA QUE REDIRIGE AL HACER CLICK EN BOTON LOGIN     
-      }
-    })
+  CreateUser(){
+    console.log(this.registerForm.value);
+    
+    this.generalUserService.createUser(this.registerForm.value).subscribe(
+      res => {console.log(res)
+      },
+      err =>console.log(err)
+    )
   }
-
 
 
   getInstitution(){
@@ -162,6 +155,18 @@ loginForm = new FormGroup({
       error => console.log(error)
 
     )
+  }
+
+  Onlogin():void{
+    console.log(this.loginForm.value);
+    
+    this.generalUserService.login(this.loginForm.value).subscribe((res)=>{
+      if(res){
+        this.router.navigate(['usuario']);   //DENTRO DE CORCHETES PONER DIRECCIÓN A LA QUE REDIRIGE AL HACER CLICK EN BOTON LOGIN     
+        console.log(res);
+        
+      }
+    })
   }
 
 
