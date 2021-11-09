@@ -33,6 +33,6 @@ export class Event {
     @ManyToOne(type => Status,Status => Status.StatusID)
     StatusID!: Status;
 
-    @ManyToOne(type => Users, Users=> Users.email) 
+    @ManyToOne(type => Users, Users=> Users.EventID) 
     UsersID!: Users;
 }
