@@ -55,7 +55,7 @@ export class HomeComponent implements OnInit {
   //Para recorrer y llenar el select-list de instituciones
   institutions: institution[]=[];
 
-loginForm = new FormGroup({
+registerForm = new FormGroup({
   email: new FormControl('',[Validators.required, Validators.pattern('/^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i')]),
   firstName : new FormControl('',[Validators.required, Validators.maxLength(30), Validators.pattern('[a-zA-Z ]*')]),
   password_: new FormControl('',[Validators.required, Validators.minLength(5)]),
@@ -69,7 +69,7 @@ loginForm = new FormGroup({
 });
 
 
-logForm = new FormGroup({  
+loginForm = new FormGroup({  
   email: new FormControl('',[Validators.required, Validators.pattern('/^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i')]),
   
   password_: new FormControl('',[Validators.required])
