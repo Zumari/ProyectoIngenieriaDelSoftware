@@ -5,7 +5,7 @@ import { faBookmark, faLock, faPlus, faPlusCircle } from '@fortawesome/free-soli
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { InstitutionService } from 'src/app/services/institutions/institutions.service';
 import { institution } from 'src/app/interfaces/institution';
-
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -52,7 +52,7 @@ export class DashboardComponent implements OnInit {
   ];
 
 
-  constructor(private eventServ: EventsService, private institutionServ: InstitutionService) { }
+  constructor(private eventServ: EventsService, private institutionServ: InstitutionService, private router: Router) { }
 
     ngOnInit(): void {
       this.getEvents()
