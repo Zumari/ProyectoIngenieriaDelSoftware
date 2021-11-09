@@ -62,7 +62,8 @@ _____
     "startDate": "2021-01-01 00:00:00",
     "endDate": "2022-01-01 00:00:00",
     "places": 10,
-    "openEvent": true
+    "openEvent": true,
+    "institutionId":2
 }
 ```
 _______

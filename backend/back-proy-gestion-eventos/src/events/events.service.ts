@@ -5,10 +5,13 @@ import { TypeOrmCrudService } from '@nestjsx/crud-typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Event } from './entities/event.entity';
 import { InstitutionsService } from 'src/institutions/institutions.service';
+import { StatusService } from 'src/status/status.service';
 
 @Injectable()
 export class EventsService extends TypeOrmCrudService<Event> {
-  constructor(@InjectRepository(Event) repo, private institutionService: InstitutionsService) {
+  constructor(@InjectRepository(Event) repo,
+    private institutionService: InstitutionsService,
+    private statusService: StatusService) {
     super(repo);
   }
   
@@ -25,7 +28,8 @@ export class EventsService extends TypeOrmCrudService<Event> {
     */
     const {name, description_, startDate, endDate, places, openEvent,institutionId} = createEventDto;
     const institutionEvent = await this.institutionService.getOneInstitution(institutionId)
-    const post= this.repo.create({name, description_, startDate, endDate, places, openEvent,InstitutionID:institutionEvent});
+    const StatusEvent= await this.statusService.getOneStatus({name:"inactivo"})
+    const post= this.repo.create({name, description_, startDate, endDate, places, openEvent,InstitutionID:institutionEvent,StatusID:StatusEvent});
     await this.repo.save(post);
     return{
       "result": `El evento con el nombre ${name} se ha creado con exito`

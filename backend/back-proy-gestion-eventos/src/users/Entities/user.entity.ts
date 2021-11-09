@@ -2,6 +2,7 @@ import { Institutions } from "src/institutions/Entities/Institutions.entity";
 import { BeforeInsert, Column,ManyToOne, Entity, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
 import* as bcrypt from'bcrypt';
 import { Console } from "console";
+import { Status } from "src/status/Entities/status.entity";
 
 @Entity('Users')
 export class Users{

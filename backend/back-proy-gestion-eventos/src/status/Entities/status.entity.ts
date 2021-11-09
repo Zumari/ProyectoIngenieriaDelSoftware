@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Event } from "src/events/entities/event.entity";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('Status')
 export class Status{
@@ -7,4 +8,7 @@ export class Status{
 
     @Column({type:'varchar',length:50,nullable:false})
     name:string
+    
+    @OneToMany( type => Event,Event=>Event.StatusID)
+    Event: Event[];
 }

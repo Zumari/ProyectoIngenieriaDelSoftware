@@ -1,4 +1,5 @@
 import { Institutions } from 'src/institutions/Entities/Institutions.entity';
+import { Status } from 'src/status/Entities/status.entity';
 import { Entity, Column, PrimaryGeneratedColumn, OneToOne, ManyToOne, OneToMany, JoinColumn, AfterUpdate, BeforeUpdate, BeforeInsert } from 'typeorm';
 /*
 import { UserEntity } from '../../users/Entities/user.entity';
@@ -31,6 +32,10 @@ export class Event {
     
     @ManyToOne(type => Institutions,Institutions => Institutions.InstitutionID)
     InstitutionID!: Institutions;
+        
+    @ManyToOne(type => Status,Status => Status.StatusID)
+    StatusID!: Status;
+
 
     /*
     @OneToOne(type => StatusEntity, status => status.event)
