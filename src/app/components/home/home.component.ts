@@ -6,6 +6,7 @@ import { GeneralUserService } from 'src/app/services/user/general-user/general-u
 import { InstitutionService } from 'src/app/services/institutions/institutions.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { institution } from 'src/app/interfaces/institution';
+import { Router } from '@angular/router';
 
 
 
@@ -66,11 +67,31 @@ loginForm = new FormGroup({
   interests : new FormControl('',[Validators.required]),
   institutionRepresenting :new FormControl('',[Validators.required])
 });
-  constructor(private eventServ: EventsService, private generalUserService:GeneralUserService, private institutionServ:InstitutionService) { }
+
+
+logForm = new FormGroup({  
+  email: new FormControl('',[Validators.required, Validators.pattern('/^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i')]),
+  
+  password_: new FormControl('',[Validators.required])
+});
+
+  constructor(private eventServ: EventsService, private generalUserService:GeneralUserService, private institutionServ:InstitutionService, private router:Router) { }
 
   ngOnInit(): void {
     this.getEvents();
   }
+
+  
+  
+  get emailForm() {
+    return this.logForm.get('email');
+  }
+  
+  get passwordF_() {
+    return this.logForm.get('password_');
+  }
+  
+
 
   
   get email() {
@@ -80,10 +101,10 @@ loginForm = new FormGroup({
   get firstName() {
     return this.loginForm.get('firstName');
   }
-  get password_(){
+  
+  get password_() {
     return this.loginForm.get('password_');
   }
-  
   get middleName() {
     return this.loginForm.get('middleName');
   }
@@ -126,6 +147,15 @@ loginForm = new FormGroup({
       err =>console.log(err)
     )
   }
+
+  Onlogin():void{
+    this.generalUserService.login(this.logForm.value).subscribe((res)=>{
+      if(res){
+        this.router.navigate(['usuario']);   //DENTRO DE CORCHETES PONER DIRECCIÓN A LA QUE REDIRIGE AL HACER CLICK EN BOTON LOGIN     
+      }
+    })
+  }
+
 
 
   getInstitution(){
