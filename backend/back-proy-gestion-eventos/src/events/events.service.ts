@@ -17,7 +17,7 @@ export class EventsService extends TypeOrmCrudService<Event> {
     super(repo);
   }
   
-  async create(createEventDto: CreateEventDto) {
+  async create(createEventDto: CreateEventDto,idUser:string) {
     /*
       Añadir: 
         --> No poder crear un evento si la fecha choca con la fecha de otro evento
@@ -30,8 +30,8 @@ export class EventsService extends TypeOrmCrudService<Event> {
     */
     const {name, description_, startDate, endDate, places, openEvent,institutionId} = createEventDto;
     const institutionEvent = await this.institutionService.getOneInstitution(institutionId)
-    const StatusEvent= await this.statusService.getOneStatus({name:"inactivo"})
-    const UserEvent= await this.userService.findUserAuth('kevinvarela@gmail.com')
+    const StatusEvent= await this.statusService.getOneStatus(1)
+    const UserEvent= await this.userService.findUserAuth(idUser)
     const post= this.repo.create({name, description_, startDate, endDate, places, openEvent, InstitutionID:institutionEvent, StatusID:StatusEvent, UsersID:UserEvent});
     await this.repo.save(post);
     return{

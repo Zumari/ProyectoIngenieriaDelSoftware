@@ -17,6 +17,8 @@ export class UsersController {
     }
 
    /* @UseGuards(AuthGuard('jwt'))
+      @Request() req: any
+      const {email,firstName}=req.user;
     @Get('/getUser')
     async getUser(@Request() req: any){
       const {email,firstName}=req.user;

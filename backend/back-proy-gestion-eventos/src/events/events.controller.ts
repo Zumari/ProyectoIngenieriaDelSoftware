@@ -1,9 +1,10 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Request } from '@nestjs/common';
 import { EventsService } from './events.service';
 import { CreateEventDto } from './dto/create-event.dto';
 import { UpdateEventDto } from './dto/update-event.dto';
 import { Crud, CrudController } from '@nestjsx/crud';
 import { Event } from './entities/event.entity';
+import { AuthGuard } from '@nestjs/passport';
 
 @Crud({
   model: {
@@ -24,10 +25,18 @@ import { Event } from './entities/event.entity';
 export class EventsController implements CrudController<Event> {
   //constructor(private readonly eventsService: EventsService) {}
   constructor(public service: EventsService) {}
+     
+  /* @UseGuards(AuthGuard('jwt'))
+      @Request() req: any
+      const {email,firstName}=req.user;*/
+    
 
+  @UseGuards(AuthGuard('jwt'))
   @Post('/createEvent')
-  create(@Body() createEventDto: CreateEventDto) {
-    return this.service.create(createEventDto);
+  create(@Body() createEventDto: CreateEventDto,@Request() req: any) {
+    console.log(req);
+    const {email,firstName}=req.user;
+    return this.service.create(createEventDto,email);
   }
 
   @Get('/getAllEvents')
