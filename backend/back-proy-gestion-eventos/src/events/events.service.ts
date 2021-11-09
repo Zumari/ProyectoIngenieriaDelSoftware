@@ -31,8 +31,8 @@ export class EventsService extends TypeOrmCrudService<Event> {
     const {name, description_, startDate, endDate, places, openEvent,institutionId} = createEventDto;
     const institutionEvent = await this.institutionService.getOneInstitution(institutionId)
     const StatusEvent= await this.statusService.getOneStatus({name:"inactivo"})
-    //const UserEvent= await this.userService.findOne()
-    const post= this.repo.create({name, description_, startDate, endDate, places, openEvent,InstitutionID:institutionEvent,StatusID:StatusEvent});
+    const UserEvent= await this.userService.findUserAuth('kevinvarela@gmail.com')
+    const post= this.repo.create({name, description_, startDate, endDate, places, openEvent, InstitutionID:institutionEvent, StatusID:StatusEvent, UsersID:UserEvent});
     await this.repo.save(post);
     return{
       "result": `El evento con el nombre ${name} se ha creado con exito`
