@@ -72,6 +72,40 @@ loginForm = new FormGroup({
     this.getEvents();
   }
 
+  
+  get email() {
+    return this.loginForm.get('email');
+  }
+  
+  get firstName() {
+    return this.loginForm.get('firstName');
+  }
+  
+  get middleName() {
+    return this.loginForm.get('middleName');
+  }
+
+  get lastName() {
+    return this.loginForm.get('lastName');
+  }
+
+  get secondLastName(){
+    return this.loginForm.get('secondLastName');
+  }
+
+  get academicTraining(){
+    return this.loginForm.get('academicTrainig')
+  }
+   get description_(){
+     return this.loginForm.get('description')
+   } 
+  get interests(){
+    return this.loginForm.get('interests')
+  } 
+    
+  get institutionRepresenting(){
+    return this.loginForm.get('institutionRepresenting')
+  }
 
   getEvents(){
     this.eventServ.getAllEvents().subscribe(
