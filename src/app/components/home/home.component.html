@@ -1,10 +1,10 @@
 <header div="bg-primary navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
   <div class="bg-primary d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
     <span></span>
-    <div><img src="" alt=""></div>
+    <div><img src="../../../assets/images/ESLogo.svg" alt="" style="width: 9rem;"></div>
     <div>
-      <button type="button" style="color: white;" class="btn btn-warning mx-2" data-bs-toggle="modal" data-bs-target="#registro">Registrarse</button>
-      <button type="button" style="color: white;" class="btn btn-warning mx-2" data-bs-toggle="modal" data-bs-target="#login">Iniciar sesión</button>
+      <button type="button" style="color: black;" class="btn btn-warning mx-2" data-bs-toggle="modal" data-bs-target="#registro">Registrarse</button>
+      <button type="button" style="color: black;" class="btn btn-warning mx-2" data-bs-toggle="modal" data-bs-target="#login">Iniciar sesión</button>
     </div>
   </div>
 </header>
@@ -13,20 +13,20 @@
     <div class="col-lg-3 col-md-4 col-sm-12 col-12 mx-2">
       <div class="input-group mb-3">
         <input type="text" class="form-control" aria-label="Buscar">
-  <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Filtrar</button>
-  <ul class="dropdown-menu dropdown-menu-end">
-    <li><a class="dropdown-item" href="#">Disponibilidad</a></li>
-    <li><a class="dropdown-item" href="#">Privacidad</a></li>
-    <li><a class="dropdown-item" href="#">Nombre</a></li>
-    <li><a class="dropdown-item" href="#">Organizador</a></li>
-  </ul>
+        <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Filtrar</button>
+        <ul class="dropdown-menu dropdown-menu-end">
+          <li><a class="dropdown-item" href="#">Disponibilidad</a></li>
+          <li><a class="dropdown-item" href="#">Privacidad</a></li>
+          <li><a class="dropdown-item" href="#">Nombre</a></li>
+          <li><a class="dropdown-item" href="#">Organizador</a></li>
+        </ul>
       </div>
     </div>
   </div>
   <div class="container">
     <div class="d-flex flex-wrap">
       <div class="card col-lg-3 col-xl-3 col-md-3 col-sm-6 col-12 p-0 m-2" style="width: 18vw;" *ngFor="let evento of eventosLista; let i = index">
-        <img [src]="evento.imagen == undefined ? '../../../assets/images/default.jpg': evento.imagen" class="card-img-top" alt="...">
+        <img [src]="evento.image == undefined ? '../../../assets/images/default.jpg': evento.image" class="card-img-top" alt="...">
         <div class="card-body">
           <div class="row">
             <div class="col-10">
