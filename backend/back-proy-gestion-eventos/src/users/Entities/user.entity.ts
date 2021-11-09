@@ -1,8 +1,9 @@
 import { Institutions } from "src/institutions/Entities/Institutions.entity";
-import { BeforeInsert, Column,ManyToOne, Entity, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
-import* as bcrypt from'bcrypt';
+import { BeforeInsert, Column,ManyToOne, Entity, PrimaryColumn, PrimaryGeneratedColumn, OneToMany } from "typeorm";
 import { Console } from "console";
 import { Status } from "src/status/Entities/status.entity";
+import { Event } from "src/events/entities/event.entity";
+import* as bcrypt from'bcrypt';
 
 @Entity('Users')
 export class Users{
@@ -42,6 +43,9 @@ export class Users{
     
     @ManyToOne(type => Institutions,Institutions => Institutions.InstitutionID)
     institutionRepresenting!: Institutions;
+
+    @OneToMany(type => Event,Event=>Event.UsersID!)
+    EventID!: Event[];
 
     @BeforeInsert()
     async hashPassword() {
