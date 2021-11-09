@@ -16,7 +16,7 @@ export class UsersController {
        return  await  this.userService.findOne(id);
     }
 
-    /*    @UseGuards(AuthGuard('jwt'))
+   /* @UseGuards(AuthGuard('jwt'))
     @Get('/getUser')
     async getUser(@Request() req: any){
       const {email,firstName}=req.user;

@@ -1,7 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 .nav-active {
   background-color: #5f9ea0ad;
-border-radius: 5px;
+  border-radius: 5px;
 }
 
 .sm-avatar {
@@ -10,4 +10,14 @@ border-radius: 5px;
   background-color: gray;
   border-radius: 100%;
   cursor: pointer;
+}
+
+.bg-primary {
+  background-color: #3576A0 !important;
+}
+
+.btn-warning {
+  background-color: #EDC737 !important;
+  border-color: #EDC737;
+  color: black;
 }
