@@ -34,7 +34,13 @@
     </nav>
     <div class="col-md-9 ms-sm-auto col-lg-11 px-md-4">
         <header div="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-          <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom"></div>
+          <div class="d-flex flex-wrap align-items-center justify-content-end justify-content-md-end justify-content-sm-end py-3 mb-4 ">
+            <div class="d-flex align-items-center">
+              <fa-icon [icon]="faBell"></fa-icon>
+              <label class="mx-2" for="">{{username}}</label>
+              <div class="sm-avatar"></div>
+            </div>
+          </div>
         </header>
         <div>
           <router-outlet></router-outlet>

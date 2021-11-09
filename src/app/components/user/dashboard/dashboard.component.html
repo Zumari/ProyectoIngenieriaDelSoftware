@@ -1,1 +1,135 @@
-<p>dashboard works!</p>
+<div class="container">
+  <div class="d-flex justify-content-between">
+    <div class="col-lg-3 col-md-4 col-sm-12 col-12 mx-2">
+      <button class="btn" style="color: orange;" data-bs-toggle="modal" data-bs-target="#crearevento">
+        <fa-icon [icon]="faPlus"></fa-icon>
+        Generar evento
+      </button>
+    </div>
+    <div class="col-lg-3 col-md-4 col-sm-12 col-12 mx-2">
+      <div class="input-group mb-3">
+        <input type="text" class="form-control" aria-label="Buscar" placeholder="Buscar">
+        <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Filtrar</button>
+        <ul class="dropdown-menu dropdown-menu-end">
+          <li><a class="dropdown-item" href="#">Disponibilidad</a></li>
+          <li><a class="dropdown-item" href="#">Privacidad</a></li>
+          <li><a class="dropdown-item" href="#">Nombre</a></li>
+          <li><a class="dropdown-item" href="#">Organizador</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="">
+    <div class="d-flex flex-wrap">
+      <div class="card col-lg-3 col-xl-3 col-md-3 col-sm-6 col-12 p-0 m-2" style="width: 18vw;" *ngFor="let evento of eventosLista; let i = index">
+        <img [src]="evento.image == undefined  || evento.image == ''? '../../../../assets/images/default.jpg': evento.image" class="card-img-top" alt="...">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-10">
+              <h5 class="card-title">{{evento.name}}</h5>
+          <div class="card-text">{{evento.startDate}} - {{evento.endDate}}</div>
+          <div class="card-text">{{evento.modalidad}}</div>
+            </div>
+            <div class="col-2" style="position: relative;">
+              <fa-icon style="color: red;" class="fs-2" [icon]="faBookmark"></fa-icon>
+              <fa-icon style="color: white; position: absolute;
+              left: 18px;
+              top: 10px;
+              font-size: 0.8rem;" [icon]="faLock"></fa-icon>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="crearevento" tabindex="-1" aria-labelledby="creareventoLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body p-0">
+        <div class="bg-primary d-flex justify-content-start" style="height: 8vw;">
+              <img src="" alt="...">
+        </div>
+        <div>
+          <div class="row px-5">
+            <div class="mb-3">
+              <label for="nombre" class="form-label">Nombre:</label>
+              <input type="text" class="form-control" id="nombre" placeholder="">
+            </div>
+            <div class="mb-3">
+              <label for="institucion" class="form-label">Institución que representa:</label>
+              <select class="form-select form-select" name="institucion" aria-label=".form-select-sm institucion">
+                <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="inicio" class="form-label">Fecha de inicio:</label>
+              <input type="date" class="form-control" id="inicio" placeholder="">
+            </div>
+            <div class="mb-3">
+              <label for="final" class="form-label">Fecha final:</label>
+              <input type="date" class="form-control" id="final" placeholder="">
+            </div>
+            <div class="mb-3">
+              <label for="descripcion" class="form-label">Descripción:</label>
+              <textarea class="form-control" id="descripcion" rows="4"></textarea>
+            </div>
+            <div class="mb-3">
+              <label for="" class="form-label">Seleccione imagen a utilizar:</label><br>
+              <label for="image" style="background-color: gray; padding: 3rem;"><img src="../../../../assets/images/mas.png" alt=""></label>
+              <input type="file" name="image" id="image" style="visibility: hidden;">
+            </div>
+            <div class="mb-3">
+              <label for="modalidad" class="form-label">Modalidad:</label>
+              <div class="d-flex">
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="radiomodalidad" id="radiomodalidad1" checked (click)="changeMod(1)">
+                  <label class="form-check-label" for="radiomodalidad1">
+                    Virtual
+                  </label>
+                </div>
+                <div class="form-check mx-4">
+                  <input class="form-check-input" type="radio" name="radiomodalidad" id="radiomodalidad2" (click)="changeMod(2)">
+                  <label class="form-check-label" for="radiomodalidad2">
+                    Presencial
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="mb-3">
+              <input type="text" class="form-control" id="ubicacion" placeholder="Ubicación" *ngIf="mode == 'presencial'">
+            </div>
+            <div class="mb-3">
+              <label for="cantidad" class="form-label">Cantidad de participantes:</label>
+              <input type="number" class="form-control" id="cantidad" placeholder="">
+            </div>
+            <div class="mb-3 d-flex">
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="radioprivacidad" id="radioprivacidad1" (click)="changePriv(1)" checked>
+                <label class="form-check-label" for="radioprivacidad1">
+                  Público
+                </label>
+              </div>
+              <div class="form-check mx-4">
+                <input class="form-check-input" type="radio" name="radioprivacidad" id="radioprivacidad2" (click)="changePriv(2)">
+                <label class="form-check-label" for="radioprivacidad2">
+                  Privado
+                </label>
+              </div>
+              <button type="button" class="btn btn-secondary" style="font-size: smaller;" *ngIf="privacy == 'privado'">Inserte lista de participantes</button>
+            </div>
+            <div class="mb-5 d-flex justify-content-center">
+              <button type="button" class="btn btn-warning">Generar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { faBookOpen, faChartBar, faHome } from '@fortawesome/free-solid-svg-icons';
+import { faBell, faBookOpen, faChartBar, faHome } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-user',
@@ -11,6 +11,9 @@ export class UserComponent implements OnInit {
   faHome = faHome;
   faBook = faBookOpen;
   faStat = faChartBar;
+  faBell = faBell;
+
+  username = 'User Name';
   constructor() { }
 
   ngOnInit(): void {
