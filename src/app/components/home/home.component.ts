@@ -80,6 +80,9 @@ loginForm = new FormGroup({
   get firstName() {
     return this.loginForm.get('firstName');
   }
+  get password_(){
+    return this.loginForm.get('password_');
+  }
   
   get middleName() {
     return this.loginForm.get('middleName');
@@ -97,7 +100,7 @@ loginForm = new FormGroup({
     return this.loginForm.get('academicTrainig')
   }
    get description_(){
-     return this.loginForm.get('description')
+     return this.loginForm.get('description_')
    } 
   get interests(){
     return this.loginForm.get('interests')
