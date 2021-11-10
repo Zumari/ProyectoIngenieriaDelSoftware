@@ -15,7 +15,7 @@ export class MyeventsComponent implements OnInit {
   faLock = faLock;
 
   eventosLista : Event[]=[{
-    //image: '',
+    image: '',
     name:'',
     description:'',
     startDate:'',
@@ -23,7 +23,7 @@ export class MyeventsComponent implements OnInit {
     places: 0,
     openEvent: true,
     institutionRepresenting: 0,
-    //modalidad: 'virtual'
+    modalidad: 'virtual'
   }];
   constructor() { }
 
