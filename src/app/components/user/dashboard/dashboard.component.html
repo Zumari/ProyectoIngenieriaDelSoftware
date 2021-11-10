@@ -59,6 +59,17 @@
               <div class="mb-3">
                 <label for="nombre" class="form-label">Nombre:</label>
                 <input type="text" formControlName="nombreEvento" class="form-control" id="nombre" placeholder="">
+                <div class="alert-danger" *ngIf="nombreEvento?.invalid && (nombreEvento?.dirty || nombreEvento?.touched)">
+                  <div class="container-error-message" *ngIf="nombreEvento?.errors?.required">
+                    Campo obligatorio
+                  </div>
+                  <div class="container-error-message" *ngIf="nombreEvento?.errors?.pattern">
+                    No es un nombre válido
+                  </div>
+                  <div  class="container-error-message" *ngIf="nombreEvento?.errors?.maxLength">
+                    El tamaño excede
+                  </div>
+                </div>
               </div>
               <div class="mb-3">
                 <label for="institucion" class="form-label">Institución que representa:</label>
@@ -72,14 +83,29 @@
               <div class="mb-3">
                 <label for="inicio" class="form-label">Fecha de inicio:</label>
                 <input formControlName="startDate" type="date" class="form-control" id="inicio" placeholder="">
+                <div class="alert-danger" *ngIf="startDate?.invalid && (startDate?.dirty || startDate?.touched)">
+                  <div class="container-error-message" *ngIf="startDate?.errors?.required">
+                    Campo obligatorio
+                  </div>                 
+                </div>
               </div>
               <div class="mb-3">
                 <label for="final" class="form-label">Fecha final:</label>
                 <input formControlName="endDate" type="date" class="form-control" id="final" placeholder="">
+                <div class="alert-danger" *ngIf="endDate?.invalid && (endDate?.dirty || endDate?.touched)">
+                  <div class="container-error-message" *ngIf="endDate?.errors?.required">
+                    Campo obligatorio
+                  </div>                 
+                </div>
               </div>
               <div class="mb-3">
                 <label for="descripcion" class="form-label">Descripción:</label>
                 <textarea formControlName="description" class="form-control" id="descripcion" rows="4"></textarea>
+                <div class="alert-danger" *ngIf="description?.invalid && (description?.dirty || description?.touched)">
+                  <div class="container-error-message" *ngIf="description?.errors?.required">
+                    Campo obligatorio
+                  </div>                 
+                </div>
               </div>
               <div class="mb-3">
                 <label for="" class="form-label">Seleccione imagen a utilizar:</label><br>
@@ -104,11 +130,21 @@
                 </div>
               </div>
               <div class="mb-3">
-                <input type="text" class="form-control" id="ubicacion" placeholder="Ubicación" *ngIf="mode == 'presencial'">
+                <input type="text"  class="form-control" id="ubicacion" placeholder="Ubicación" *ngIf="mode == 'presencial'">
+                <div class="alert-danger" *ngIf="openEvent?.invalid && (openEvent?.dirty || openEvent?.touched)">
+                  <div class="container-error-message" *ngIf="openEvent?.errors?.required">
+                    Campo obligatorio
+                  </div>                 
+                </div>
               </div>
               <div class="mb-3">
                 <label for="cantidad" class="form-label">Cantidad de participantes:</label>
                 <input formControlName="places" type="number" class="form-control" id="cantidad" placeholder="">
+                <div class="alert-danger" *ngIf="places?.invalid && (places?.dirty || places?.touched)">
+                  <div class="container-error-message" *ngIf="places?.errors?.required">
+                    Campo obligatorio
+                  </div>                 
+                </div>
               </div>
               <div class="mb-3 d-flex">
                 <div class="form-check">
