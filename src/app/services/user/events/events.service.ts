@@ -11,7 +11,7 @@ export class EventsService {
   constructor(private httpClient:HttpClient) { }
 
   createEvent(event:Event):Observable<Event>{
-    return this.httpClient.post<Event>('http://localhost:3000/events/createEvent',{});
+    return this.httpClient.post<Event>('http://localhost:3000/events/createEvent',event);
    }
 
   /*getEventsForUser(email : string):Observable<Event[]>{
@@ -28,7 +28,7 @@ export class EventsService {
    }
 
   updateEvent(idEvento:number, event:Event):Observable<Event>{
-    return this.httpClient.put<Event>(`http://localhost:3000/events/updateEvent/${idEvento}`,{});
+    return this.httpClient.put<Event>(`http://localhost:3000/events/updateEvent/${idEvento}`,event);
    } 
 
   deleteEvent(idEvento:number):Observable<Event>{
