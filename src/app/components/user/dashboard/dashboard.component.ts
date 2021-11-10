@@ -40,7 +40,7 @@ export class DashboardComponent implements OnInit {
     places:  new FormControl(0, [Validators.required]),
     openEvent:  new FormControl(true, [Validators.required]),
     institutionRepresenting: new FormControl(0,[Validators.required]),
-    modalidad: new FormControl('', Validators.required)
+   // modalidad: new FormControl('', Validators.required)
   })
 
   institutions: institution[]=[{
