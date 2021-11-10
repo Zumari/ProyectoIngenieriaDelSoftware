@@ -1,6 +1,6 @@
 
 export interface Event{
-  //image: string,
+    image: string,
     name: string,
     description: string,
     startDate: string,
@@ -8,5 +8,5 @@ export interface Event{
     places: number,
     openEvent: boolean,
     institutionRepresenting: number,
-    //modalidad: string
+    modalidad: string
     }
