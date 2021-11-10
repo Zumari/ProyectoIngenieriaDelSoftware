@@ -22,26 +22,27 @@ export class DashboardComponent implements OnInit {
   privacy: string = 'publico';
 
   eventosLista : Event[]=[{
-    //image: '',
+    image: '',
     name:'',
     description:'',
     startDate:'',
     endDate:'',
     places: 0,
     openEvent: true,
-    institutionRepresenting: 0
-    //modalidad: 'virtual'
+    institutionRepresenting: 0,
+    modalidad: 'virtual'
   }]; //Arreglo de eventos para recorrer y pintar el html con NGFOR
 
   eventoForm = new FormGroup({
-    nombreEvento: new FormControl('',[Validators.required, Validators.maxLength(30), Validators.pattern('[a-zA-Z ]*')]),
-    description:new FormControl('',[Validators.required, Validators.maxLength(30), Validators.pattern('[a-zA-Z ]*')]),
+    image : new FormControl('',Validators.required),
+    nombreEvento: new FormControl('',Validators.compose([Validators.required, Validators.maxLength(30), Validators.pattern('[a-zA-Z ]*')])),
+    description:new FormControl('',Validators.compose([Validators.required, Validators.maxLength(30), Validators.pattern('[a-zA-Z ]*')])),
     startDate: new FormControl('', [Validators.required]),
     endDate: new FormControl('', [Validators.required]),
     places:  new FormControl(0, [Validators.required]),
     openEvent:  new FormControl(true, [Validators.required]),
     institutionRepresenting: new FormControl(0,[Validators.required]),
-   // modalidad: new FormControl('', Validators.required)
+    modalidad: new FormControl('', Validators.required)
   })
 
   institutions: institution[]=[{
