@@ -7,6 +7,6 @@ export interface Event{
     endDate: string,
     places: number,
     openEvent: boolean,
-    institutionRepresenting: any
+    institutionRepresenting: number,
     //modalidad: string
     }
