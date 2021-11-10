@@ -27,6 +27,13 @@ export class Event {
     @Column({type: 'bit', default: true , nullable:false})
     openEvent: boolean;
     
+    @Column({type: 'varchar', nullable:true, default:true})
+    modality:string
+    
+    //Es el enlace de la foto que es la portada de la tarjeta del evento
+    @Column({type: 'varchar', nullable:true})
+    photo:string
+    
     @ManyToOne(type => Institutions,Institutions => Institutions.InstitutionID)
     InstitutionID!: Institutions;
         

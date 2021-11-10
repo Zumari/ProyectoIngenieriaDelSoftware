@@ -3,7 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Status } from './Entities/status.entity';
 import { StatusController } from './status.controller';
 import { StatusService } from './status.service';
-
+ 
 @Module({
 
   imports:[

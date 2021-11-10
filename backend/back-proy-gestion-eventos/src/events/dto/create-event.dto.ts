@@ -29,4 +29,12 @@ export class CreateEventDto {
     @IsNotEmpty()
     @IsNumber()
     institutionId: number;
+    
+    @IsNotEmpty()
+    @IsString()
+    modality!: string;
+    
+    @IsNotEmpty()
+    @IsString()
+    photo: string;
 }
