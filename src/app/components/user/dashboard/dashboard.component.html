@@ -22,13 +22,13 @@
   <div class="">
     <div class="d-flex flex-wrap">
       <div class="card col-lg-3 col-xl-3 col-md-3 col-sm-6 col-12 p-0 m-2" style="width: 18vw;" *ngFor="let evento of eventosLista; let i = index" (click)="viewEvent(evento.name)">
-         <!-- <img [src]="evento.image == undefined ? '../../../assets/images/default.jpg': evento.image" class="card-img-top" alt="..."> -->   
+         <img [src]="evento.image == undefined ? '../../../assets/images/default.jpg': evento.image" class="card-img-top" alt="..."> -->   
         <div class="card-body">
           <div class="row">
             <div class="col-10">
               <h5 class="card-title">{{evento.name}}</h5>
           <div class="card-text">{{evento.startDate}} - {{evento.endDate}}</div>
-          <div class="card-text"><!-- {{evento.modalidad}}-->Presencial</div>
+          <div class="card-text">{{evento.modalidad}}</div>
             </div>
             <div class="col-2" style="position: relative;">
               <fa-icon style="color: red;" class="fs-2" [icon]="faBookmark"></fa-icon>
@@ -84,7 +84,7 @@
               <div class="mb-3">
                 <label for="" class="form-label">Seleccione imagen a utilizar:</label><br>
                 <label for="image" style="background-color: gray; padding: 3rem;"><img src="../../../../assets/images/mas.png" alt=""></label>
-                <input type="file" name="image" id="image" style="visibility: hidden;">
+                <input formControlName="image" type="file" name="image" id="image" style="visibility: hidden;">
               </div>
               <div class="mb-3">
                 <label for="modalidad" class="form-label">Modalidad:</label>
