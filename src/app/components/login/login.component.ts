@@ -16,17 +16,12 @@ export class LoginComponent implements OnInit {
     
     password_: new FormControl('',[Validators.required])
   });
-  
-
-  
+   
   constructor(private router:Router, private authServ:GeneralUserService) { }
 
   ngOnInit(): void {
   }
-
-
   
-
   Onlogin():void{
     this.authServ.login(this.loginForm.value).subscribe((res)=>{
       if(res){
