@@ -22,14 +22,15 @@ export class DashboardComponent implements OnInit {
   privacy: string = 'publico';
 
   eventosLista : Event[]=[{
-    image: '',
+    //image: '',
     name:'',
     description:'',
     startDate:'',
     endDate:'',
     places: 0,
     openEvent: true,
-    modalidad: 'virtual'
+    institutionRepresenting: 0
+    //modalidad: 'virtual'
   }]; //Arreglo de eventos para recorrer y pintar el html con NGFOR
 
   eventoForm = new FormGroup({
