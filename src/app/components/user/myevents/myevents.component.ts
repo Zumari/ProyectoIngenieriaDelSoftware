@@ -22,6 +22,7 @@ export class MyeventsComponent implements OnInit {
     endDate:'',
     places: 0,
     openEvent: true,
+    institutionRepresenting: 0,
     modalidad: 'virtual'
   }];
   constructor() { }
