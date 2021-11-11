@@ -7,9 +7,17 @@ import { Status } from 'src/app/interfaces/status';
   providedIn: 'root'
 })
 export class EventsService {
-
+  
   constructor(private httpClient:HttpClient) { }
-
+  
+  getAllEvents():Observable<Event[]>{
+      return this.httpClient.get<Event[]>(`http://localhost:3000/events/getAllEvents`,{});
+  }
+  
+  getEvent(idEvento:number):Observable<Event>{
+       return this.httpClient.get<Event>(`http://localhost:3000/events/getOneEventById/${idEvento}`,{});
+  }
+  
   createEvent(event:Event):Observable<Event>{
     return this.httpClient.post<Event>('http://localhost:3000/events/createEvent',event);
    }
@@ -17,15 +25,8 @@ export class EventsService {
   /*getEventsForUser(email : string):Observable<Event[]>{
    return this.httpClient.get<Event[]>(`http://localhost:3000/events/${email}/`,{});
   }*/
-
-  getAllEvents():Observable<Event[]>{
-    return this.httpClient.get<Event[]>(`http://localhost:3000/events/getAllEvents`,{});
-   }
  
   
-  getEvent(idEvento:number):Observable<Event>{
-    return this.httpClient.get<Event>(`http://localhost:3000/events/getOneEventById/${idEvento}`,{});
-   }
 
   updateEvent(idEvento:number, event:Event):Observable<Event>{
     return this.httpClient.put<Event>(`http://localhost:3000/events/updateEvent/${idEvento}`,event);

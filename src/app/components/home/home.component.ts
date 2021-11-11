@@ -7,6 +7,7 @@ import { InstitutionService } from 'src/app/services/institutions/institutions.s
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { institution } from 'src/app/interfaces/institution';
 import { Router } from '@angular/router';
+import * as $ from 'jquery'; 
 
 
 
@@ -144,6 +145,8 @@ loginForm = new FormGroup({
       },
       err =>console.log(err)
     )
+    $('body').removeClass('modal-open');
+    $('.modal-backdrop').remove();
   }
 
 
@@ -165,6 +168,8 @@ loginForm = new FormGroup({
         
       }
     })
+    $('body').removeClass('modal-open');
+    $('.modal-backdrop').remove();
   }
 
 
