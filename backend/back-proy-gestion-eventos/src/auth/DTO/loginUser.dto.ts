@@ -10,5 +10,5 @@ export class loginUser {
     @IsNotEmpty()
     @IsString()
     @ApiProperty()
-    password:string;
+    password_:string;
 }

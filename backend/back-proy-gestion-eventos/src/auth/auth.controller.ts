@@ -10,7 +10,7 @@ constructor(private authServie:AuthService){}
     @Post('/login')
     async login(@Body() loginDTO: loginUser): Promise<{ access_token: string }> {
      // const { email, password } = loginDTO;
-      const valid = await this.authServie.validateUser(loginDTO.email,loginDTO.password);
+      const valid = await this.authServie.validateUser(loginDTO.email,loginDTO.password_);
       if (!valid) {
         throw new UnauthorizedException();
       }

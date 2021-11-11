@@ -13,8 +13,9 @@ import { EventComponent } from './components/user/event/event.component';
 const routes: Routes = [
   { path: '', redirectTo: '/inicio', pathMatch: 'full'},
   { path: 'inicio', component: HomeComponent},
-  { path: 'usuario', component:  UserComponent, canActivate: [UserGuard], canActivateChild: [UserGuard], children: [
-    {path: '', redirectTo: '/usuario/eventos', pathMatch: 'full'},
+  //{ path: 'usuario', component:  UserComponent, canActivate: [UserGuard], canActivateChild: [UserGuard], children: [
+  { path: 'usuario', component:  UserComponent, children: [
+  //  {path: '', redirectTo: '/usuario/eventos', pathMatch: 'full'},
     {path: 'eventos', component: DashboardComponent},
     {path: 'mis-eventos', component: MyeventsComponent},
     {path: 'perfil', component: ProfileComponent},
