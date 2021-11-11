@@ -27,19 +27,31 @@ export class Event {
     @Column({type: 'bit', default: true , nullable:false})
     openEvent: boolean;
     
-    @Column({type: 'varchar', nullable:true, default:true})
+    @Column({type: 'varchar', nullable:false})
     modality:string
     
     //Es el enlace de la foto que es la portada de la tarjeta del evento
-    @Column({type: 'varchar', nullable:true})
+    @Column({type: 'varchar', nullable:false})
     photo:string
     
+    @Column({name:'Institution'})
+    institutionId:number
+
     @ManyToOne(type => Institutions,Institutions => Institutions.InstitutionID)
+    @JoinColumn({name:'Institution'})
     InstitutionID!: Institutions;
-        
+    
+    @Column({name:'status'})
+    statusId:number
+    
     @ManyToOne(type => Status,Status => Status.StatusID)
+    @JoinColumn({name:'status'})
     StatusID!: Status;
 
+    @Column({name:'user'})
+    userId:number
+    
     @ManyToOne(type => Users, Users=> Users.EventID) 
+    @JoinColumn({name:'user'})
     UsersID!: Users;
 }

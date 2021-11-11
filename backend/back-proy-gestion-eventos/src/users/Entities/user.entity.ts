@@ -1,5 +1,5 @@
 import { Institutions } from "src/institutions/Entities/Institutions.entity";
-import { BeforeInsert, Column,ManyToOne, Entity, PrimaryColumn, PrimaryGeneratedColumn, OneToMany } from "typeorm";
+import { BeforeInsert, Column,ManyToOne, Entity, PrimaryColumn, PrimaryGeneratedColumn, OneToMany, JoinColumn } from "typeorm";
 import { Console } from "console";
 import { Status } from "src/status/Entities/status.entity";
 import { Event } from "src/events/entities/event.entity";
@@ -41,8 +41,13 @@ export class Users{
     @Column()
     password_: string;
     
+    @Column({name: 'institution'})
+    institutionId:number
+
     @ManyToOne(type => Institutions,Institutions => Institutions.InstitutionID)
+    @JoinColumn({name: 'institution'})
     institutionRepresenting!: Institutions;
+    
 
     @OneToMany(type => Event,Event=>Event.UsersID!)
     EventID!: Event[];

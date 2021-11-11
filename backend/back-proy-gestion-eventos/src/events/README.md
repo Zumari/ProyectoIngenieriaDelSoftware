@@ -57,13 +57,15 @@ _____
 
 ```json
 {
-    "name": "Semana de la carrera IS",
-    "description_": "Evento de la semana de la carrera de ingeniería en sistemas",
+    "name": "Convención Otaku",
+    "description_": "Evento de exposición de becas",
     "startDate": "2021-01-01 00:00:00",
     "endDate": "2022-01-01 00:00:00",
     "places": 10,
     "openEvent": true,
-    "institutionId":2
+    "modality":"virtual",
+    "photo":"http://evento3.jpg",
+    "institutionId":3
 }
 ```
 _______

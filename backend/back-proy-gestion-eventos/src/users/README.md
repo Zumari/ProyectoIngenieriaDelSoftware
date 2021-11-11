@@ -46,18 +46,17 @@ GET oneUser=http://localhost:3000/users/getUser ; donde  kevinvarela@gmail.com e
 
 json que se envia del back
 {
-    "email": "kevinvarela@gmail.com",
+    "email": "naruto@gmail.com",
     "firstName": "kevin",
     "middleName": "Daniel",
-    "lastName": "kevinvarela@gmail.com",
-    "secondLastName": "7898ujlkdsnfds",
-    "academicTraining": "ingenieria en sistemas",
+    "lastName": "Hernandez",
+    "secondLastName": "Rodriguez",
+    "academicTraining": "Ingenieria en sistemas",
     "description_": "soy un estudiante de la unah que quiere podeer obtener mas conocimientos",
-    "interests": "poder aprender mas",
-    "password_": "nkdlkn27",
-    "institutionRepresenting": "UNAH"
+    "interests": "anime",
+    "password_": "123",
+    "institutionRepresenting": 1
 }
-
 
 DELETE =http://localhost:3000/users/deleteUser/kevinvarela@gmail.com
 

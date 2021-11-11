@@ -32,7 +32,7 @@ export class CreateEventDto {
     
     @IsNotEmpty()
     @IsString()
-    modality!: string;
+    modality: string;
     
     @IsNotEmpty()
     @IsString()
