@@ -34,12 +34,12 @@ export class DashboardComponent implements OnInit {
   }]; //Arreglo de eventos para recorrer y pintar el html con NGFOR
 
   eventoForm = new FormGroup({
-    image : new FormControl('',Validators.required),
-    nombreEvento: new FormControl('',Validators.compose([Validators.required, Validators.maxLength(30), Validators.pattern('[a-zA-Z ]*')])),
+    image : new FormControl(''),
+    nombreEvento: new FormControl('',[Validators.required, Validators.maxLength(10), Validators.pattern('[a-zA-ZÑÁÉÍÓÚáéíóú][a-zA-Zñáéíóú ]{1,}')]),
     description:new FormControl('',Validators.compose([Validators.required, Validators.maxLength(30), Validators.pattern('[a-zA-Z ]*')])),
     startDate: new FormControl('', [Validators.required]),
     endDate: new FormControl('', [Validators.required]),
-    places:  new FormControl(0, [Validators.required]),
+    places:  new FormControl('', [Validators.required]),
     openEvent:  new FormControl(true, [Validators.required]),
     institutionRepresenting: new FormControl(0,[Validators.required]),
     modalidad: new FormControl('', Validators.required)
@@ -59,6 +59,35 @@ export class DashboardComponent implements OnInit {
     ngOnInit(): void {
       this.getEvents()
     }
+
+
+get image (){
+  return this.eventoForm.get('image');
+}
+get nombreEvento(){
+  return this.eventoForm.get('nombreEvento');
+}
+get description(){
+  return this.eventoForm.get('description');
+}
+get startDate(){
+  return this.eventoForm.get('startDate');
+}
+get endDate(){
+  return this.eventoForm.get('endDate');
+}
+get places(){
+  return this.eventoForm.get('places');
+}
+get openEvent(){
+  return this.eventoForm.get('openEvent');
+} 
+get institutionRepresenting(){
+  return this.eventoForm.get('institutionRepresenting');
+}
+get modalidad(){
+  return this.eventoForm.get('modalidad');
+}
 
   createEvents(){
     console.log(this.eventoForm.value);

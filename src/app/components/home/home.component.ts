@@ -32,28 +32,6 @@ export class HomeComponent implements OnInit {
   }]; //Arreglo de eventos para recorrer y pintar el html con NGFOR
 
 
-  eventos: any = [{
-    titulo: 'Prueba',
-    fecha: '2021-11',
-    modalidad: 'Virtual'
-  },{
-    titulo: 'Prueba',
-    fecha: '2021-11',
-    modalidad: 'Virtual'
-  },{
-    titulo: 'Prueba',
-    fecha: '2021-11',
-    modalidad: 'Virtual'
-  },{
-    titulo: 'Prueba',
-    fecha: '2021-11',
-    modalidad: 'Virtual'
-  },{
-    titulo: 'Prueba',
-    fecha: '2021-11',
-    modalidad: 'Virtual'
-  }];
-
   //Para recorrer y llenar el select-list de instituciones
   institutions: institution[]=[{
     institutionID: 0,
@@ -64,22 +42,22 @@ export class HomeComponent implements OnInit {
   ];
 
 registerForm = new FormGroup({
-  email: new FormControl('',[Validators.required, Validators.pattern('/^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i')]),
-  firstName : new FormControl('',[Validators.required, Validators.maxLength(30), Validators.pattern('[a-zA-Z ]*')]),
+  email: new FormControl('',[Validators.required, Validators.pattern(/^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i)]),
+  firstName : new FormControl('',[Validators.required, Validators.maxLength(30), Validators.pattern('[a-zA-ZÑÁÉÍÓÚáéíóú][a-zA-Zñáéíóú ]{1,}')]),
   password_: new FormControl('',[Validators.required, Validators.minLength(5)]),
-  middleName  : new FormControl('',[Validators.required, Validators.maxLength(30), Validators.pattern('[a-zA-Z ]*')]),
-  lastname : new FormControl('',[Validators.required, Validators.maxLength(30), Validators.pattern('[a-zA-Z ]*')]),
-  secondLastName : new FormControl('',[Validators.required, Validators.maxLength(30), Validators.pattern('[a-zA-Z ]*')]),
-  academicTraining  : new FormControl('',[Validators.required]),
+  middleName  : new FormControl('',[Validators.required, Validators.maxLength(30), Validators.pattern('[a-zA-ZÑÁÉÍÓÚáéíóú][a-zA-Zñáéíóú ]{1,}')]),
+  lastName : new FormControl('',[Validators.required, Validators.maxLength(30), Validators.pattern('[a-zA-ZÑÁÉÍÓÚáéíóú][a-zA-Zñáéíóú ]{1,}')]),
+  secondLastName: new FormControl('',[Validators.required, Validators.maxLength(30), Validators.pattern('[a-zA-ZÑÁÉÍÓÚáéíóú][a-zA-Zñáéíóú ]{1,}')]),
+  academicTraining: new FormControl('',[Validators.required]),
   description_ : new FormControl('',[Validators.required]),
   interests : new FormControl('',[Validators.required]),
   institutionRepresenting :new FormControl('',[Validators.required])
 });
 
 loginForm = new FormGroup({  
-  email: new FormControl('',[Validators.required, Validators.pattern('/^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i')]),
+  email: new FormControl('',[Validators.required, Validators.pattern(/^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i)]),
   
-  password_: new FormControl('',[Validators.required])
+  password_: new FormControl('',[Validators.required, Validators.minLength(5)])
 });
 
   constructor(private eventServ: EventsService, private generalUserService:GeneralUserService, private institutionServ:InstitutionService, private router:Router) { }
@@ -88,6 +66,19 @@ loginForm = new FormGroup({
     this.getEvents();
   }
 
+  //Getters de los formControls de FormGroup loginForm para utilizar validaciones
+  get emailLog(){
+    return this.loginForm.get('email');
+  }
+
+  
+  get passLog(){
+    return this.loginForm.get('password_');
+  }
+
+
+
+//Getters de los formControls de FormGroup registerForm para utilizar validaciones
   get email() {
     return this.registerForm.get('email');
   }
@@ -111,17 +102,22 @@ loginForm = new FormGroup({
   }
 
   get academicTraining(){
-    return this.registerForm.get('academicTrainig')
+    return this.registerForm.get('academicTraining');
   }
    get description_(){
-     return this.registerForm.get('description_')
+     return this.registerForm.get('description_');
    } 
   get interests(){
-    return this.registerForm.get('interests')
+    return this.registerForm.get('interests');
   } 
     
   get institutionRepresenting(){
-    return this.registerForm.get('institutionRepresenting')
+    return this.registerForm.get('institutionRepresenting');
+  } 
+
+  
+  get passReg(){
+    return this.registerForm.get('password_');
   } 
 
   getEvents(){
