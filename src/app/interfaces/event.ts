@@ -1,12 +1,15 @@
 
 export interface Event{
+    eventId: number,
     image: string,
     name: string,
-    description: string,
+    description_: string,
     startDate: string,
     endDate: string,
     places: number,
     openEvent: boolean,
-    institutionRepresenting: number,
-    modalidad: string
+    institutionId: number,
+    statusId:number,
+    modality: string,
+    userId:number
     }

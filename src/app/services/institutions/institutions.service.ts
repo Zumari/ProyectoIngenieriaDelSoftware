@@ -19,8 +19,8 @@ export class InstitutionService {
     return this.httpClient.get<institution[]>('http://localhost:3000/institutions/getAll',{});
    }
    
-  getInstitution(idInstituto:String):Observable<institution>{
-    return this.httpClient.get<institution>(`http://localhost:3000/institutions/institutions/getInstitution/${idInstituto}`,{});
+  getInstitution(idInstituto:number):Observable<institution>{
+    return this.httpClient.get<institution>(`http://localhost:3000/institutions/getInstitution/${idInstituto}`,{});
    } 
   
   deleteInstitution(idInstituto:String):Observable<institution>{

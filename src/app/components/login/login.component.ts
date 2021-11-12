@@ -6,7 +6,7 @@ import { TokenService} from "src/app/services/token.service";
 
 
 import { Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
+//import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +19,9 @@ export class LoginComponent implements OnInit {
     password_: new FormControl('',[Validators.required])
   });
    
-  constructor(private router:Router, private authService:AuthService,private tokenService:TokenService,private toaster:ToastrService) { }
+  constructor(private router:Router, private authService:AuthService,private tokenService:TokenService,
+    //private toaster:ToastrService
+    ) { }
 
   ngOnInit(): void {
   }
@@ -35,9 +37,9 @@ export class LoginComponent implements OnInit {
      Onlogin():void{
       this.authService.login(this.loginForm.value).subscribe(data =>{
       if(!data.token){
-          this.toaster.error(data.response.message,'Fail', {
+/*           this.toaster.error(data.response.message,'Fail', {
             timeOut: 3000,  positionClass: 'toast-top-center',
-          });
+          }); */
       }else{
         this.tokenService.setToken(data);
       }
