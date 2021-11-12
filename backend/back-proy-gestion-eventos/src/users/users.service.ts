@@ -62,6 +62,8 @@ export class UsersService {
     async findAll(){
         try {
             const data= await this.usersRepository.find();
+            
+
             return {
                 "message":"exit",
                 data
