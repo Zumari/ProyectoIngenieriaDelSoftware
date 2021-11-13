@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { faBell, faBookOpen, faChartBar, faHome } from '@fortawesome/free-solid-svg-icons';
+import { GeneralUserService } from 'src/app/services/user/general-user/general-user.service';
 
 @Component({
   selector: 'app-user',
@@ -12,9 +13,10 @@ export class UserComponent implements OnInit {
   faBook = faBookOpen;
   faStat = faChartBar;
   faBell = faBell;
-
+  nameUser=this.generalUserService.getNombreUsuario();
+  
   username = 'User Name';
-  constructor() { }
+  constructor(private generalUserService:GeneralUserService) { }
 
   ngOnInit(): void {
   }

@@ -37,7 +37,7 @@
           <div class="d-flex flex-wrap align-items-center justify-content-end justify-content-md-end justify-content-sm-end py-3 mb-4 ">
             <div class="d-flex align-items-center">
               <fa-icon [icon]="faBell"></fa-icon>
-              <label class="mx-2" for="">{{username}}</label>
+              <label class="mx-2" for="" *ngIf="nameUser">{{nameUser}}</label>
               <div class="sm-avatar"></div>
             </div>
           </div>

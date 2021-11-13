@@ -1,5 +1,5 @@
 import { Repository } from 'typeorm';
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Users} from './Entities/user.entity';
 import { createUserDto } from './DTO/createUser.dto';
@@ -76,7 +76,7 @@ export class UsersService {
     async findOne(id:string){
         try {
             const user= await this.usersRepository.findOne(id);
-            if(!user) throw new NotFoundException(`El usuario ${user.firstName} con correo ${user.email} no existe dentro de la aplicacion`);
+            if(!user) throw new NotFoundException(`El usuario con correo ${id} no existe dentro de la aplicacion`);
             return {
                 "message":"exit",
                 user
@@ -88,7 +88,7 @@ export class UsersService {
 
     async findUserAuth(id:string):Promise<Users>{
         const user= await this.usersRepository.findOne(id);
-        if(!user) throw new NotFoundException(`El usuario ${user.firstName} con correo ${user.email} no existe dentro de la aplicacion`);
+        if(!user) throw new UnauthorizedException(`El usuario con correo ${id} no existe dentro de la aplicacion`);
         
         return user;
     }

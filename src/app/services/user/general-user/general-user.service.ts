@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { User } from 'src/app/interfaces/user';
 import { Auth, UserResponse } from 'src/app/interfaces/auth';
 import { tap } from 'rxjs/operators';
+//import { ToastrService } from 'ngx-toastr';
 @Injectable({
   providedIn: 'root'
 })
@@ -35,13 +36,15 @@ export class GeneralUserService {
 
    
   login(userAuth:Auth):Observable<UserResponse>{
-    return this.httpClient.post<UserResponse>(`http://localhost:3000/auth/login`,userAuth).pipe(
+    return this.httpClient.post<UserResponse>(`http://localhost:3000/auth/login`,userAuth)
+    .pipe(
       tap((res: UserResponse)=>{
-        console.log('Res =>>>', res);
-          this.setToken(JSON.stringify(res));
-      })
+        if(!res){
+          console.log('Res =>>>', res);
+          this.setToken(JSON.stringify(res))
+        }
         
-    );
+      }));
   }
 
   logout():void{
@@ -49,15 +52,36 @@ export class GeneralUserService {
   }
 
   
-  private setToken(token: string):void{
+   private setToken(token: string):void{
     localStorage.setItem('token',token) ;
   
   }
   
   private getToken():string{
-  const userToken = JSON.parse(localStorage.getItem('currentUser')!);;
+  const userToken = JSON.stringify(localStorage.getItem('token'));
   return userToken;
   }
 
-  
+  isLogged(): boolean {
+    if (!this.getToken()) {
+      return false;
+    }
+    return true;
+  }
+
+  getNombreUsuario(): string {
+    if (!this.isLogged()) {
+      return 'user loco'
+    }
+    const token = this.getToken();
+    const payload = token.split('.')[1];
+    const values = atob(payload);
+    const valuesJson = JSON.parse(values);
+    const nombreUsuario = valuesJson.firstName;
+    return nombreUsuario;
+  }
+ 
+  logOut(): void {
+    localStorage.clear();
+  }
 }

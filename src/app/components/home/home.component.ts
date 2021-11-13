@@ -61,7 +61,7 @@ loginForm = new FormGroup({
   password_: new FormControl('',[Validators.required, Validators.minLength(5)])
 });
 
-  constructor(private eventServ: EventsService, private generalUserService:GeneralUserService, private institutionServ:InstitutionService, private router:Router) { }
+  constructor( private eventServ: EventsService, private generalUserService:GeneralUserService, private institutionServ:InstitutionService, private router:Router) { }
 
   ngOnInit(): void {
     this.getEvents();
@@ -161,13 +161,13 @@ loginForm = new FormGroup({
   Onlogin():void{
     console.log(this.loginForm.value);
     
-    this.generalUserService.login(this.loginForm.value).subscribe((res)=>{
+    this.generalUserService.login(this.loginForm.value)
+    .subscribe((res)=>{
       if(res){
         this.router.navigate(['usuario']);   //DENTRO DE CORCHETES PONER DIRECCIÓN A LA QUE REDIRIGE AL HACER CLICK EN BOTON LOGIN     
         console.log(res);
-        
       }
-    })
+    });
     $('body').removeClass('modal-open');
     $('.modal-backdrop').remove();
   }

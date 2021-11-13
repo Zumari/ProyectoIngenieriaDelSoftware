@@ -6,6 +6,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { InstitutionService } from 'src/app/services/institutions/institutions.service';
 import { institution } from 'src/app/interfaces/institution';
 import { Router } from '@angular/router';
+import { GeneralUserService } from 'src/app/services/user/general-user/general-user.service';
 
 @Component({
   selector: 'app-dashboard',
