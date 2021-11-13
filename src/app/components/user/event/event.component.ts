@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { faCertificate, faEye, faPlusCircle, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { param } from 'jquery';
+import { EventsService } from 'src/app/services/user/events/events.service';
+import { InstitutionService  } from "../../../services/institutions/institutions.service";
+
 
 @Component({
   selector: 'app-event',
@@ -11,19 +16,45 @@ export class EventComponent implements OnInit {
   faPlus = faPlusCircle;
   faTrash = faTrash;
   event: any = {
-    name: 'Prueba',
-    startDate: '2021-11-20',
-    endDate: '2021-11-21',
-    institute: 'UNAH',
-    description: 'Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum',
-    organizer: 'user name',
-    startTime: '09:00',
-    endTime: '23:00',
+    name: '',
+    startDate: '',
+    endDate: '',
+    places :'',
+    modality:'',
+    statusId:'',
+    institutionId: '',
+    description_: '',
+    userId: '',
+    startTime: '',
+    endTime: '',
     image: ''
   };
-  constructor() { }
+
+  inst: any ={
+    institutionId:0,
+    name:''
+  }
+  constructor(private eventServ: EventsService, private activatedRoute:ActivatedRoute,private institutionService: InstitutionService) { }
 
   ngOnInit(): void {
+    let params= this.activatedRoute.snapshot.params;
+    if(params){
+      this.getEvent(params.name)
+    }
   }
+
+  getEvent(id:number){
+
+    this.eventServ.getEvent(id).subscribe(
+      res =>  {this.event=res},
+      error => console.log(error)
+    )
+  }
+
+  getInstitutionName(id:number){
+    this.institutionService.getInstitution(id);
+  }
+
+  
 
 }

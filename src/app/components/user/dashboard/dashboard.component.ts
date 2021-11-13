@@ -23,15 +23,18 @@ export class DashboardComponent implements OnInit {
   privacy: string = 'publico';
 
   eventosLista : Event[]=[{
+    eventId:0,
     image: '',
     name:'',
-    description:'',
+    description_:'',
     startDate:'',
     endDate:'',
     places: 0,
     openEvent: true,
-    institutionRepresenting: 0,
-    modalidad: 'virtual'
+    institutionId: 0,
+    statusId:0,
+    userId:0,
+    modality:'',
   }]; //Arreglo de eventos para recorrer y pintar el html con NGFOR
 
   eventoForm = new FormGroup({
@@ -125,7 +128,7 @@ get modalidad(){
     this.privacy = val == 1 ? 'publico' : 'privado';
   }
 
-  viewEvent(name: string) {
-    this.router.navigate(['usuario/evento/:'+name]);
+  viewEvent(id: number) {
+    this.router.navigate(['usuario/evento/'+id]);
   }
 }
