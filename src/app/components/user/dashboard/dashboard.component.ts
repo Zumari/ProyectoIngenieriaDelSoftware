@@ -50,18 +50,17 @@ export class DashboardComponent implements OnInit {
   })
 
   institutions: institution[]=[{
-    institutionID: 0,
-    name: 'UNAH'
-  },
-  {institutionID:1,
-  name:'UNITEC'}
-  ];
+    institutionID:0,
+    name:""
+  }];
 
 
   constructor(private eventServ: EventsService, private institutionServ: InstitutionService, private router: Router) { }
 
     ngOnInit(): void {
       this.getEvents()
+      this.getInstitution()
+
     }
 
 
@@ -96,11 +95,11 @@ get modalidad(){
   createEvents(){
     console.log(this.eventoForm.value);
     
-    this.eventServ.createEvent(this.eventoForm.value).subscribe(
+/*     this.eventServ.createEvent(this.eventoForm.value).subscribe(
       res =>  {console.log(res)
       },
       error => console.log(error)
-    )
+    ) */
   }  
 
   getEvents(){
@@ -115,6 +114,7 @@ get modalidad(){
     this.institutionServ.getInstitutions().subscribe(
       res =>  {this.institutions=res},
       error => console.log(error)
+      
 
     )
   }

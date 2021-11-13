@@ -15,7 +15,7 @@ import { HomeComponent } from './components/home/home.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {HttpClientModule} from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ToastContainerModule } from 'ngx-toastr';
+/* import { ToastContainerModule } from 'ngx-toastr'; */
 
 
 @NgModule({

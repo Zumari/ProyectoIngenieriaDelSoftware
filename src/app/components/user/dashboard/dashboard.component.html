@@ -74,7 +74,7 @@
               <div class="mb-3">
                 <label for="institucion" class="form-label">Institución que representa:</label>
                 <select formControlName="institutionRepresenting" class="form-select form-select" name="institucion" aria-label=".form-select-sm institucion">
-                  <option *ngFor="let institution of institutions, let i = index" [value]="institution.institutionID">
+                  <option *ngFor="let institution of institutions, let i = index" [value]=institution.institutionID>
                     {{institution.name}}
                   </option>
                  
@@ -113,30 +113,30 @@
                 <input formControlName="image" type="file" name="image" id="image" style="visibility: hidden;">
               </div>
               <div class="mb-3">
-                <label for="modalidad" class="form-label">Modalidad:</label>
+                <label for="modalidad" class="form-label">Privacidad:</label>
                 <div class="d-flex">
                   <div class="form-check">
                     <input formControlName="openEvent" class="form-check-input" type="radio"  id="radiomodalidad1" checked (click)="changeMod(1)"[value]=true>
                     <label class="form-check-label" for="radiomodalidad1">
-                      Virtual
+                      Abierto
                     </label>
                   </div>
                   <div class="form-check mx-4">
                     <input formControlName="openEvent" class="form-check-input" type="radio"  id="radiomodalidad2" (click)="changeMod(2)"[value]=false>
                     <label class="form-check-label" for="radiomodalidad2">
-                      Presencial
+                      Cerrado
                     </label>
                   </div>
                 </div>
               </div>
-              <div class="mb-3">
+<!--               <div class="mb-3">
                 <input type="text"  class="form-control" id="ubicacion" placeholder="Ubicación" *ngIf="mode == 'presencial'">
                 <div class="alert-danger" *ngIf="openEvent?.invalid && (openEvent?.dirty || openEvent?.touched)">
                   <div class="container-error-message" *ngIf="openEvent?.errors?.required">
                     Campo obligatorio
                   </div>                 
                 </div>
-              </div>
+              </div> -->
               <div class="mb-3">
                 <label for="cantidad" class="form-label">Cantidad de participantes:</label>
                 <input formControlName="places" type="number" class="form-control" id="cantidad" placeholder="">
@@ -148,18 +148,18 @@
               </div>
               <div class="mb-3 d-flex">
                 <div class="form-check">
-                  <input formControlName="modalidad" class="form-check-input" type="radio"  id="radioprivacidad1" (click)="changePriv(1)" checked value="Público">
+                  <input formControlName="modalidad" class="form-check-input" type="radio"  id="radioprivacidad1" (click)="changePriv(1)" checked value=Virtual>
                   <label class="form-check-label" for="radioprivacidad1">
-                    Público
+                    Virtual
                   </label>
                 </div>
                 <div class="form-check mx-4">
-                  <input formControlName="modalidad" class="form-check-input" type="radio"  id="radioprivacidad2" (click)="changePriv(2)" value="Privado">
+                  <input formControlName="modalidad" class="form-check-input" type="radio"  id="radioprivacidad2" (click)="changePriv(2)" value=Presencial>
                   <label class="form-check-label" for="radioprivacidad2">
-                    Privado
+                    Presencial
                   </label>
                 </div>
-                <button type="button" class="btn btn-secondary" style="font-size: smaller;" *ngIf="privacy == 'privado'">Inserte lista de participantes</button>
+               <!--  <button type="button" class="btn btn-secondary" style="font-size: smaller;" *ngIf="privacy == 'privado'">Inserte lista de participantes</button> -->
               </div>
               <div class="mb-5 d-flex justify-content-center">
                 <button  type="button" class="btn btn-warning" (click)="createEvents()" >Generar</button>
