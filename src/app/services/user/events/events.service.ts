@@ -19,7 +19,7 @@ export class EventsService {
   }
   
   createEvent(event:Event,email:string):Observable<Event>{
-    return this.httpClient.post<Event>(`http://localhost:3000/events/createEvent/:${email}`,event);
+    return this.httpClient.post<Event>(`http://localhost:3000/events/createEvent/${email}`,event);
    }
 
   /*getEventsForUser(email : string):Observable<Event[]>{

@@ -98,10 +98,12 @@ get modality(){
 }
 
   createEvents(){
+    this.eventoForm.value.institutionId=Number(this.eventoForm.value.institutionId)
     console.log(this.eventoForm.value);
-/*     this.eventServ.createEvent(this.eventoForm.value,this.generalService.getEmail()).subscribe(
+    this.eventServ.createEvent(this.eventoForm.value,this.generalService.getEmail()).subscribe(
       res =>  {console.log(res)},
-      error => console.log(error)) */
+      error => console.log(error))
+    this.router.initialNavigation; 
 
   }  
 

@@ -167,7 +167,7 @@ loginForm = new FormGroup({
     this.generalUserService.login(this.loginForm.value)
     .subscribe((res)=>{
       if(res){
-        this.router.navigate(['usuario']);   //DENTRO DE CORCHETES PONER DIRECCIÓN A LA QUE REDIRIGE AL HACER CLICK EN BOTON LOGIN     
+        this.router.navigate(['usuario/eventos']);   //DENTRO DE CORCHETES PONER DIRECCIÓN A LA QUE REDIRIGE AL HACER CLICK EN BOTON LOGIN     
         console.log(res);
       }
     });

@@ -74,7 +74,7 @@
               <div class="mb-3">
                 <label for="institucion" class="form-label">Institución que representa:</label>
                 <select formControlName="institutionId" class="form-select form-select" name="institucion" aria-label=".form-select-sm institucion">
-                  <option *ngFor="let institution of institutions, let i = index" [value]=institution.InstitutionID>
+                  <option *ngFor="let institution of institutions, let i = index" [value]=institution.InstitutionID type="number">
                     {{institution.name}}
                   </option>
                  
@@ -162,7 +162,7 @@
                <!--  <button type="button" class="btn btn-secondary" style="font-size: smaller;" *ngIf="privacy == 'privado'">Inserte lista de participantes</button> -->
               </div>
               <div class="mb-5 d-flex justify-content-center">
-                <button  type="button" class="btn btn-warning" (click)="createEvents()" >Generar</button>
+                <button  type="button" class="btn btn-warning" (click)="createEvents()" onclick="location.reload()" >Generar</button>
               </div>
             </div>
           </div>
