@@ -5,6 +5,7 @@ import { UpdateEventDto } from './dto/update-event.dto';
 import { Crud, CrudController } from '@nestjsx/crud';
 import { Event } from './entities/event.entity';
 import { AuthGuard } from '@nestjs/passport';
+import { isEmail } from 'class-validator';
 
 @Crud({
   model: {
@@ -31,11 +32,17 @@ export class EventsController implements CrudController<Event> {
       const {email,firstName}=req.user;*/
     
 
-  @UseGuards(AuthGuard('jwt'))
+/*   @UseGuards(AuthGuard('jwt'))
   @Post('/createEvent')
   create(@Body() createEventDto: CreateEventDto,@Request() req: any) {
     console.log(req);
     const {email,firstName}=req.user;
+    return this.service.create(createEventDto,email);
+  } */
+
+ /*  @UseGuards(AuthGuard('jwt')) */
+  @Post('/createEvent/:email')
+  create(@Body() createEventDto: CreateEventDto,@Param('email') email:string) {
     return this.service.create(createEventDto,email);
   }
 

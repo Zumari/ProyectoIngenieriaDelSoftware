@@ -22,6 +22,7 @@ export class DashboardComponent implements OnInit {
   mode: string = 'virtual';
   privacy: string = 'publico';
 
+
   eventosLista : Event[]=[{
     eventId:0,
     image: '',
@@ -45,7 +46,7 @@ export class DashboardComponent implements OnInit {
     endDate: new FormControl('', [Validators.required]),
     places:  new FormControl('', [Validators.required]),
     openEvent:  new FormControl(true, [Validators.required]),
-    institutionId: new FormControl(0,[Validators.required]),
+    institutionId: new FormControl(0,[Validators.required, Validators.min(0)]),
     modality: new FormControl('', Validators.required)
   })
 
@@ -55,11 +56,15 @@ export class DashboardComponent implements OnInit {
   }];
 
 
-  constructor(private eventServ: EventsService, private institutionServ: InstitutionService, private router: Router) { }
+  constructor(private eventServ: EventsService, 
+    private institutionServ: InstitutionService, 
+    private router: Router,
+    private generalService: GeneralUserService) { }
 
     ngOnInit(): void {
       this.getEvents()
       this.getInstitution()
+      
 
     }
 
@@ -94,12 +99,10 @@ get modality(){
 
   createEvents(){
     console.log(this.eventoForm.value);
-    
-/*     this.eventServ.createEvent(this.eventoForm.value).subscribe(
-      res =>  {console.log(res)
-      },
-      error => console.log(error)
-    ) */
+/*     this.eventServ.createEvent(this.eventoForm.value,this.generalService.getEmail()).subscribe(
+      res =>  {console.log(res)},
+      error => console.log(error)) */
+
   }  
 
   getEvents(){

@@ -81,6 +81,18 @@ export class GeneralUserService {
     return nombreUsuario;
   }
  
+  getEmail(): string {
+    if (!this.isLogged()) {
+      return 'user loco'
+    }
+    const token = this.getToken();
+    const payload = token.split('.')[1];
+    const values = atob(payload);
+    const valuesJson = JSON.parse(values);
+    const email = valuesJson.email;
+    return email;
+  }
+
   logOut(): void {
     localStorage.clear();
   }

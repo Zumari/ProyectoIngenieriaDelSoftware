@@ -18,8 +18,8 @@ export class EventsService {
        return this.httpClient.get<Event>(`http://localhost:3000/events/getOneEventById/${idEvento}`,{});
   }
   
-  createEvent(event:Event):Observable<Event>{
-    return this.httpClient.post<Event>('http://localhost:3000/events/createEvent',event);
+  createEvent(event:Event,email:string):Observable<Event>{
+    return this.httpClient.post<Event>(`http://localhost:3000/events/createEvent/:${email}`,event);
    }
 
   /*getEventsForUser(email : string):Observable<Event[]>{
