@@ -38,19 +38,19 @@ export class DashboardComponent implements OnInit {
   }]; //Arreglo de eventos para recorrer y pintar el html con NGFOR
 
   eventoForm = new FormGroup({
-    image : new FormControl(''),
-    nombreEvento: new FormControl('',[Validators.required, Validators.maxLength(10), Validators.pattern('[a-zA-ZÑÁÉÍÓÚáéíóú][a-zA-Zñáéíóú ]{1,}')]),
-    description:new FormControl('',Validators.compose([Validators.required, Validators.maxLength(30), Validators.pattern('[a-zA-Z ]*')])),
+    photo : new FormControl(''),
+    name: new FormControl('',[Validators.required, Validators.maxLength(10), Validators.pattern('[a-zA-ZÑÁÉÍÓÚáéíóú][a-zA-Zñáéíóú ]{1,}')]),
+    description_:new FormControl('',Validators.compose([Validators.required, Validators.maxLength(30), Validators.pattern('[a-zA-Z ]*')])),
     startDate: new FormControl('', [Validators.required]),
     endDate: new FormControl('', [Validators.required]),
     places:  new FormControl('', [Validators.required]),
     openEvent:  new FormControl(true, [Validators.required]),
-    institutionRepresenting: new FormControl(0,[Validators.required]),
-    modalidad: new FormControl('', Validators.required)
+    institutionId: new FormControl(0,[Validators.required]),
+    modality: new FormControl('', Validators.required)
   })
 
   institutions: institution[]=[{
-    institutionID:0,
+    InstitutionID:0,
     name:""
   }];
 
@@ -64,14 +64,14 @@ export class DashboardComponent implements OnInit {
     }
 
 
-get image (){
-  return this.eventoForm.get('image');
+get photo (){
+  return this.eventoForm.get('photo');
 }
-get nombreEvento(){
-  return this.eventoForm.get('nombreEvento');
+get name(){
+  return this.eventoForm.get('name');
 }
-get description(){
-  return this.eventoForm.get('description');
+get description_(){
+  return this.eventoForm.get('description_');
 }
 get startDate(){
   return this.eventoForm.get('startDate');
@@ -85,11 +85,11 @@ get places(){
 get openEvent(){
   return this.eventoForm.get('openEvent');
 } 
-get institutionRepresenting(){
-  return this.eventoForm.get('institutionRepresenting');
+get institutionId(){
+  return this.eventoForm.get('institutionId');
 }
-get modalidad(){
-  return this.eventoForm.get('modalidad');
+get modality(){
+  return this.eventoForm.get('modality');
 }
 
   createEvents(){

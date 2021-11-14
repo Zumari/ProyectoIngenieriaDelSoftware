@@ -38,10 +38,10 @@ export class HomeComponent implements OnInit {
 
   //Para recorrer y llenar el select-list de instituciones
   institutions: institution[]=[{
-    institutionID: 0,
+    InstitutionID: 0,
     name: 'UNAH'
   },
-  {institutionID:1,
+  {InstitutionID:1,
   name:'UNITEC'}
   ];
 

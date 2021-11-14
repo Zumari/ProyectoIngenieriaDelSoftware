@@ -58,23 +58,23 @@
             <div class="row px-5">
               <div class="mb-3">
                 <label for="nombre" class="form-label">Nombre:</label>
-                <input type="text" formControlName="nombreEvento" class="form-control" id="nombre" placeholder="">
-                <div class="alert-danger" *ngIf="nombreEvento?.invalid && (nombreEvento?.dirty || nombreEvento?.touched)">
-                  <div class="container-error-message" *ngIf="nombreEvento?.errors?.required">
+                <input type="text" formControlName="name" class="form-control" id="nombre" placeholder="">
+                <div class="alert-danger" *ngIf="name?.invalid && (name?.dirty || name?.touched)">
+                  <div class="container-error-message" *ngIf="name?.errors?.required">
                     Campo obligatorio
                   </div>
-                  <div class="container-error-message" *ngIf="nombreEvento?.errors?.pattern">
+                  <div class="container-error-message" *ngIf="name?.errors?.pattern">
                     No es un nombre válido
                   </div>
-                  <div  class="container-error-message" *ngIf="nombreEvento?.errors?.maxLength">
+                  <div  class="container-error-message" *ngIf="name?.errors?.maxLength">
                     El tamaño excede
                   </div>
                 </div>
               </div>
               <div class="mb-3">
                 <label for="institucion" class="form-label">Institución que representa:</label>
-                <select formControlName="institutionRepresenting" class="form-select form-select" name="institucion" aria-label=".form-select-sm institucion">
-                  <option *ngFor="let institution of institutions, let i = index" [value]=institution.institutionID>
+                <select formControlName="institutionId" class="form-select form-select" name="institucion" aria-label=".form-select-sm institucion">
+                  <option *ngFor="let institution of institutions, let i = index" [value]=institution.InstitutionID>
                     {{institution.name}}
                   </option>
                  
@@ -100,9 +100,9 @@
               </div>
               <div class="mb-3">
                 <label for="descripcion" class="form-label">Descripción:</label>
-                <textarea formControlName="description" class="form-control" id="descripcion" rows="4"></textarea>
-                <div class="alert-danger" *ngIf="description?.invalid && (description?.dirty || description?.touched)">
-                  <div class="container-error-message" *ngIf="description?.errors?.required">
+                <textarea formControlName="description_" class="form-control" id="descripcion" rows="4"></textarea>
+                <div class="alert-danger" *ngIf="description_?.invalid && (description_?.dirty || description_?.touched)">
+                  <div class="container-error-message" *ngIf="description_?.errors?.required">
                     Campo obligatorio
                   </div>                 
                 </div>
@@ -110,7 +110,7 @@
               <div class="mb-3">
                 <label for="" class="form-label">Seleccione imagen a utilizar:</label><br>
                 <label for="image" style="background-color: gray; padding: 3rem;"><img src="../../../../assets/images/mas.png" alt=""></label>
-                <input formControlName="image" type="file" name="image" id="image" style="visibility: hidden;">
+                <input formControlName="photo" type="file" name="image" id="image" style="visibility: hidden;">
               </div>
               <div class="mb-3">
                 <label for="modalidad" class="form-label">Privacidad:</label>
@@ -148,13 +148,13 @@
               </div>
               <div class="mb-3 d-flex">
                 <div class="form-check">
-                  <input formControlName="modalidad" class="form-check-input" type="radio"  id="radioprivacidad1" (click)="changePriv(1)" checked value=Virtual>
+                  <input formControlName="modality" class="form-check-input" type="radio"  id="radioprivacidad1" (click)="changePriv(1)" checked value=Virtual>
                   <label class="form-check-label" for="radioprivacidad1">
                     Virtual
                   </label>
                 </div>
                 <div class="form-check mx-4">
-                  <input formControlName="modalidad" class="form-check-input" type="radio"  id="radioprivacidad2" (click)="changePriv(2)" value=Presencial>
+                  <input formControlName="modality" class="form-check-input" type="radio"  id="radioprivacidad2" (click)="changePriv(2)" value=Presencial>
                   <label class="form-check-label" for="radioprivacidad2">
                     Presencial
                   </label>
