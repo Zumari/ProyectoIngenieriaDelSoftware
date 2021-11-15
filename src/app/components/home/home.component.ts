@@ -3,8 +3,8 @@ import { faBookmark, faLock } from '@fortawesome/free-solid-svg-icons';
 import { EventsService } from 'src/app/services/user/events/events.service';
 import { Event } from 'src/app/interfaces/event';
 import { GeneralUserService } from 'src/app/services/user/general-user/general-user.service';
-import { InstitutionService } from 'src/app/services/institutions/institutions.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { InstitutionService } from 'src/app/services/institutions/institutions.service';
 import { institution } from 'src/app/interfaces/institution';
 import { Router } from '@angular/router';
 import * as $ from 'jquery'; 
@@ -38,12 +38,9 @@ export class HomeComponent implements OnInit {
 
   //Para recorrer y llenar el select-list de instituciones
   institutions: institution[]=[{
-    InstitutionID: 0,
-    name: 'UNAH'
-  },
-  {InstitutionID:1,
-  name:'UNITEC'}
-  ];
+    InstitutionID:0,
+    name:""
+  }];
 
 registerForm = new FormGroup({
   email: new FormControl('',[Validators.required, Validators.pattern(/^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i)]),
@@ -55,7 +52,11 @@ registerForm = new FormGroup({
   academicTraining: new FormControl('',[Validators.required]),
   description_ : new FormControl('',[Validators.required]),
   interests : new FormControl('',[Validators.required]),
-  institutionRepresenting :new FormControl('',[Validators.required])
+  institutionRepresenting :new FormControl(0,[Validators.required, Validators.min(0)])
+});
+
+institutionForm = new FormGroup({
+  name : new FormControl('',[Validators.required, Validators.maxLength(30), Validators.pattern('[a-zA-ZÑÁÉÍÓÚáéíóú][a-zA-Zñáéíóú ]{1,}')]),
 });
 
 loginForm = new FormGroup({  
@@ -67,6 +68,7 @@ loginForm = new FormGroup({
   constructor( private eventServ: EventsService, private generalUserService:GeneralUserService, private institutionServ:InstitutionService, private router:Router) { }
 
   ngOnInit(): void {
+    this.getInstitution();
     this.getEvents();
   }
 
@@ -132,22 +134,31 @@ loginForm = new FormGroup({
     )
   }
 
-  createInstitution(){
-    this.institutionServ.createInstitution(this.institutionRepresenting?.value).subscribe(
-      res => {console.log(res)
-      },
-      err =>console.log(err)
-    )
-  }
-
   CreateUser(){
     console.log(this.registerForm.value);
-    
-    this.generalUserService.createUser(this.registerForm.value).subscribe(
-      res => {console.log(res)
-      },
-      err =>console.log(err)
-    )
+    const institutionId = this.registerForm.value.institutionRepresenting;
+
+    // Sino se selecciono institución obtener el nombre de la nueva institucion
+    if(institutionId == 0){
+      this.institutionServ.createInstitution(this.institutionForm.value).subscribe(
+        res => {
+          console.log(res);
+          this.registerForm.value.institutionRepresenting = res.InstitutionID;
+          this.generalUserService.createUser(this.registerForm.value).subscribe(
+            res => {console.log(res)},
+            err =>console.log(err)
+          )
+        },
+        err =>console.log('No se intento crear una institucion')
+      )
+    }else{
+      this.registerForm.value.institutionRepresenting = Number(this.registerForm.value.institutionRepresenting);
+      this.generalUserService.createUser(this.registerForm.value).subscribe(
+        res => {console.log(res)},
+        err =>console.log(err)
+      )
+    }
+
     $('body').removeClass('modal-open');
     $('.modal-backdrop').remove();
   }
@@ -155,11 +166,14 @@ loginForm = new FormGroup({
 
   getInstitution(){
     this.institutionServ.getInstitutions().subscribe(
-      res =>  {this.institutions=res},
+      res =>  {
+        this.institutions=res;
+      },
       error => console.log(error)
 
     )
   }
+
 
   Onlogin():void{
     console.log(this.loginForm.value);
@@ -174,6 +188,4 @@ loginForm = new FormGroup({
     $('body').removeClass('modal-open');
     $('.modal-backdrop').remove();
   }
-
-
 }

@@ -37,6 +37,8 @@ export class EventComponent implements OnInit {
   constructor(private eventServ: EventsService, private activatedRoute:ActivatedRoute,private institutionService: InstitutionService) { }
 
   ngOnInit(): void {
+    this.getInstitutionName(1)
+    console.log(this.inst)
     let params= this.activatedRoute.snapshot.params;
     if(params){
       this.getEvent(params.name)
@@ -46,15 +48,22 @@ export class EventComponent implements OnInit {
   getEvent(id:number){
 
     this.eventServ.getEvent(id).subscribe(
-      res =>  {this.event=res},
+      res =>  {
+        this.event=res;
+/*         this.event.institutionId = this.getInstitutionName(this.event.institutionId);
+        console.log(this.inst); */
+      },
       error => console.log(error)
     )
   }
 
   getInstitutionName(id:number){
-    this.institutionService.getInstitution(id);
+    this.institutionService.getInstitution(id).subscribe(
+      res =>  {
+        this.inst=res;
+      },
+      error => console.log(error)
+    );
   }
-
   
-
 }
