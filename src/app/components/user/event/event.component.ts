@@ -30,15 +30,17 @@ export class EventComponent implements OnInit {
     image: ''
   };
 
+
   inst: any ={
     institutionId:0,
     name:''
   }
-  constructor(private eventServ: EventsService, private activatedRoute:ActivatedRoute,private institutionService: InstitutionService) { }
+  constructor(private eventServ: EventsService,
+     private activatedRoute:ActivatedRoute,
+     private institutionService: InstitutionService,
+     ) { }
 
   ngOnInit(): void {
-    this.getInstitutionName(1)
-    console.log(this.inst)
     let params= this.activatedRoute.snapshot.params;
     if(params){
       this.getEvent(params.name)
@@ -50,20 +52,18 @@ export class EventComponent implements OnInit {
     this.eventServ.getEvent(id).subscribe(
       res =>  {
         this.event=res;
-/*         this.event.institutionId = this.getInstitutionName(this.event.institutionId);
-        console.log(this.inst); */
+        const institutioEvento=this.getInstitutionName(this.event.institutionId);
+        console.log(institutioEvento)
+        console.log(this.event.institutionId)
+/*         this.event.institutionId = institutioEvento.name; */
+/*         console.log(this.event.institutionId) */
       },
       error => console.log(error)
     )
   }
 
   getInstitutionName(id:number){
-    this.institutionService.getInstitution(id).subscribe(
-      res =>  {
-        this.inst=res;
-      },
-      error => console.log(error)
-    );
+    return this.institutionService.getInstitution(id);
   }
   
 }
