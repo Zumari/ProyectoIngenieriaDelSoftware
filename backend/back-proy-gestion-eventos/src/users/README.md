@@ -2,7 +2,7 @@ POST :http://localhost:3000/users/register
 
 formato de json que se espera en el back
 {
-"email":"kevinvarela@gmail.com",
+"email":"varela@gmail.com",
 "password_":"nkdlkn27",
 "firstName":"kevin",
 "middleName":"Daniel",

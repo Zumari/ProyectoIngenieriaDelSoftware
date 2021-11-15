@@ -14,11 +14,16 @@ export class UserComponent implements OnInit {
   faStat = faChartBar;
   faBell = faBell;
   nameUser=this.generalUserService.getNombreUsuario();
-  
-  username = 'User Name';
   constructor(private generalUserService:GeneralUserService) { }
 
+  
+ 
   ngOnInit(): void {
   }
+
+  eliminarToken():void{
+  this.generalUserService.logout();
+  }
+
 
 }

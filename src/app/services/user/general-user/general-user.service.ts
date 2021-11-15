@@ -39,7 +39,7 @@ export class GeneralUserService {
     return this.httpClient.post<UserResponse>(`http://localhost:3000/auth/login`,userAuth)
     .pipe(
       tap((res: UserResponse)=>{
-        if(!res){
+        if(res){
           console.log('Res =>>>', res);
           this.setToken(JSON.stringify(res))
         }
@@ -52,12 +52,13 @@ export class GeneralUserService {
   }
 
   
-   private setToken(token: string):void{
+   setToken(token: string):void{
+     console.log("llego esta M",token);
     localStorage.setItem('token',token) ;
   
   }
   
-  private getToken():string{
+  getToken():string{
   const userToken = JSON.stringify(localStorage.getItem('token'));
   return userToken;
   }
