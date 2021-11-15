@@ -169,16 +169,18 @@
               </div>
               <div class="mb-3">
                 <label for="institucion" class="form-label">Institución que representa:</label>
-               <select class="form-select form-select" name="institucion" aria-label=".form-select-sm institucion">
-                  <option *ngFor="let institution of institutions, let i =index" [value]="institution.InstitutionID">
+                <select formControlName="institutionRepresenting" class="form-select form-select" name="institucion" aria-label=".form-select-sm institucion">
+                  <option *ngFor="let institution of institutions, let i = index" [value]=institution.InstitutionID type="number">
                     {{institution.name}}
                   </option>
-                 
+
                 </select>
               </div>
               <div class="mb-3">
-                <label for="otra" class="form-label">Otra:</label>
-                <input type="text" class="form-control" id="otra" placeholder="">
+                <form [formGroup]="institutionForm">
+                  <label for="otra" class="form-label">Otra:</label>
+                  <input formControlName="name" type="text" class="form-control" id="otra" placeholder="">
+                </form>
               </div>
               <div class="mb-3">
                 <label for="correo" class="form-label">Correo electrónico:</label>
@@ -242,7 +244,7 @@
                 </div>
               </div>
               <div class="mb-5 d-flex justify-content-center">
-                <button type="button" class="btn btn-warning" (click)="CreateUser(); createInstitution()">Registrarme</button>
+                <button type="button" class="btn btn-warning" (click)="CreateUser()">Registrarme</button>
               </div>
             </div>
           </div>
