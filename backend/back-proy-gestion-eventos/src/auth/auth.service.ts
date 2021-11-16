@@ -12,7 +12,7 @@ export class AuthService {
     
       async validateUser(email: string, pass: string): Promise<boolean> {
         const user = await this.usersService.findUserAuth(email);
-        if(!user)throw new NotFoundException("datos no validos");
+        if(!user)throw new NotFoundException("correo no valido no validos");
         
         return await user.validatePassword(pass);
       }
