@@ -12,14 +12,14 @@ import { UsersService } from 'src/users/users.service';
 export class EventsService extends TypeOrmCrudService<Event> {
   constructor(@InjectRepository(Event) repo,
     private institutionService: InstitutionsService,
-    private statusService: StatusService, 
+    private statusService: StatusService,
     private userService: UsersService) {
     super(repo);
   }
-  
+
   async create(createEventDto: CreateEventDto,idUser:string) {
     /*
-      Añadir: 
+      Añadir:
         --> No poder crear un evento si la fecha choca con la fecha de otro evento
         --> No poder crear un evento si la fecha/hora de finalizacion es menor que la de inicio
         --> No poder crear un evento si la fecha de inicio es menor que la actual
@@ -36,11 +36,16 @@ export class EventsService extends TypeOrmCrudService<Event> {
     await this.repo.save(post);
     return{
       "result": `El evento con el nombre ${name} se ha creado con exito`
-    } 
+    }
   }
 
   findAll(): Promise<Event[]> {
     return this.repo.find();
+  }
+
+  findFilter(type: string, keyword: string): Promise<Event[]> {
+    return this.repo.find(type, keyword);
+    // ===== AQUI DEBE BUSCARSE POR LA KEYWORD =====
   }
 
   findOneId(id: number): Promise<Event> {
@@ -49,7 +54,7 @@ export class EventsService extends TypeOrmCrudService<Event> {
 
   async update(id: number, updateEventDto: UpdateEventDto) {
     /*
-      Añadir: 
+      Añadir:
         --> No poder actualizar un evento si las fechas chocan con la fecha de otro evento
         --> No poder actualizar un evento si la fecha/hora de finalizacion es menor que la de inicio
         --> No poder actualizar un evento si la fecha de inicio es menor que la actual
@@ -68,12 +73,12 @@ export class EventsService extends TypeOrmCrudService<Event> {
 
   async remove(id: number) {
     /*
-      Añadir: 
+      Añadir:
         --> No poder eliminar un evento con la fecha de inicio mayor a la fecha actual y menor a la fecha final
     */
     const event = await this.repo.findOne(id);
     if(!event) return {"mesage":`El Evento con el id ${id} que trata de eliminar no existe dentro de la aplicacion`}
-    
+
     await this.repo.delete(id);
     return{
       "result":`El evento ${event.eventId} con el nombre ${event.name} ha sido eliminado con exito`
