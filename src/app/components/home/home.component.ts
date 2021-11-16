@@ -145,6 +145,7 @@ loginForm = new FormGroup({
 
   CreateUser(){
     console.log(this.registerForm.value);
+    console.log(this.institutionForm.value);
     const institutionId = this.registerForm.value.institutionRepresenting;
 
     // Sino se selecciono institución obtener el nombre de la nueva institucion

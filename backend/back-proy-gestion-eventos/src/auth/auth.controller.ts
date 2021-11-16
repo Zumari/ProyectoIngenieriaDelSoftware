@@ -12,7 +12,7 @@ constructor(private authServie:AuthService){}
      // const { email, password } = loginDTO;
       const valid = await this.authServie.validateUser(loginDTO.email,loginDTO.password_);
       if (!valid) {
-        throw new UnauthorizedException();
+        throw new UnauthorizedException("contraseña no valida");
       }
       return await this.authServie.generateAccessToken(loginDTO.email);
     }
