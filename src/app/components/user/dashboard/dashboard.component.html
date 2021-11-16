@@ -168,11 +168,7 @@
                <!--  <button type="button" class="btn btn-secondary" style="font-size: smaller;" *ngIf="privacy == 'privado'">Inserte lista de participantes</button> -->
               </div>
               <div class="mb-5 d-flex justify-content-center">
-<<<<<<< HEAD
-                <button  type="button" class="btn btn-warning" (click)="createEvents()"  >Generar</button>
-=======
                 <button  type="button" [disabled]="!eventoForm.valid" class="btn btn-warning" (click)="createEvents()" onclick="location.reload()" >Generar</button>
->>>>>>> 2a248c20bf72705db0b0a686721d401217bbd70c
               </div>
             </div>
           </div>
