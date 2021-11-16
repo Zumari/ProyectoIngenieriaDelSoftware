@@ -82,10 +82,13 @@
               </div>
               <div class="mb-3">
                 <label for="inicio" class="form-label">Fecha de inicio:</label>
-                <input formControlName="startDate" type="date" class="form-control" id="inicio" placeholder="">
+                <input formControlName="startDate" type="date" [min]="fechaStrMinima"  class="form-control" id="inicio" placeholder="">
                 <div class="alert-danger" *ngIf="startDate?.invalid && (startDate?.dirty || startDate?.touched)">
                   <div class="container-error-message" *ngIf="startDate?.errors?.required">
                     Campo obligatorio
+                  </div>
+                  <div class="container-error-message" *ngIf="startDate?.hasError">
+                    fecha de inicio no debe ser menor que la de hoy
                   </div>                 
                 </div>
               </div>
@@ -162,7 +165,11 @@
                <!--  <button type="button" class="btn btn-secondary" style="font-size: smaller;" *ngIf="privacy == 'privado'">Inserte lista de participantes</button> -->
               </div>
               <div class="mb-5 d-flex justify-content-center">
+<<<<<<< HEAD
                 <button  type="button" class="btn btn-warning" (click)="createEvents()"  >Generar</button>
+=======
+                <button  type="button" [disabled]="!eventoForm.valid" class="btn btn-warning" (click)="createEvents()" onclick="location.reload()" >Generar</button>
+>>>>>>> 2a248c20bf72705db0b0a686721d401217bbd70c
               </div>
             </div>
           </div>
