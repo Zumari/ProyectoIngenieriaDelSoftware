@@ -9,8 +9,8 @@ import { isEmail } from 'class-validator';
 
 @Crud({
   model: {
-    type: Event 
-  }, 
+    type: Event
+  },
   params: {
     id: {
         field: 'id',
@@ -26,11 +26,11 @@ import { isEmail } from 'class-validator';
 export class EventsController implements CrudController<Event> {
   //constructor(private readonly eventsService: EventsService) {}
   constructor(public service: EventsService) {}
-     
+
   /* @UseGuards(AuthGuard('jwt'))
       @Request() req: any
       const {email,firstName}=req.user;*/
-    
+
 
 /*   @UseGuards(AuthGuard('jwt'))
   @Post('/createEvent')
@@ -49,6 +49,12 @@ export class EventsController implements CrudController<Event> {
   @Get('/getAllEvents')
   findAll() {
     return this.service.findAll();
+  }
+
+
+  @Get('/getFilterEvents')
+  findFilter(@Param('type') type: string, @Param('keyword') keyword: string) {
+    return this.service.findFilter(type, keyword);
   }
 
   @Get('/getOneEventById/:id')

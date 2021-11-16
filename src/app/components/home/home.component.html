@@ -12,13 +12,13 @@
   <div class="d-flex justify-content-end">
     <div class="col-lg-3 col-md-4 col-sm-12 col-12 mx-2">
       <div class="input-group mb-3">
-        <input type="text" class="form-control" aria-label="Buscar">
+        <input type="text" class="form-control" [(ngModel)]="keyword" aria-label="Buscar">
         <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Filtrar</button>
         <ul class="dropdown-menu dropdown-menu-end">
-          <li><a class="dropdown-item" href="#">Disponibilidad</a></li>
-          <li><a class="dropdown-item" href="#">Privacidad</a></li>
-          <li><a class="dropdown-item" href="#">Nombre</a></li>
-          <li><a class="dropdown-item" href="#">Organizador</a></li>
+          <li><a class="dropdown-item" (click)="getFilterEvents('disponibilidad')">Disponibilidad</a></li>
+          <li><a class="dropdown-item" (click)="getFilterEvents('privacidad')">Privacidad</a></li>
+          <li><a class="dropdown-item" (click)="getFilterEvents('nombre')">Nombre</a></li>
+          <li><a class="dropdown-item" (click)="getFilterEvents('organizador')">Organizador</a></li>
         </ul>
       </div>
     </div>
@@ -26,7 +26,7 @@
   <div class="container">
     <div class="d-flex flex-wrap">
       <div class="card col-lg-3 col-xl-3 col-md-3 col-sm-6 col-12 p-0 m-2" style="width: 18vw;" *ngFor="let evento of eventosLista; let i = index">
-        <img [src]="evento.image == undefined ? '../../../assets/images/default.jpg': evento.image" class="card-img-top" alt="...">    
+        <img [src]="evento.image == undefined ? '../../../assets/images/default.jpg': evento.image" class="card-img-top" alt="...">
         <div class="card-body">
           <div class="row">
             <div class="col-10">
@@ -165,7 +165,7 @@
                      Este no es un nombre válido
                     </div>
                   </div>
-                </div>  
+                </div>
               </div>
               <div class="mb-3">
                 <label for="institucion" class="form-label">Institución que representa:</label>
@@ -225,12 +225,12 @@
               <div class="mb-3">
                 <label for="descripcion" class="form-label">Descripción:</label>
                 <textarea formControlName="description_" class="form-control" id="descripcion" rows="4"></textarea>
-                
+
                 <div class="alert-danger" *ngIf="description_?.invalid && (description_?.dirty || description_?.touched)">
                   <div class="container-error-message" *ngIf="description_?.errors?.required">
                     Campo obligatorio
                   </div>
-                  
+
                 </div>
               </div>
               <div class="mb-3">
@@ -240,7 +240,7 @@
                     <div class="container-error-message" *ngIf="interests?.errors?.required">
                       Campo obligatorio
                     </div>
-                    
+
                 </div>
               </div>
               <div class="mb-5 d-flex justify-content-center">
