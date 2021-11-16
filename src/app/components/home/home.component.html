@@ -173,7 +173,7 @@
                   <option *ngFor="let institution of institutions, let i = index" [value]=institution.InstitutionID type="number">
                     {{institution.name}}
                   </option>
-                  <option value="Otra..."></option>
+                  <option value="Otra"> Otra</option>
                 </select>
               </div>
               <div class="mb-3" *ngIf="institutionRepresenting?.value==='Otra'">
