@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { faBell, faBookOpen, faChartBar, faHome } from '@fortawesome/free-solid-svg-icons';
 import { GeneralUserService } from 'src/app/services/user/general-user/general-user.service';
 
@@ -14,7 +15,7 @@ export class UserComponent implements OnInit {
   faStat = faChartBar;
   faBell = faBell;
   nameUser=this.generalUserService.getNombreUsuario();
-  constructor(private generalUserService:GeneralUserService) { }
+  constructor(private generalUserService:GeneralUserService, private router:Router) { }
 
 
 
@@ -23,6 +24,7 @@ export class UserComponent implements OnInit {
 
   eliminarToken():void{
   this.generalUserService.logout();
+  this.router.navigate(['inicio']); 
   }
 
 

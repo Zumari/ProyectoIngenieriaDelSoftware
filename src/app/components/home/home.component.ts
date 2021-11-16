@@ -185,7 +185,7 @@ loginForm = new FormGroup({
         this.router.navigate(['usuario/eventos']);   //DENTRO DE CORCHETES PONER DIRECCIÓN A LA QUE REDIRIGE AL HACER CLICK EN BOTON LOGIN     
         console.log(res);
       }
-    });
+    },error=> alert(error.error.message));
     $('body').removeClass('modal-open');
     $('.modal-backdrop').remove();
   }
