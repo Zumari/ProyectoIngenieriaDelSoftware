@@ -56,14 +56,14 @@ export class DashboardComponent implements OnInit {
   }];
 
 
-  constructor(private eventServ: EventsService, 
-    private institutionServ: InstitutionService, 
+  constructor(private eventServ: EventsService,
+    private institutionServ: InstitutionService,
     private router: Router,
     private generalService: GeneralUserService) { }
 
     ngOnInit(): void {
-      this.getEvents()
-      this.getInstitution()
+      this.getEvents();
+      this.getInstitution();
 
     }
 
@@ -88,7 +88,7 @@ get places(){
 }
 get openEvent(){
   return this.eventoForm.get('openEvent');
-} 
+}
 get institutionId(){
   return this.eventoForm.get('institutionId');
 }
@@ -102,9 +102,9 @@ get modality(){
     this.eventServ.createEvent(this.eventoForm.value,this.generalService.getEmail()).subscribe(
       res =>  {console.log(res)},
       error => console.log(error))
-    this.router.initialNavigation; 
+    this.router.initialNavigation;
 
-  }  
+  }
 
   getEvents(){
     this.eventServ.getAllEvents().subscribe(
@@ -118,7 +118,7 @@ get modality(){
     this.institutionServ.getInstitutions().subscribe(
       res =>  {this.institutions=res},
       error => console.log(error)
-      
+
 
     )
   }
