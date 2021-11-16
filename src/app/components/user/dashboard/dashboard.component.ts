@@ -7,6 +7,8 @@ import { InstitutionService } from 'src/app/services/institutions/institutions.s
 import { institution } from 'src/app/interfaces/institution';
 import { Router } from '@angular/router';
 import { GeneralUserService } from 'src/app/services/user/general-user/general-user.service';
+import { DatePipe } from '@angular/common';
+import { ValidadoresEspeciales } from 'src/app/util/ValidadorEspecial';
 
 @Component({
   selector: 'app-dashboard',
@@ -40,11 +42,11 @@ export class DashboardComponent implements OnInit {
 
   eventoForm = new FormGroup({
     photo : new FormControl(''),
-    name: new FormControl('',[Validators.required, Validators.maxLength(10), Validators.pattern('[a-zA-ZÑÁÉÍÓÚáéíóú][a-zA-Zñáéíóú ]{1,}')]),
+    name: new FormControl('',[Validators.required, Validators.maxLength(50), Validators.pattern('[a-zA-ZÑÁÉÍÓÚáéíóú][a-zA-Zñáéíóú ]{1,}')]),
     description_:new FormControl('',Validators.compose([Validators.required, Validators.maxLength(30), Validators.pattern('[a-zA-Z ]*')])),
-    startDate: new FormControl('', [Validators.required]),
-    endDate: new FormControl('', [Validators.required]),
-    places:  new FormControl('', [Validators.required]),
+    startDate: new FormControl('', [Validators.required, ValidadoresEspeciales.ValidarFechas]),
+    endDate: new FormControl('', [Validators.required,ValidadoresEspeciales.ValidarFechas]),
+    places:  new FormControl(0, [ Validators.min(0)]),
     openEvent:  new FormControl(true, [Validators.required]),
     institutionId: new FormControl(0,[Validators.required, Validators.min(0)]),
     modality: new FormControl('', Validators.required)
@@ -55,11 +57,17 @@ export class DashboardComponent implements OnInit {
     name:""
   }];
 
-
+  public fechaMinima: Date;
+  public fechaStrMinima:string ;
   constructor(private eventServ: EventsService,
     private institutionServ: InstitutionService,
     private router: Router,
-    private generalService: GeneralUserService) { }
+    private generalService: GeneralUserService,
+    private pipe:DatePipe) {
+      this.fechaMinima= new Date(new Date().getFullYear(),new Date().getMonth(), new Date().getDate());
+
+      this.fechaStrMinima= this.pipe.transform(this.fechaMinima, "yyyy-MM-dd")!;
+     }
 
     ngOnInit(): void {
       this.getEvents();

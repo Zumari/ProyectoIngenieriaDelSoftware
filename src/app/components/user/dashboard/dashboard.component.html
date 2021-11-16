@@ -22,7 +22,7 @@
   <div class="">
     <div class="d-flex flex-wrap">
       <div class="card col-lg-3 col-xl-3 col-md-3 col-sm-6 col-12 p-0 m-2" style="width: 18vw;" *ngFor="let evento of eventosLista; let i = index" (click)="viewEvent(evento.eventId) ">
-         <img [src]="evento.image == undefined ? '../../../assets/images/default.jpg': evento.image" class="card-img-top" alt="..."> -->   
+         <img [src]="evento.image == undefined ? '../../../assets/images/default.jpg': evento.image" class="card-img-top" alt="..."> 
         <div class="card-body">
           <div class="row">
             <div class="col-10">
@@ -82,20 +82,26 @@
               </div>
               <div class="mb-3">
                 <label for="inicio" class="form-label">Fecha de inicio:</label>
-                <input formControlName="startDate" type="date" class="form-control" id="inicio" placeholder="">
+                <input formControlName="startDate" type="date" [min]="fechaStrMinima"  class="form-control" id="inicio" placeholder="">
                 <div class="alert-danger" *ngIf="startDate?.invalid && (startDate?.dirty || startDate?.touched)">
                   <div class="container-error-message" *ngIf="startDate?.errors?.required">
                     Campo obligatorio
+                  </div>
+                  <div class="container-error-message" *ngIf="startDate?.hasError">
+                    fecha de inicio no debe ser menor que la de hoy
                   </div>                 
                 </div>
               </div>
               <div class="mb-3">
                 <label for="final" class="form-label">Fecha final:</label>
-                <input formControlName="endDate" type="date" class="form-control" id="final" placeholder="">
+                <input formControlName="endDate" type="date"  [min]="fechaStrMinima" class="form-control" id="final" placeholder="">
                 <div class="alert-danger" *ngIf="endDate?.invalid && (endDate?.dirty || endDate?.touched)">
                   <div class="container-error-message" *ngIf="endDate?.errors?.required">
                     Campo obligatorio
-                  </div>                 
+                  </div>
+                  <div class="container-error-message" *ngIf="startDate?.hasError">
+                    fecha de finalización no debe ser menor que la de hoy
+                  </div>                              
                 </div>
               </div>
               <div class="mb-3">
@@ -139,10 +145,10 @@
               </div> -->
               <div class="mb-3">
                 <label for="cantidad" class="form-label">Cantidad de participantes:</label>
-                <input formControlName="places" type="number" class="form-control" id="cantidad" placeholder="">
+                <input formControlName="places" type="number" min=0 class="form-control" id="cantidad" placeholder="">
                 <div class="alert-danger" *ngIf="places?.invalid && (places?.dirty || places?.touched)">
-                  <div class="container-error-message" *ngIf="places?.errors?.required">
-                    Campo obligatorio
+                  <div class="container-error-message" *ngIf="places?.errors?.min">
+                    No se admiten valores negativos
                   </div>                 
                 </div>
               </div>
@@ -162,7 +168,7 @@
                <!--  <button type="button" class="btn btn-secondary" style="font-size: smaller;" *ngIf="privacy == 'privado'">Inserte lista de participantes</button> -->
               </div>
               <div class="mb-5 d-flex justify-content-center">
-                <button  type="button" class="btn btn-warning" (click)="createEvents()" onclick="location.reload()" >Generar</button>
+                <button  type="button" [disabled]="!eventoForm.valid" class="btn btn-warning" (click)="createEvents()" onclick="location.reload()" >Generar</button>
               </div>
             </div>
           </div>
