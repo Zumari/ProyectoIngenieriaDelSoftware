@@ -52,18 +52,13 @@ export class EventComponent implements OnInit {
     this.eventServ.getEvent(id).subscribe(
       res =>  {
         this.event=res;
-        const institutioEvento=this.getInstitutionName(this.event.institutionId);
-        console.log(institutioEvento)
-        console.log(this.event.institutionId)
-/*         this.event.institutionId = institutioEvento.name; */
-/*         console.log(this.event.institutionId) */
+        this.institutionService.getInstitution(this.event.institutionId).subscribe(
+          res =>  {this.event.institutionId=res.name},
+          error => console.log(error)
+        )
       },
       error => console.log(error)
     )
-  }
-
-  getInstitutionName(id:number){
-    return this.institutionService.getInstitution(id);
   }
   
 }
