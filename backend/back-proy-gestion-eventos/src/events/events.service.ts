@@ -44,7 +44,12 @@ export class EventsService extends TypeOrmCrudService<Event> {
   }
 
   findFilter(type: string, keyword: string): Promise<Event[]> {
-    return this.repo.find(type, keyword);
+    let filter = {
+      keyword: Keyword
+    };
+
+
+    return this.repo.find(filter);
     // ===== AQUI DEBE BUSCARSE POR LA KEYWORD =====
   }
 
