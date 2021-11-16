@@ -173,12 +173,12 @@
                   <option *ngFor="let institution of institutions, let i = index" [value]=institution.InstitutionID type="number">
                     {{institution.name}}
                   </option>
-
+                  <option value="Otra..."></option>
                 </select>
               </div>
-              <div class="mb-3" *ngIf="institutionRepresenting?.touched">
+              <div class="mb-3" *ngIf="institutionRepresenting?.value==='Otra'">
                 <form [formGroup]="institutionForm">
-                  <label for="otra" class="form-label" >Otra:</label>
+                  <label for="otra" class="form-label" >Introduzca una nueva institución:</label>>
                   <input formControlName="name" type="text" class="form-control" id="otra" placeholder="">
                 </form>
               </div>
