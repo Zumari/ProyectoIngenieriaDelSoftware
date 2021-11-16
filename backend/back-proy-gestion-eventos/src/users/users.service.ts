@@ -27,7 +27,7 @@ export class UsersService {
                   }
                 } 
               return {
-                  "message":`El  usuario ${firstName} con correo ${email}ya existe dentro de la aplicacion`,
+                  "error-001":`El  usuario ${firstName} con correo ${email}ya existe dentro de la aplicacion`,
                 }
           }catch (error) {
               throw new Error(error);  

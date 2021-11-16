@@ -71,6 +71,7 @@ loginForm = new FormGroup({
   ngOnInit(): void {
     this.getInstitution();
     this.getEvents();
+    this.getAllUsers();
   }
 
   //Getters de los formControls de FormGroup loginForm para utilizar validaciones
@@ -135,6 +136,14 @@ loginForm = new FormGroup({
     )
   }
 
+  getAllUsers(){
+    this.generalUserService.getUsers().subscribe(
+      res =>  {console.log(res)},
+      error => console.log(error)
+
+    )
+  }
+
   getFilterEvents(typeFilter: string) {
     this.eventServ.getFilterEvents(typeFilter, this.keyword).subscribe(
       res =>  {this.eventosLista=res},
@@ -146,6 +155,7 @@ loginForm = new FormGroup({
   CreateUser(){
     console.log(this.registerForm.value);
     console.log(this.institutionForm.value);
+
     const institutionId = this.registerForm.value.institutionRepresenting;
 
     // Sino se selecciono institución obtener el nombre de la nueva institucion
@@ -155,7 +165,14 @@ loginForm = new FormGroup({
           console.log(res);
           this.registerForm.value.institutionRepresenting = res.InstitutionID;
           this.generalUserService.createUser(this.registerForm.value).subscribe(
-            res => {console.log(res)},
+            res => {
+              for (const key in res){
+                if (key == 'error-001'){
+                  alert('El correo ya esta registrado');
+                }
+              }
+              console.log(res);
+            },
             err =>console.log(err)
           )
         },
@@ -164,7 +181,9 @@ loginForm = new FormGroup({
     }else{
       this.registerForm.value.institutionRepresenting = Number(this.registerForm.value.institutionRepresenting);
       this.generalUserService.createUser(this.registerForm.value).subscribe(
-        res => {console.log(res)},
+        res => {
+          console.log(res);
+        },
         err =>console.log(err)
       )
     }
