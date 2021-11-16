@@ -19,9 +19,6 @@
             </a>
           </li>
           <li class="nav-item">
-            <button type="button" class="btn btn-warning" (click)="eliminarToken()">eliminar esa basura</button>
-            <br>
-            <br>
             <a class="nav-link text-light d-flex flex-wrap justify-content-center" routerLink="/usuario/estadisticas" routerLinkActive="nav-active" >
               <fa-icon [icon]="faStat" class="fs-1"></fa-icon>
               <label style="font-size: smaller; text-align: center;" for="">Estadisticas</label>
@@ -39,9 +36,20 @@
         <header div="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
           <div class="d-flex flex-wrap align-items-center justify-content-end justify-content-md-end justify-content-sm-end py-3 mb-4 ">
             <div class="d-flex align-items-center">
-              <fa-icon [icon]="faBell"></fa-icon>
+              <fa-icon [icon]="faBell" style="font-size: 1.5em;"></fa-icon>
               <label class="mx-2" for="" *ngIf="nameUser">{{nameUser}}</label>
-              <div class="sm-avatar"></div>
+
+              <div class="dropdown">
+                <button class=" dropdown-toggle" style="background-color: transparent; border: none;" type="button" id="menu" data-bs-toggle="dropdown" aria-expanded="false">
+                  <div class="sm-avatar">
+                    <img src="../../../assets/images/profile.png" alt="" class="avatar">
+                  </div>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="menu">
+                  <li><a class="dropdown-item" routerLink="/usuario/perfil">Perfil</a></li>
+                  <li><a class="dropdown-item" (click)="eliminarToken()">Cerrar sesión</a></li>
+                </ul>
+              </div>
             </div>
           </div>
         </header>

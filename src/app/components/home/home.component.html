@@ -173,12 +173,12 @@
                   <option *ngFor="let institution of institutions, let i = index" [value]=institution.InstitutionID type="number">
                     {{institution.name}}
                   </option>
-
+                  <option value="Otra"> Otra</option>
                 </select>
               </div>
-              <div class="mb-3">
+              <div class="mb-3" *ngIf="institutionRepresenting?.value==='Otra'">
                 <form [formGroup]="institutionForm">
-                  <label for="otra" class="form-label">Otra:</label>
+                  <label for="otra" class="form-label" >Introduzca una nueva institución:</label>>
                   <input formControlName="name" type="text" class="form-control" id="otra" placeholder="">
                 </form>
               </div>
@@ -244,7 +244,11 @@
                 </div>
               </div>
               <div class="mb-5 d-flex justify-content-center">
+<<<<<<< HEAD
                 <button type="button" class="btn btn-warning" (click)="CreateUser()" >Registrarme</button>
+=======
+                <button type="button"  [disabled]="!registerForm.valid" class="btn btn-warning" (click)="CreateUser()" onclick="location.reload()" >Registrarme</button>
+>>>>>>> 45045cef1e720d3812de6f4619f679a74676629e
               </div>
             </div>
           </div>

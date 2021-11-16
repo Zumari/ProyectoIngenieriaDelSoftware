@@ -42,11 +42,11 @@ export class DashboardComponent implements OnInit {
 
   eventoForm = new FormGroup({
     photo : new FormControl(''),
-    name: new FormControl('',[Validators.required, Validators.maxLength(10), Validators.pattern('[a-zA-ZÑÁÉÍÓÚáéíóú][a-zA-Zñáéíóú ]{1,}')]),
+    name: new FormControl('',[Validators.required, Validators.maxLength(50), Validators.pattern('[a-zA-ZÑÁÉÍÓÚáéíóú][a-zA-Zñáéíóú ]{1,}')]),
     description_:new FormControl('',Validators.compose([Validators.required, Validators.maxLength(30), Validators.pattern('[a-zA-Z ]*')])),
     startDate: new FormControl('', [Validators.required, ValidadoresEspeciales.ValidarFechas]),
-    endDate: new FormControl('', [Validators.required]),
-    places:  new FormControl('', [Validators.required]),
+    endDate: new FormControl('', [Validators.required,ValidadoresEspeciales.ValidarFechas]),
+    places:  new FormControl(0, [ Validators.min(0)]),
     openEvent:  new FormControl(true, [Validators.required]),
     institutionId: new FormControl(0,[Validators.required, Validators.min(0)]),
     modality: new FormControl('', Validators.required)
@@ -59,8 +59,8 @@ export class DashboardComponent implements OnInit {
 
   public fechaMinima: Date;
   public fechaStrMinima:string ;
-  constructor(private eventServ: EventsService, 
-    private institutionServ: InstitutionService, 
+  constructor(private eventServ: EventsService,
+    private institutionServ: InstitutionService,
     private router: Router,
     private generalService: GeneralUserService,
     private pipe:DatePipe) {
@@ -70,8 +70,8 @@ export class DashboardComponent implements OnInit {
      }
 
     ngOnInit(): void {
-      this.getEvents()
-      this.getInstitution()
+      this.getEvents();
+      this.getInstitution();
 
     }
 
@@ -96,7 +96,7 @@ get places(){
 }
 get openEvent(){
   return this.eventoForm.get('openEvent');
-} 
+}
 get institutionId(){
   return this.eventoForm.get('institutionId');
 }
@@ -110,9 +110,9 @@ get modality(){
     this.eventServ.createEvent(this.eventoForm.value,this.generalService.getEmail()).subscribe(
       res =>  {console.log(res)},
       error => console.log(error))
-    this.router.initialNavigation; 
+    this.router.initialNavigation;
 
-  }  
+  }
 
   getEvents(){
     this.eventServ.getAllEvents().subscribe(
@@ -126,7 +126,7 @@ get modality(){
     this.institutionServ.getInstitutions().subscribe(
       res =>  {this.institutions=res},
       error => console.log(error)
-      
+
 
     )
   }
