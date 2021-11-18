@@ -31,7 +31,7 @@
           <div class="row">
             <div class="col-10">
               <h5 class="card-title">{{evento.name}}</h5>
-          <div class="card-text">{{evento.startDate}}</div>
+          <div class="card-text">{{evento.startDate|date:'shortDate'}}</div>
           <div class="card-text">{{evento.description_}}</div>
             </div>
             <div class="col-2" style="position: relative;">
@@ -178,7 +178,7 @@
               </div>
               <div class="mb-3" *ngIf="institutionRepresenting?.value==0">
                 <form [formGroup]="institutionForm">
-                  <label for="otra" class="form-label" >Introduzca una nueva institución:</label>>
+                  <label for="otra" class="form-label" >Introduzca una nueva institución:</label>
                   <input formControlName="name" type="text" class="form-control" id="otra" placeholder="">
                 </form>
               </div>
