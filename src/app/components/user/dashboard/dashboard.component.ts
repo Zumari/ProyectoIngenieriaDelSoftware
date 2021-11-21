@@ -8,7 +8,7 @@ import { institution } from 'src/app/interfaces/institution';
 import { Router } from '@angular/router';
 import { GeneralUserService } from 'src/app/services/user/general-user/general-user.service';
 import { DatePipe } from '@angular/common';
-import { ValidadoresEspeciales } from 'src/app/util/ValidadorEspecial';
+import { ValidadoresEspeciales, dateValidator } from 'src/app/util/ValidadorEspecial';
 
 @Component({
   selector: 'app-dashboard',
@@ -45,12 +45,12 @@ export class DashboardComponent implements OnInit {
     name: new FormControl('',[Validators.required, Validators.maxLength(50), Validators.pattern('[a-zA-ZÑÁÉÍÓÚáéíóú][a-zA-Zñáéíóú ]{1,}')]),
     description_:new FormControl('',Validators.compose([Validators.required, Validators.maxLength(30), Validators.pattern('[a-zA-Z ]*')])),
     startDate: new FormControl('', [Validators.required, ValidadoresEspeciales.ValidarFechas]),
-    endDate: new FormControl('', [Validators.required,ValidadoresEspeciales.ValidarFechas]),
+    endDate: new FormControl('', [Validators.required]),
     places:  new FormControl(0, [ Validators.min(0)]),
     openEvent:  new FormControl(true, [Validators.required]),
     institutionId: new FormControl(0,[Validators.required, Validators.min(0)]),
     modality: new FormControl('', Validators.required)
-  })
+  },{validators:dateValidator})
 
   institutions: institution[]=[{
     InstitutionID:0,

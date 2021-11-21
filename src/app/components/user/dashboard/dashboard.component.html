@@ -94,15 +94,19 @@
               </div>
               <div class="mb-3">
                 <label for="final" class="form-label">Fecha final:</label>
-                <input formControlName="endDate" type="date"  [min]="fechaStrMinima" class="form-control" id="final" placeholder="">
-                <div class="alert-danger" *ngIf="endDate?.invalid && (endDate?.dirty || endDate?.touched)">
+                <input formControlName="endDate" type="date" [min]="fechaStrMinima" class="form-control" id="final" placeholder="">
+                <div class="alert-danger" *ngIf="endDate?.invalid && eventoForm?.invalid && (endDate?.dirty || endDate?.touched)">
                   <div class="container-error-message" *ngIf="endDate?.errors?.required">
                     Campo obligatorio
                   </div>
-                  <div class="container-error-message" *ngIf="startDate?.hasError">
-                    fecha de finalización no debe ser menor que la de hoy
-                  </div>                              
+                                   
                 </div>
+                <div class="alert-danger"*ngIf="eventoForm.hasError('dateValid')">
+                  <div class="container-error-message" *ngIf="eventoForm.hasError('dateValid')"  >
+                    Asegúrese que la fecha final es mayor que la de inicio
+                  </div>
+                </div>
+                
               </div>
               <div class="mb-3">
                 <label for="descripcion" class="form-label">Descripción:</label>

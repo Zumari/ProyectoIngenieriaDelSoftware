@@ -14,3 +14,20 @@ export class ValidadoresEspeciales{
     return invalido? {fechainvalida:true}:null; 
   }
 }
+
+
+
+export function dateValidator(control: AbstractControl) {
+  const start = control.get('startDate')?.value;
+  const end = control.get('endDate')?.value;
+  let fechainicio =  new Date(Date.parse(start));
+  let fechaFinal = new Date(new Date(end).getFullYear(),new Date(end).getUTCMonth(), new Date(end).getUTCDate());
+  
+  console.log(new Date(start));
+  console.log(fechaFinal)
+  let invalido:boolean
+  console.log('invalido= ',(new Date(end ).getTime()-new Date(start).getTime() <0 ));
+  invalido=((new Date(end ).getTime()-new Date(start).getTime() <0 ));
+  return  invalido? { dateValid:true }:null ;
+  
+    }
