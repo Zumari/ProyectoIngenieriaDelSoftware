@@ -114,7 +114,13 @@
                 <div class="alert-danger" *ngIf="description_?.invalid && (description_?.dirty || description_?.touched)">
                   <div class="container-error-message" *ngIf="description_?.errors?.required">
                     Campo obligatorio
-                  </div>                 
+                  </div>
+                  <div class="container-error-message" *ngIf="description_?.errors?.pattern">
+                    No es un nombre válido
+                  </div>
+                  <div  class="container-error-message" *ngIf="description_?.errors?.maxLength">
+                    El tamaño excede
+                  </div>
                 </div>
               </div>
               <div class="mb-3">

@@ -43,16 +43,16 @@ export class EventsService extends TypeOrmCrudService<Event> {
     return this.repo.find();
   }
 
-  findFilter(type: string, keyword: string): Promise<Event[]> {
+ /*  findFilter(type: string, keyword: string): Promise<Event[]> {
     let filter = {
-      keyword: Keyword
+      keyword: keyword
     };
 
 
     return this.repo.find(filter);
     // ===== AQUI DEBE BUSCARSE POR LA KEYWORD =====
   }
-
+ */
   findOneId(id: number): Promise<Event> {
     return this.repo.findOne(id);
   }

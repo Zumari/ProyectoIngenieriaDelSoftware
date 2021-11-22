@@ -43,7 +43,7 @@ export class DashboardComponent implements OnInit {
   eventoForm = new FormGroup({
     photo : new FormControl(''),
     name: new FormControl('',[Validators.required, Validators.maxLength(50), Validators.pattern('[a-zA-ZÑÁÉÍÓÚáéíóú][a-zA-Zñáéíóú ]{1,}')]),
-    description_:new FormControl('',Validators.compose([Validators.required, Validators.maxLength(30), Validators.pattern('[a-zA-Z ]*')])),
+    description_:new FormControl('',Validators.compose([Validators.required, Validators.maxLength(300), Validators.pattern('[a-zA-ZÑÁÉÍÓÚáéíóú][a-zA-Zñáéíóú ]{1,}')])),
     startDate: new FormControl('', [Validators.required, ValidadoresEspeciales.ValidarFechas]),
     endDate: new FormControl('', [Validators.required]),
     places:  new FormControl(0, [ Validators.min(0)]),

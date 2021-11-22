@@ -51,12 +51,12 @@ export class EventsController implements CrudController<Event> {
     return this.service.findAll();
   }
 
-
+/* 
   @Get('/getFilterEvents')
   findFilter(@Param('type') type: string, @Param('keyword') keyword: string) {
     return this.service.findFilter(type, keyword);
   }
-
+ */
   @Get('/getOneEventById/:id')
   findOne(@Param('id') id: number) {
     return this.service.findOneId(+id);
