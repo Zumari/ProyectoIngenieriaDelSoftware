@@ -47,6 +47,7 @@ registerForm = new FormGroup({
   email: new FormControl('',[Validators.required, Validators.pattern(/^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i)]),
   firstName : new FormControl('',[Validators.required, Validators.maxLength(30), Validators.pattern('[a-zA-ZÑÁÉÍÓÚáéíóú][a-zA-Zñáéíóú ]{1,}')]),
   password_: new FormControl('',[Validators.required, Validators.minLength(5)]),
+  repassword_: new FormControl('',[Validators.required, Validators.minLength(5)]),
   middleName  : new FormControl('',[Validators.required, Validators.maxLength(30), Validators.pattern('[a-zA-ZÑÁÉÍÓÚáéíóú][a-zA-Zñáéíóú ]{1,}')]),
   lastName : new FormControl('',[Validators.required, Validators.maxLength(30), Validators.pattern('[a-zA-ZÑÁÉÍÓÚáéíóú][a-zA-Zñáéíóú ]{1,}')]),
   secondLastName: new FormControl('',[Validators.required, Validators.maxLength(30), Validators.pattern('[a-zA-ZÑÁÉÍÓÚáéíóú][a-zA-Zñáéíóú ]{1,}')]),
@@ -64,6 +65,10 @@ loginForm = new FormGroup({
   email: new FormControl('',[Validators.required, Validators.pattern(/^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i)]),
 
   password_: new FormControl('',[Validators.required, Validators.minLength(5)])
+});
+
+restartPasswordForm = new FormGroup({
+  email: new FormControl('',[Validators.required, Validators.pattern(/^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i)])
 });
 
   constructor( private eventServ: EventsService, private generalUserService:GeneralUserService, private institutionServ:InstitutionService, private router:Router) { }
@@ -128,6 +133,10 @@ loginForm = new FormGroup({
     return this.registerForm.get('password_');
   }
 
+  get repassReg(){
+    return this.registerForm.get('repassword_');
+  }
+
   getEvents(){
     this.eventServ.getAllEvents().subscribe(
       res =>  {this.eventosLista=res},
@@ -159,33 +168,39 @@ loginForm = new FormGroup({
     const institutionId = this.registerForm.value.institutionRepresenting;
 
     // Sino se selecciono institución obtener el nombre de la nueva institucion
-    if(institutionId == 0){
-      this.institutionServ.createInstitution(this.institutionForm.value).subscribe(
-        res => {
-          console.log(res);
-          this.registerForm.value.institutionRepresenting = res.InstitutionID;
-          this.generalUserService.createUser(this.registerForm.value).subscribe(
-            res => {
-              for (const key in res){
-                if (key == 'error-001'){
-                  alert('El correo ya esta registrado');
+    if (this.registerForm.get('repassword_')?.value == this.registerForm.get('password_')?.value) {
+      if(institutionId == 0){
+        this.institutionServ.createInstitution(this.institutionForm.value).subscribe(
+          res => {
+            console.log(res);
+            this.registerForm.value.institutionRepresenting = res.InstitutionID;
+            this.registerForm.get('repassword_')?.disable();
+            this.generalUserService.createUser(this.registerForm.value).subscribe(
+              res => {
+                for (const key in res){
+                  if (key == 'error-001'){
+                    alert('El correo ya esta registrado');
+                  }
                 }
-              }
-              console.log(res);
-            },
-            err =>console.log(err)
-          )
-        },
-        err =>console.log('No se intento crear una institucion')
-      )
-    }else{
-      this.registerForm.value.institutionRepresenting = Number(this.registerForm.value.institutionRepresenting);
-      this.generalUserService.createUser(this.registerForm.value).subscribe(
-        res => {
-          console.log(res);
-        },
-        err =>console.log(err)
-      )
+                console.log(res);
+              },
+              err =>console.log(err)
+            )
+          },
+          err =>console.log('No se intento crear una institucion')
+        )
+      }else{
+        this.registerForm.value.institutionRepresenting = Number(this.registerForm.value.institutionRepresenting);
+        this.registerForm.get('repassword_')?.disable();
+        this.generalUserService.createUser(this.registerForm.value).subscribe(
+          res => {
+            console.log(res);
+          },
+          err =>console.log(err)
+        )
+      }
+    } else {
+      //pongan mensaje de contraseñas no coinciden
     }
 
     $('body').removeClass('modal-open');
@@ -218,4 +233,18 @@ loginForm = new FormGroup({
     $('body').removeClass('modal-open');
     $('.modal-backdrop').remove();
   }
+
+  OnRestartPassword() {
+    $('#login').removeClass('show');
+    $('#restartPassword').css('display', 'block');
+    $('#restartPassword').addClass('show');
+  }
+
+  closeRestartPassword() {
+    $('.modal-backdrop').remove();
+    $('#restartPassword').css('display', 'none');
+    $('#restartPassword').addClass('hide');
+  }
+
+  OnSendRestartPassword() {}
 }

@@ -10,3 +10,18 @@
 .container-error-message{
     padding: 2px;
 }
+
+.btn-link {
+  color: #3576A0 !important;
+  background-color: transparent;
+  border: none;
+}
+
+.close-restart-password {
+  height: 30px;
+  width: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
