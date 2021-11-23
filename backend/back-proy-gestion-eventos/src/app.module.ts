@@ -16,6 +16,7 @@ import { StatusController } from './status/status.controller';
 import { StatusService } from './status/status.service';
 import { AuthModule } from './auth/auth.module';
 import { EventsModule } from './events/events.module';
+import { MailModule } from './mail/mail.module';
 
 @Module({
   imports: [TypeOrmModule.forRoot({
@@ -40,7 +41,7 @@ import { EventsModule } from './events/events.module';
       validateConnection: false,
       IntegratedSecurity: false,
     }
-  }),UsersModule,InstitutionsModule,StatusModule, AuthModule, EventsModule
+  }),UsersModule,InstitutionsModule,StatusModule, AuthModule, EventsModule, MailModule
 ],
   controllers: [AppController, UsersController,InstitutionsController,StatusController],
   providers: [AppService, UsersService,InstitutionsService,StatusService],
