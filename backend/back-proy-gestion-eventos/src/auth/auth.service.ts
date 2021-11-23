@@ -1,13 +1,16 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import { MailService } from 'src/mail/mail.service';
 import { UsersService } from 'src/users/users.service';
+import { ForgotUser } from './DTO/forgotUser.dto';
 import { JWTPayload } from './JWT/jwt.payload';
 
 @Injectable()
 export class AuthService {
     constructor(
         private usersService: UsersService,
-        private jwtService: JwtService
+        private jwtService: JwtService,
+        private mailService: MailService
       ) {}
     
       async validateUser(email: string, pass: string): Promise<boolean> {
@@ -25,5 +28,9 @@ export class AuthService {
         return {
           access_token: this.jwtService.sign(payload),
         };
+      }
+
+      async sendEmailForgotPassword(forgotUser:ForgotUser){
+        await  this.mailService.sendUserPassword(forgotUser.email);
       }
 }

@@ -1,6 +1,7 @@
 import { Body, Controller, Post, UnauthorizedException } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { AuthService } from './auth.service';
+import { ForgotUser } from './DTO/forgotUser.dto';
 import { loginUser } from './DTO/loginUser.dto';
 
 @ApiTags('auth')
@@ -16,4 +17,11 @@ constructor(private authServie:AuthService){}
       }
       return await this.authServie.generateAccessToken(loginDTO.email);
     }
+
+    @Post('/forgot')
+    async forgot(@Body() forgotUser: ForgotUser){
+         this.authServie.sendEmailForgotPassword(forgotUser);
+    }
+
+
 }
