@@ -1,3 +1,5 @@
+import { RestartPasswordComponent } from './components/restartPassword/restart-password/restart-password.component';
+import { ChangePasswordComponent } from './components/changePassword/change-password/change-password.component';
 import { UserGuard } from './guards/user/user.guard';
 import { HomeComponent } from './components/home/home.component';
 import { StatisticsComponent } from './components/user/statistics/statistics.component';
@@ -22,7 +24,9 @@ const routes: Routes = [
     {path: 'estadisticas', component: StatisticsComponent},
     {path: 'mi-evento/:name', component: MyeventComponent},
     {path: 'evento/:name', component: EventComponent}
-  ] }
+  ] },
+  { path: 'restaurar-contrasenia', component: ChangePasswordComponent },
+  { path: 'resetear-contrasenia', component: RestartPasswordComponent }
 ];
 
 @NgModule({

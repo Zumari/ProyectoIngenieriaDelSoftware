@@ -90,7 +90,7 @@
                 </div>
               </div>
               <div class="mb-3 d-flex justify-content-center">
-                <button type="button" class="btn btn-warning" (click)="Onlogin() ">Iniciar sesión</button>
+                <button type="button" class="btn btn-warning" data-bs-toggle="modal" href="#restartPassword" (click)="Onlogin() ">Iniciar sesión</button>
               </div>
 
               <div class="mb-3 d-flex justify-content-center">
@@ -104,48 +104,6 @@
   </div>
 </div>
 
-
-<!-- Modal restartPassword -->
-<div class="modal fade"  id="restartPassword" tabindex="-1" aria-labelledby="restartPasswordLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-body p-0">
-        <div class="mb-3">
-          <div style="z-index: 5; position: relative;">
-            <div class="bg-primary d-flex justify-content-md-between" style="height: 8vw;">
-              <img src="../../../assets/images/ESLogo.svg" alt="...">
-              <button type="button" class="btn btn-warning close-restart-password" (click)="closeRestartPassword() ">X</button>
-            </div>
-          </div>
-        </div>
-        <form [formGroup]="restartPasswordForm">
-          <div>
-            <div class="row px-5">
-              <div class="mb-3">
-                <label for="correo" class="form-label">Correo electrónico:</label>
-                <input type="email" formControlName="email" class="form-control" id="correo" placeholder="">
-                <div class="alert-danger" *ngIf="emailLog?.invalid && (emailLog?.dirty || emailLog?.touched)">
-                  <div class="container-error-message" *ngIf="emailLog?.errors?.required">
-                    Campo obligatorio
-                  </div>
-                  <div class="container-error-message" *ngIf="emailLog?.errors?.pattern">
-                    No es un correo válido
-                  </div>
-                </div>
-
-              </div>
-              <div class="mb-3 d-flex justify-content-center">
-                <button type="button" class="btn btn-warning" (click)="OnSendRestartPassword() ">Restablecer contraseña</button>
-              </div>
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
-
-
 <!-- Modal registro -->
 <div class="modal fade" id="registro" tabindex="-1" aria-labelledby="registroLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -158,7 +116,11 @@
             </div>
           </div>
           <div style="z-index: 10; background-color: gray; border-radius: 100%; height: 10vw; width: 10vw; margin: auto; top: -4vw; position: relative;">
-            <img src="" alt="">
+            <img [src]="imgPerfil" alt="" style="width: 100%; height: 100%; border-radius: 100%;">
+            <input type="file" name="perfil" id="perfil" style="visibility: hidden;" (change)="cambiarImagen()">
+            <label for="perfil" class="perfil-registro">
+              <fa-icon [icon]="faCamera"></fa-icon>
+            </label>
           </div>
         </div>
         <form [formGroup]="registerForm">

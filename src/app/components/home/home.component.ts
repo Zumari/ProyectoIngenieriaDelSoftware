@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { faBookmark, faLock } from '@fortawesome/free-solid-svg-icons';
 import { EventsService } from 'src/app/services/user/events/events.service';
 import { Event } from 'src/app/interfaces/event';
 import { GeneralUserService } from 'src/app/services/user/general-user/general-user.service';
@@ -8,6 +7,7 @@ import { InstitutionService } from 'src/app/services/institutions/institutions.s
 import { institution } from 'src/app/interfaces/institution';
 import { Router } from '@angular/router';
 import * as $ from 'jquery';
+import { faBookmark, faCamera, faLock } from '@fortawesome/free-solid-svg-icons';
 
 
 
@@ -18,6 +18,7 @@ import * as $ from 'jquery';
 })
 export class HomeComponent implements OnInit {
 
+  display: string = 'none';
   faBookmark = faBookmark;
   faLock = faLock;
   keyword: string = '';
@@ -35,6 +36,8 @@ export class HomeComponent implements OnInit {
   userId: 0,
   image: '',
   }]; //Arreglo de eventos para recorrer y pintar el html con NGFOR
+  faCamera = faCamera;
+  imgPerfil: any;
 
 
   //Para recorrer y llenar el select-list de instituciones
@@ -67,16 +70,28 @@ loginForm = new FormGroup({
   password_: new FormControl('',[Validators.required, Validators.minLength(5)])
 });
 
-restartPasswordForm = new FormGroup({
-  email: new FormControl('',[Validators.required, Validators.pattern(/^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i)])
-});
-
-  constructor( private eventServ: EventsService, private generalUserService:GeneralUserService, private institutionServ:InstitutionService, private router:Router) { }
+  constructor( private eventServ: EventsService,
+    private generalUserService:GeneralUserService,
+    private institutionServ:InstitutionService, private router:Router) { }
 
   ngOnInit(): void {
     this.getInstitution();
     this.getEvents();
     this.getAllUsers();
+  }
+
+  cambiarImagen(){
+    let img = (document.getElementById('perfil')) as HTMLInputElement;
+    if (img.files!.length>0){
+      var reader = new FileReader();
+      reader.onload = () => {
+        this.imgPerfil = reader.result;
+      };
+      reader.readAsDataURL(img.files![0]);
+      // this.imgPerfil = URL.createObjectURL(img.files![0]);
+
+      console.log(this.imgPerfil);
+    }
   }
 
   //Getters de los formControls de FormGroup loginForm para utilizar validaciones
@@ -236,8 +251,13 @@ restartPasswordForm = new FormGroup({
 
   OnRestartPassword() {
     $('#login').removeClass('show');
-    $('#restartPassword').css('display', 'block');
-    $('#restartPassword').addClass('show');
+    $('.modal-backdrop').remove();
+
+    const url = this.router.serializeUrl(
+      this.router.createUrlTree([`/resetear-contrasenia`])
+    );
+
+    window.open(url, '_blank');
   }
 
   closeRestartPassword() {
@@ -245,6 +265,4 @@ restartPasswordForm = new FormGroup({
     $('#restartPassword').css('display', 'none');
     $('#restartPassword').addClass('hide');
   }
-
-  OnSendRestartPassword() {}
 }

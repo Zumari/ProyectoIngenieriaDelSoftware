@@ -7,7 +7,7 @@ export class createUserDto{
     @IsEmail()
     @ApiProperty()
     email: string;
-    
+
     @IsNotEmpty()
     @IsString()
     @ApiProperty()
@@ -49,8 +49,8 @@ export class createUserDto{
      password_: string;
 
     @IsNotEmpty()
-    @IsNumber()
+    @IsString()
     @ApiProperty()
-    institutionRepresenting:number;
+    institutionRepresenting: string;
 
 }

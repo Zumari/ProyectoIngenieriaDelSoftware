@@ -19,6 +19,8 @@ import { DatePipe } from '@angular/common';
 /* import { ToastContainerModule } from 'ngx-toastr'; */
 
 import { FormsModule } from '@angular/forms';
+import { ChangePasswordComponent } from './components/changePassword/change-password/change-password.component';
+import { RestartPasswordComponent } from './components/restartPassword/restart-password/restart-password.component';
 
 
 @NgModule({
@@ -32,7 +34,9 @@ import { FormsModule } from '@angular/forms';
     StatisticsComponent,
     MyeventComponent,
     EventComponent,
-    HomeComponent
+    HomeComponent,
+    ChangePasswordComponent,
+    RestartPasswordComponent
   ],
   imports: [
     BrowserModule,
