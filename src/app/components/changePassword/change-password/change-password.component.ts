@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { GeneralUserService } from 'src/app/services/user/general-user/general-user.service';
 
 @Component({
   selector: 'app-change-password',
@@ -7,15 +9,19 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./change-password.component.scss']
 })
 export class ChangePasswordComponent implements OnInit {
+   private emailUser:string="";
+   constructor(private generalUserService:GeneralUserService,private router:Router,private activatedRoute:ActivatedRoute) {
+    this.activatedRoute.queryParams.subscribe(params => {
+      this.emailUser = this.activatedRoute.snapshot.params.email;
+    });
 
-  constructor() { }
+   }
 
   ngOnInit(): void {
   }
 
   restartPasswordForm = new FormGroup({
-    password_: new FormControl('',[Validators.required, Validators.pattern(/^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i)]),
-    repassword_: new FormControl('',[Validators.required, Validators.pattern(/^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i)])
+    password_: new FormControl('',[Validators.required, Validators.pattern(/^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i)])
   });
 
   get passLog(){
@@ -26,6 +32,14 @@ export class ChangePasswordComponent implements OnInit {
     return this.restartPasswordForm.get('repassword_');
   }
 
-  OnRestartPassword() {}
-
+  OnRestartPassword() {
+    console.log(this.restartPasswordForm.value);
+    console.log("email del usuario sacado de la url",this.emailUser);
+    console.log("parametros a enviar",this.emailUser);
+    this.generalUserService.changePassword(this.emailUser,this.restartPasswordForm.value).subscribe(
+      res =>  {console.log(res)},
+      error => console.log(error)
+    );
+  }
+    
 }
