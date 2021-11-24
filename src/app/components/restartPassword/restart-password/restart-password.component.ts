@@ -27,7 +27,10 @@ export class RestartPasswordComponent implements OnInit {
   OnSendRestartPassword(): void {
       console.log("llego aqui");
       console.log(this.restartPasswordForm.value);
-      this.generalUserService.forgotPassword(this.restartPasswordForm.value);
+      this.generalUserService.forgotPassword(this.restartPasswordForm.value).subscribe(
+        res =>  {console.log(res)},
+        error => console.log(error)
+      );
       //this.router.navigate(['inicio']);   //DENTRO DE CORCHETES PONER DIRECCIÓN A LA QUE REDIRIGE AL HACER CLICK EN BOTON LOGIN
 
   }

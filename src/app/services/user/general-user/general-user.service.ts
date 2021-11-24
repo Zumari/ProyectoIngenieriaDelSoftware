@@ -58,7 +58,7 @@ export class GeneralUserService {
 
   forgotPassword(forgotUser:ForgotUser){
     console.log("pasamos el back y mandamos",forgotUser);
-    return  this.httpClient.post('http://localhost:3000/auth/forgot',forgotUser);
+    return  this.httpClient.post('http://localhost:3000/auth/forgot/',forgotUser);
   }
 
   changePassword(email:string,user:changePassword):Observable<User>{
