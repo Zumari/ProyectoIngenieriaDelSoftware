@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { EventsService } from 'src/app/services/user/events/events.service';
-import { Event } from 'src/app/interfaces/event';
 import { faBookmark, faLock, faPlus, faPlusCircle } from '@fortawesome/free-solid-svg-icons';
+import { GeneralUserService } from 'src/app/services/user/general-user/general-user.service';
+
+
 
 @Component({
   selector: 'app-myevents',
@@ -14,23 +16,40 @@ export class MyeventsComponent implements OnInit {
   faBookmark = faBookmark;
   faLock = faLock;
 
-  eventosLista : Event[]=[{
-    eventId:0,
-    image: '',
-    name:'',
-    description_:'',
-    startDate:'',
-    endDate:'',
-    places: 0,
-    openEvent: true,
-    institutionId: 0,
-    statusId:0,
-    userId:0,
+  eventosLista : any[]=[ {
+    name: '',
+    startDate: '',
+    endDate: '',
+    places :'',
     modality:'',
+    statusId:'',
+    institutionId: '',
+    description_: '',
+    userId: '',
+    startTime: '',
+    endTime: '',
+    image: ''
   }];
-  constructor() { }
+
+  public usuarioId= this.generalUserService.getEmail();
+  
+  constructor(
+    private generalUserService:GeneralUserService,
+    private eventServ:EventsService) { }
 
   ngOnInit(): void {
+
+    this.getEventsForUser();
   }
+
+
+  getEventsForUser(){
+    this.eventServ.getEventsForUser(this.usuarioId).subscribe(
+      res =>  {this.eventosLista=res},
+      error => console.log(error)
+
+    )
+  }
+
 
 }
