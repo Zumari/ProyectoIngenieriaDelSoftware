@@ -20,6 +20,7 @@ constructor(private authServie:AuthService){}
 
     @Post('/forgot')
     async forgot(@Body() forgotUser: ForgotUser){
+         console.log("llegamos al backend",forgotUser.email);
          this.authServie.sendEmailForgotPassword(forgotUser);
     }
 

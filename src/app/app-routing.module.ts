@@ -25,7 +25,7 @@ const routes: Routes = [
     {path: 'mi-evento/:name', component: MyeventComponent},
     {path: 'evento/:name', component: EventComponent}
   ] },
-  { path: 'restaurar-contrasenia', component: ChangePasswordComponent },
+  { path: 'restaurar-contrasenia/:email', component: ChangePasswordComponent },
   { path: 'resetear-contrasenia', component: RestartPasswordComponent }
 ];
 

@@ -51,7 +51,8 @@ export class UsersService {
     async updateUser(email:string,user:updateUser){
         try {
             const post = await this.usersRepository.findOne(email);
-            if(!post) throw new NotFoundException(`El usuario ${user.firstName} con correo ${email} no existe dentro de la aplicacion`);
+            if(!post) throw new NotFoundException(`El usuario con correo ${email} no existe dentro de la aplicacion`);
+            
             const editPost =Object.assign(post,user);
             return await this.usersRepository.save(editPost);
         } catch (error) {

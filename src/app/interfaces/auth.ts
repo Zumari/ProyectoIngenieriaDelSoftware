@@ -16,5 +16,11 @@ export interface UserResponse{
         
 }
 
+export interface ForgotUser{
+    email: string;
+}
+
+
+
 
 

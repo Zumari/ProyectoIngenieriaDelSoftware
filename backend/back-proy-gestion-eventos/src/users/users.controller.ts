@@ -42,6 +42,7 @@ export class UsersController {
 
     @Put('/updateUser/:email')
     async updateUser(@Param('email') id:string,@Body() user:updateUser){
+      console.log("llegamos aqui al update con el usuaio",user);
       return this.userService.updateUser(id,user)  ;
     }
 }

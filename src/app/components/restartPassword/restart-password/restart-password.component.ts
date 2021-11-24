@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { GeneralUserService } from 'src/app/services/user/general-user/general-user.service';
 
 @Component({
   selector: 'app-restart-password',
@@ -8,7 +10,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class RestartPasswordComponent implements OnInit {
 
-  constructor() { }
+  constructor(private generalUserService:GeneralUserService,private router:Router) { }
 
   ngOnInit(): void {
   }
@@ -22,12 +24,30 @@ export class RestartPasswordComponent implements OnInit {
   }
 
 
-  OnSendRestartPassword() {
-    if (this.restartPasswordForm.valid) {
-      console.log('valid');
-    } else {
-      console.log('invalid');
-    }
+  OnSendRestartPassword(): void {
+      console.log("llego aqui");
+      console.log(this.restartPasswordForm.value);
+      this.generalUserService.forgotPassword(this.restartPasswordForm.value);
+      //this.router.navigate(['inicio']);   //DENTRO DE CORCHETES PONER DIRECCIÓN A LA QUE REDIRIGE AL HACER CLICK EN BOTON LOGIN
+
   }
+
+  /*Onlogin():void{
+    this.generalUserService.login(this.loginForm.value)
+    .subscribe((res)=>{
+      if(res){
+        this.router.navigate(['usuario/eventos']);   //DENTRO DE CORCHETES PONER DIRECCIÓN A LA QUE REDIRIGE AL HACER CLICK EN BOTON LOGIN
+        console.log(res);
+      }
+    },error=> alert(error.error.message));
+    $('body').removeClass('modal-open');
+    $('.modal-backdrop').remove();
+  }
+
+  OnRestartPassword() {
+    this.generalUserService.forgotPassword(this.restartPasswordForm.value)
+    
+  }*/
+
 
 }
