@@ -51,6 +51,11 @@ export class EventsController implements CrudController<Event> {
     return this.service.findAll();
   }
 
+  @Get('/getAllEventsWhere/:email')
+  findAllWhere(@Param('email') email:string) {
+    return this.service.findAllWhere(email);
+  }
+
 /* 
   @Get('/getFilterEvents')
   findFilter(@Param('type') type: string, @Param('keyword') keyword: string) {
@@ -61,6 +66,7 @@ export class EventsController implements CrudController<Event> {
   findOne(@Param('id') id: number) {
     return this.service.findOneId(+id);
   }
+
 
   @Patch('/updateEvent/:id')
   update(@Param('id') id: number, @Body() updateEventDto: UpdateEventDto) {

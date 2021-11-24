@@ -17,6 +17,8 @@ import { StatusService } from './status/status.service';
 import { AuthModule } from './auth/auth.module';
 import { EventsModule } from './events/events.module';
 import { MailModule } from './mail/mail.module';
+import { EventImagesController } from './event-images/event-images.controller';
+import { EventImagesModule } from './event-images/event-images.module';
 
 @Module({
   imports: [TypeOrmModule.forRoot({
@@ -41,9 +43,9 @@ import { MailModule } from './mail/mail.module';
       validateConnection: false,
       IntegratedSecurity: false,
     }
-  }),UsersModule,InstitutionsModule,StatusModule, AuthModule, EventsModule, MailModule
+  }),UsersModule,InstitutionsModule,StatusModule, AuthModule, EventsModule, MailModule, EventImagesModule
 ],
-  controllers: [AppController, UsersController,InstitutionsController,StatusController],
+  controllers: [AppController, UsersController,InstitutionsController,StatusController, EventImagesController],
   providers: [AppService, UsersService,InstitutionsService,StatusService],
 })
 export class AppModule {

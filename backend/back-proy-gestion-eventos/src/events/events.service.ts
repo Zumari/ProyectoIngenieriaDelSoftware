@@ -43,6 +43,9 @@ export class EventsService extends TypeOrmCrudService<Event> {
     return this.repo.find();
   }
 
+  findAllWhere(email: string): Promise<Event[]> {
+    return this.repo.find({ where: { userId: email } });
+  }
  /*  findFilter(type: string, keyword: string): Promise<Event[]> {
     let filter = {
       keyword: keyword

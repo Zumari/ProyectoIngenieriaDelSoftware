@@ -1,3 +1,4 @@
+import { EventImages } from 'src/event-images/entities/event-images.entity';
 import { Institutions } from 'src/institutions/Entities/Institutions.entity';
 import { Status } from 'src/status/Entities/status.entity';
 import { Users } from 'src/users/Entities/user.entity';
@@ -54,4 +55,7 @@ export class Event {
     @ManyToOne(type => Users, Users=> Users.EventID) 
     @JoinColumn({name:'user'})
     UsersID!: Users;
+
+    @OneToMany( type => EventImages,EventImages=>EventImages.eventID)
+    eventImages: EventImages[];
 }
