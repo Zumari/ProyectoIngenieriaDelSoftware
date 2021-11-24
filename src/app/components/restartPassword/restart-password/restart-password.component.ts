@@ -31,7 +31,7 @@ export class RestartPasswordComponent implements OnInit {
         res =>  {console.log(res)},
         error => console.log(error)
       );
-      //this.router.navigate(['inicio']);   //DENTRO DE CORCHETES PONER DIRECCIÓN A LA QUE REDIRIGE AL HACER CLICK EN BOTON LOGIN
+      this.router.navigate(['inicio']);   //DENTRO DE CORCHETES PONER DIRECCIÓN A LA QUE REDIRIGE AL HACER CLICK EN BOTON LOGIN
 
   }
 

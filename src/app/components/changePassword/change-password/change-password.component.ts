@@ -40,6 +40,7 @@ export class ChangePasswordComponent implements OnInit {
       res =>  {console.log(res)},
       error => console.log(error)
     );
+    this.router.navigate(['inicio']); 
   }
     
 }

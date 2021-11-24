@@ -16,7 +16,7 @@ export class MailService {
         template: './sendPassword', // `.hbs` extension is appended automatically
         context: { // ✏️ filling curly brackets with content
           name: name,
-          url:`http://localhost:4200/restaurar-contrasenia/:${emailUser}`
+          url:`http://localhost:4200/restaurar-contrasenia/${emailUser}`
         },
       });
     }

@@ -63,8 +63,8 @@ export class GeneralUserService {
 
   changePassword(email:string,user:changePassword):Observable<User>{
     console.log(user);
-    console.log(`http://localhost:3000/users/updateUser/${email}`,user);
-    return this.httpClient.put<User>(`http://localhost:3000/users/updateUser/${email}`,user);
+    console.log(`http://localhost:3000/users/updatePasswordUser/${email}`,user);
+    return this.httpClient.put<User>(`http://localhost:3000/users/updatePasswordUser/${email}`,user);
   }
 
    setToken(token: string):void{

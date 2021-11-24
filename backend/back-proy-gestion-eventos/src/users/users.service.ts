@@ -59,6 +59,18 @@ export class UsersService {
             throw new Error(error);
         }
     }
+    async updatePasswordUser(email:string,user:updateUser){
+        try {
+            const post = await this.usersRepository.findOne(email);
+            if(!post) throw new NotFoundException(`El usuario con correo ${email} no existe dentro de la aplicacion`);
+            
+            const editPost =Object.assign(post,user);
+            await editPost.hashPassword();
+            return await this.usersRepository.save(editPost);
+        } catch (error) {
+            throw new Error(error);
+        }
+    }
 
     async findAll(){
         try {
