@@ -26,8 +26,8 @@ export class EventsService {
     return this.httpClient.post<Event>(`http://localhost:3000/events/createEvent/${email}`,event);
    }
 
-   getEventsForUser(email : any):Observable<any[]>{
-    return this.httpClient.get<Event[]>(`http://localhost:3000/events/getAllEventsWhere/'${email}/`,);
+   getEventsForUser(email : string):Observable<Event[]>{
+    return this.httpClient.get<Event[]>(`http://localhost:3000/events/getAllEventsWhere/${email}`,{});
    }
 
 
