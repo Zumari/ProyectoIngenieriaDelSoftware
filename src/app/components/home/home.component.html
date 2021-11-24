@@ -215,13 +215,18 @@
               </div>
               <div class="mb-3">
                 <label for="contrasenia" class="form-label">Confirme su contraseña:</label>
-                <input type="repassword" formControlName="repassword_" class="form-control" id="recontrasenia" placeholder="">
+                <input type="password" formControlName="repassword_" class="form-control" id="recontrasenia" placeholder="">
                 <div class="alert-danger" *ngIf="repassReg?.invalid && (repassReg?.dirty || repassReg?.touched)">
                   <div class="container-error-message" *ngIf="repassReg?.errors?.required">
                     Campo obligatorio
                   </div>
                   <div class="container-error-message" *ngIf="repassReg?.errors?.minlength">
                     Mínimo 5 caracteres
+                  </div>
+                  <div class="alert-danger" *ngIf="registerForm.hasError('mismatch')">
+                    <div class="container-error-message" *ngIf="registerForm.hasError('mismatch')">
+                      Las contraseñas no coinciden
+                    </div>
                   </div>
                 </div>
               </div>

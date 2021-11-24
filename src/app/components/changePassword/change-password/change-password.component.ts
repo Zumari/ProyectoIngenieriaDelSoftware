@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GeneralUserService } from 'src/app/services/user/general-user/general-user.service';
+import { passwordMatchValidator } from 'src/app/util/ValidadorEspecial';
 
 @Component({
   selector: 'app-change-password',
@@ -21,8 +22,9 @@ export class ChangePasswordComponent implements OnInit {
   }
 
   restartPasswordForm = new FormGroup({
-    password_: new FormControl('',[Validators.required, Validators.pattern(/^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i)])
-  });
+    password_: new FormControl('',Validators.required ),
+    repassword_: new FormControl('',Validators.required )
+  },{validators:passwordMatchValidator});
 
   get passLog(){
     return this.restartPasswordForm.get('password_');
@@ -36,7 +38,7 @@ export class ChangePasswordComponent implements OnInit {
     console.log(this.restartPasswordForm.value);
     console.log("email del usuario sacado de la url",this.emailUser);
     console.log("parametros a enviar",this.emailUser);
-    this.generalUserService.changePassword(this.emailUser,this.restartPasswordForm.value).subscribe(
+    this.generalUserService.changePassword(this.emailUser,this.passLog?.value).subscribe(
       res =>  {console.log(res)},
       error => console.log(error)
     );

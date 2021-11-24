@@ -26,8 +26,24 @@ export function dateValidator(control: AbstractControl) {
   console.log(new Date(start));
   console.log(fechaFinal)
   let invalido:boolean
-  console.log('invalido= ',(new Date(end ).getTime()-new Date(start).getTime() <0 ));
+  /*console.log('invalido= ',(new Date(end ).getTime()-new Date(start).getTime() <0 ));*/
   invalido=((new Date(end ).getTime()-new Date(start).getTime() <0 ));
   return  invalido? { dateValid:true }:null ;
   
     }
+
+
+
+    
+    export function passwordMatchValidator(g: AbstractControl) {
+        const password=g.get('password_')?.value;
+        const repassword=g.get('repassword_')?.value
+        let invalido:boolean;
+        invalido=(password!==repassword)
+       /* console.log('invalido= ',invalido);*/
+        
+        return invalido? { 'mismatch': true }:null;
+    }
+
+
+    

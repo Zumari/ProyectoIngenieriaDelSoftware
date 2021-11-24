@@ -8,6 +8,7 @@ import { institution } from 'src/app/interfaces/institution';
 import { Router } from '@angular/router';
 import * as $ from 'jquery';
 import { faBookmark, faCamera, faLock } from '@fortawesome/free-solid-svg-icons';
+import { passwordMatchValidator } from 'src/app/util/ValidadorEspecial';
 
 
 
@@ -58,7 +59,7 @@ registerForm = new FormGroup({
   description_ : new FormControl('',[Validators.required]),
   interests : new FormControl('',[Validators.required]),
   institutionRepresenting :new FormControl(0,[Validators.required, Validators.min(0)])
-});
+},{validators:passwordMatchValidator});
 
 institutionForm = new FormGroup({
   name : new FormControl('',[Validators.required, Validators.maxLength(30), Validators.pattern('[a-zA-ZÑÁÉÍÓÚáéíóú][a-zA-Zñáéíóú ]{1,}')]),
