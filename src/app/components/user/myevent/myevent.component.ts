@@ -2,11 +2,9 @@ import { faCertificate, faEye, faPlusCircle, faTrash } from '@fortawesome/free-s
 import { Component, OnInit, Output } from '@angular/core';
 import { EventsService } from 'src/app/services/user/events/events.service';
 /* componenetes */
-import {DashboardComponent} from 'src/app/components/user/dashboard/dashboard.component'
-import {MyeventsComponent} from 'src/app/components/user/myevents/myevents.component'
-import { HomeComponent } from '../../home/home.component';
 import { Event } from 'src/app/interfaces/event';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { InstitutionService } from 'src/app/services/institutions/institutions.service';
 
 @Component({
   selector: 'app-myevent',
@@ -20,35 +18,40 @@ export class MyeventComponent implements OnInit {
   faAsterisk = faCertificate;
   faTrash = faTrash;
 
-  evento: any={ 
-    eventId:0,
-    name:'',
-    description_:'',
-    startDate:'',
-    endDate:'',
-    places: 0,
-    openEvent: true,
+  event: any = {
+    name: '',
+    startDate: '',
+    endDate: '',
+    places :'',
     modality:'',
-    photo: '',
-    institutionId: 0,
-    statusId:0,
-    userId:0,
-    
-  }
+    statusId:'',
+    institutionId: '',
+    description_: '',
+    userId: '',
+    startTime: '',
+    endTime: '',
+    image: ''
+  };
  
 
-
+  inst: any ={
+    institutionId:0,
+    name:''
+  }
   constructor(private eventServ: EventsService, 
-    private dashboard: DashboardComponent,
-    private myEvents: MyeventsComponent,
-    private home: HomeComponent,
-    private router: Router ) { }
+     private activatedRoute:ActivatedRoute,
+     private institutionService: InstitutionService,
+     private router: Router ) { }
 
   ngOnInit(): void {
+    let params= this.activatedRoute.snapshot.params;
+    if(params){
+      this.getEvent(params.name)
+    }
   }
 
   deleteEvent(idEvento:number){
-    this.eventServ.deleteEvent(this.evento.eventId).subscribe(
+    this.eventServ.deleteEvent(this.event.eventId).subscribe(
       res=>{
         
         this.router.navigate(['mis-eventos']); 
@@ -58,6 +61,17 @@ export class MyeventComponent implements OnInit {
     )
   }  
 
-  getOneEvent(){}
+  getEvent(id:number){
 
+    this.eventServ.getEvent(id).subscribe(
+      res =>  {
+        this.event=res;
+        this.institutionService.getInstitution(this.event.institutionId).subscribe(
+          res =>  {this.event.institutionId=res.name},
+          error => console.log(error)
+        )
+      },
+      error => console.log(error)
+    )
+  }
 }
