@@ -19,6 +19,7 @@ import { EventsModule } from './events/events.module';
 import { MailModule } from './mail/mail.module';
 import { EventImagesController } from './event-images/event-images.controller';
 import { EventImagesModule } from './event-images/event-images.module';
+import { UserImagesModule } from './user-images/user-images.module';
 
 @Module({
   imports: [TypeOrmModule.forRoot({
@@ -43,7 +44,7 @@ import { EventImagesModule } from './event-images/event-images.module';
       validateConnection: false,
       IntegratedSecurity: false,
     }
-  }),UsersModule,InstitutionsModule,StatusModule, AuthModule, EventsModule, MailModule, EventImagesModule
+  }),UsersModule,InstitutionsModule,StatusModule, AuthModule, EventsModule, MailModule, EventImagesModule, UserImagesModule
 ],
   controllers: [AppController, UsersController,InstitutionsController,StatusController, EventImagesController],
   providers: [AppService, UsersService,InstitutionsService,StatusService],
