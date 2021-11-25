@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { EventsService } from 'src/app/services/user/events/events.service';
 import { faBookmark, faLock, faPlus, faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 import { GeneralUserService } from 'src/app/services/user/general-user/general-user.service';
-
+import { Event } from "../../../interfaces/event";
 
 
 @Component({
@@ -16,35 +16,35 @@ export class MyeventsComponent implements OnInit {
   faBookmark = faBookmark;
   faLock = faLock;
 
-  eventosLista : any[]=[ {
-    name: '',
-    startDate: '',
-    endDate: '',
-    places :'',
+  eventosLista : Event[]=[{
+    eventId:0,
+    image: '',
+    name:'',
+    description_:'',
+    startDate:'',
+    endDate:'',
+    places: 0,
+    openEvent: true,
+    institutionId: 0,
+    statusId:0,
+    userId:0,
     modality:'',
-    statusId:'',
-    institutionId: '',
-    description_: '',
-    userId: '',
-    startTime: '',
-    endTime: '',
-    image: ''
   }];
 
-  public usuarioId= this.generalUserService.getEmail();
   
   constructor(
     private generalUserService:GeneralUserService,
     private eventServ:EventsService) { }
-
+    
   ngOnInit(): void {
-
-    this.getEventsForUser();
+    
+    let usuarioId= this.generalUserService.getEmail();
+    this.getEventsForUser(usuarioId);
   }
 
 
-  getEventsForUser(){
-    this.eventServ.getEventsForUser(this.usuarioId).subscribe(
+  getEventsForUser(usuarioId:string){
+    this.eventServ.getEventsForUser(usuarioId).subscribe(
       res =>  {this.eventosLista=res},
       error => console.log(error)
 
