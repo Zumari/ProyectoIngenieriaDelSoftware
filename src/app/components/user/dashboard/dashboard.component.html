@@ -125,8 +125,15 @@
               </div>
               <div class="mb-3">
                 <label for="" class="form-label">Seleccione imagen a utilizar:</label><br>
-                <label for="image" style="background-color: gray; padding: 3rem;"><img src="../../../../assets/images/mas.png" alt=""></label>
-                <input formControlName="photo" type="file" name="image" id="image" style="visibility: hidden;">
+                <!-- <label for="image" style="background-color: gray; padding: 3rem;"><img src="../../../../assets/images/mas.png" alt=""></label>-->
+                <div class="file-field md-form">
+                  <div mdbBtn rounded="true" gradient="aqua" size="md" mdbWavesEffect>
+                    <input type="file" mdbFileSelect >
+                  </div>
+                  <div class="file-path-wrapper mt-2">
+                    <input class="file-path" formControlName="photo" type="text" name="image" id="image" style="display: none;">
+                  </div>
+                </div>
               </div>
               <div class="mb-3">
                 <label for="modalidad" class="form-label">Privacidad:</label>
