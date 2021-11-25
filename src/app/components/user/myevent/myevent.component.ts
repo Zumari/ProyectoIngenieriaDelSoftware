@@ -6,6 +6,7 @@ import {DashboardComponent} from 'src/app/components/user/dashboard/dashboard.co
 import {MyeventsComponent} from 'src/app/components/user/myevents/myevents.component'
 import { HomeComponent } from '../../home/home.component';
 import { Event } from 'src/app/interfaces/event';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-myevent',
@@ -34,12 +35,14 @@ export class MyeventComponent implements OnInit {
     userId:0,
     
   }
+ 
 
 
   constructor(private eventServ: EventsService, 
     private dashboard: DashboardComponent,
     private myEvents: MyeventsComponent,
-    private home: HomeComponent ) { }
+    private home: HomeComponent,
+    private router: Router ) { }
 
   ngOnInit(): void {
   }
@@ -47,14 +50,14 @@ export class MyeventComponent implements OnInit {
   deleteEvent(idEvento:number){
     this.eventServ.deleteEvent(this.evento.eventId).subscribe(
       res=>{
-        this.dashboard.getEvents();
-        /*this.myEvents.getEventsForUser();*/
-        this.home.getEvents();
+        
+        this.router.navigate(['mis-eventos']); 
       },
       error=> console.log(error)
       
     )
   }  
 
+  getOneEvent(){}
 
 }
