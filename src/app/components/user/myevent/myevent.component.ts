@@ -48,7 +48,7 @@ export class MyeventComponent implements OnInit {
     this.eventServ.deleteEvent(this.evento.eventId).subscribe(
       res=>{
         this.dashboard.getEvents();
-        this.myEvents.getEventsForUser();
+        /*this.myEvents.getEventsForUser();*/
         this.home.getEvents();
       },
       error=> console.log(error)
