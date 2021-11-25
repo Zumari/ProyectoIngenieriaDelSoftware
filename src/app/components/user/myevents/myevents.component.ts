@@ -16,6 +16,7 @@ export class MyeventsComponent implements OnInit {
   faPlus = faPlusCircle;
   faBookmark = faBookmark;
   faLock = faLock;
+  keyword: string = '';
 
   eventosLista : Event[]=[{
     eventId:0,

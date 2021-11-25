@@ -23,6 +23,8 @@ export class HomeComponent implements OnInit {
   faBookmark = faBookmark;
   faLock = faLock;
   keyword: string = '';
+
+  
  eventosLista : Event[]=[{
   eventId:0,
   name: '',
@@ -36,7 +38,50 @@ export class HomeComponent implements OnInit {
   description_: '',
   userId: 0,
   image: '',
-  }]; //Arreglo de eventos para recorrer y pintar el html con NGFOR
+  },
+  {
+    eventId:0,
+    name: 'Octobeer fest',
+    startDate: '12/11/2021',
+    endDate: '12/13/2021',
+    places :0,
+    modality:'',
+    statusId:0,
+    institutionId:0,
+    openEvent: true,
+    description_: 'Se hará algo espectacular',
+    userId: 0,
+    image: '',
+    },
+    {
+      eventId:0,
+      name: 'Pot fest',
+      startDate: '12/20/2021',
+      endDate: '12/24/2021',
+      places :0,
+      modality:'',
+      statusId:0,
+      institutionId:0,
+      openEvent: true,
+      description_: 'Habrán buenos culos',
+      userId: 0,
+      image: '',
+      },
+      {
+        eventId:0,
+        name: 'Evento deportivo',
+        startDate: '12/20/2021',
+        endDate: '12/24/2021',
+        places :0,
+        modality:'',
+        statusId:0,
+        institutionId:0,
+        openEvent: true,
+        description_: 'No faltes',
+        userId: 0,
+        image: '',
+        },
+]; //Arreglo de eventos para recorrer y pintar el html con NGFOR
   faCamera = faCamera;
   imgPerfil: any;
 

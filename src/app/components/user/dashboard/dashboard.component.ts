@@ -23,7 +23,7 @@ export class DashboardComponent implements OnInit {
   faLock = faLock;
   mode: string = 'virtual';
   privacy: string = 'publico';
-
+  keyword: string = ''; 
 
   eventosLista : Event[]=[{
     eventId:0,
