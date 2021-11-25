@@ -63,14 +63,16 @@ export class DashboardComponent implements OnInit {
     private institutionServ: InstitutionService,
     private router: Router,
     private generalService: GeneralUserService,
-    private pipe:DatePipe) {
+    private pipe:DatePipe,
+    private generalUserService:GeneralUserService) {
       this.fechaMinima= new Date(new Date().getFullYear(),new Date().getMonth(), new Date().getDate());
 
       this.fechaStrMinima= this.pipe.transform(this.fechaMinima, "yyyy-MM-dd")!;
      }
 
     ngOnInit(): void {
-      this.getEvents();
+      let usuarioId= this.generalUserService.getEmail();
+      this.getEvents(usuarioId);
       this.getInstitution();
 
     }
@@ -114,8 +116,8 @@ get modality(){
 
   }
 
-  getEvents(){
-    this.eventServ.getAllEvents().subscribe(
+  getEvents(usuarioId:string){
+    this.eventServ.getAllEventsDash(usuarioId).subscribe(
       res =>  {this.eventosLista=res},
       error => console.log(error)
 

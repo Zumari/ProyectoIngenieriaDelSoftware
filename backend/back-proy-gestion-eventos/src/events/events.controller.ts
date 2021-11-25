@@ -51,6 +51,12 @@ export class EventsController implements CrudController<Event> {
     return this.service.findAll();
   }
 
+  @Get('/getAllEventsDash/:email')
+  findAllDash(@Param('email') email:string) {
+    return this.service.findAllDash(email);
+  }
+
+
   @Get('/getAllEventsWhere/:email')
   findAllWhere(@Param('email') email:string) {
     return this.service.findAllWhere(email);

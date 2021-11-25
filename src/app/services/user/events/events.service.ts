@@ -11,7 +11,10 @@ export class EventsService {
   constructor(private httpClient:HttpClient) { }
 
   getAllEvents():Observable<Event[]>{
-      return this.httpClient.get<Event[]>(`http://localhost:3000/events/getAllEvents`,{});
+    return this.httpClient.get<Event[]>(`http://localhost:3000/events/getAllEvents`,{});
+}
+  getAllEventsDash(email : string):Observable<Event[]>{
+      return this.httpClient.get<Event[]>(`http://localhost:3000/events/getAllEventsDash/${email}`,{});
   }
 
   getFilterEvents(type: string, keyword: string):Observable<Event[]>{

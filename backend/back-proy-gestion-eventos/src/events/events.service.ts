@@ -7,6 +7,7 @@ import { Event } from './entities/event.entity';
 import { InstitutionsService } from 'src/institutions/institutions.service';
 import { StatusService } from 'src/status/status.service';
 import { UsersService } from 'src/users/users.service';
+import { Not } from "typeorm";
 
 @Injectable()
 export class EventsService extends TypeOrmCrudService<Event> {
@@ -43,8 +44,12 @@ export class EventsService extends TypeOrmCrudService<Event> {
     return this.repo.find();
   }
 
+  findAllDash(email: string): Promise<Event[]> {
+    return this.repo.find({ where: { userId: Not (email) }} );
+  }
+
   findAllWhere(email: string): Promise<Event[]> {
-    return this.repo.find({ where: { userId: email } });
+    return this.repo.find({ where: { userId: (email) } });
   }
  /*  findFilter(type: string, keyword: string): Promise<Event[]> {
     let filter = {
