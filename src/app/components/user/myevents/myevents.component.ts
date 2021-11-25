@@ -3,6 +3,7 @@ import { EventsService } from 'src/app/services/user/events/events.service';
 import { faBookmark, faLock, faPlus, faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 import { GeneralUserService } from 'src/app/services/user/general-user/general-user.service';
 import { Event } from "../../../interfaces/event";
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -34,7 +35,8 @@ export class MyeventsComponent implements OnInit {
   
   constructor(
     private generalUserService:GeneralUserService,
-    private eventServ:EventsService) { }
+    private eventServ:EventsService,
+    private router: Router,) { }
     
   ngOnInit(): void {
     
@@ -51,5 +53,7 @@ export class MyeventsComponent implements OnInit {
     )
   }
 
-
+  viewMyEvent(id: number) {
+    this.router.navigate(['usuario/mi-evento/'+id]);
+  }
 }

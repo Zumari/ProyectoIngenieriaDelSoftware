@@ -51,14 +51,15 @@ export class MyeventComponent implements OnInit {
   }
 
   deleteEvent(idEvento:number){
-    this.eventServ.deleteEvent(this.event.eventId).subscribe(
+    this.eventServ.deleteEvent(idEvento).subscribe(
       res=>{
-        
-        this.router.navigate(['mis-eventos']); 
+        console.log(res);
+
       },
       error=> console.log(error)
       
     )
+    this.router.navigate(['usuario/mis-eventos']); 
   }  
 
   getEvent(id:number){

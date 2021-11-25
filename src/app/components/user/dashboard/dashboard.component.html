@@ -128,10 +128,10 @@
                 <!-- <label for="image" style="background-color: gray; padding: 3rem;"><img src="../../../../assets/images/mas.png" alt=""></label>-->
                 <div class="file-field md-form">
                   <div mdbBtn rounded="true" gradient="aqua" size="md" mdbWavesEffect>
-                    <input type="file" mdbFileSelect >
+                    <input type="file" mdbFileSelect formControlName="photo" name="image" id="image" >
                   </div>
                   <div class="file-path-wrapper mt-2">
-                    <input class="file-path" formControlName="photo" type="text" name="image" id="image" style="display: none;">
+                    <input class="file-path" style="display: none; ">
                   </div>
                 </div>
               </div>
@@ -185,7 +185,7 @@
                <!--  <button type="button" class="btn btn-secondary" style="font-size: smaller;" *ngIf="privacy == 'privado'">Inserte lista de participantes</button> -->
               </div>
               <div class="mb-5 d-flex justify-content-center">
-                <button  type="button" [disabled]="!eventoForm.valid" class="btn btn-warning" (click)="createEvents()" onclick="location.reload()" >Generar</button>
+                <button  type="button" [disabled]="!eventoForm.valid" class="btn btn-warning" (click)="createEvents()"  >Generar</button>
               </div>
             </div>
           </div>
