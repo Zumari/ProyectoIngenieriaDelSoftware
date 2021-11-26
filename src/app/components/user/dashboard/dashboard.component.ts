@@ -84,24 +84,7 @@ export class DashboardComponent implements OnInit {
 
     }
 
-    /*extraerBase64 = async ($event: any) =>{
-      try {
-        const reader = new FileReader();
-        reader.readAsDataURL($event);
-        reader.onload = () => {
-          return{
-            base: reader.result
-          }
-        };
-        reader.onerror = error => {
-          return{
-            base: null
-          }
-        };
-  
-      } catch (e) {
-        throw null;
-      }}*/
+   
       extraerBase64 = async ($event: any) => new Promise((resolve, reject) => {
         try {
           const unsafeImg = window.URL.createObjectURL($event);
