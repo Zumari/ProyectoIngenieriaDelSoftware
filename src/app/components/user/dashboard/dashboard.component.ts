@@ -9,7 +9,8 @@ import { Router } from '@angular/router';
 import { GeneralUserService } from 'src/app/services/user/general-user/general-user.service';
 import { DatePipe } from '@angular/common';
 import { ValidadoresEspeciales, dateValidator } from 'src/app/util/ValidadorEspecial';
-
+//import { RestService } from './../rest.service';
+import { DomSanitizer } from '@angular/platform-browser';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -24,6 +25,9 @@ export class DashboardComponent implements OnInit {
   mode: string = 'virtual';
   privacy: string = 'publico';
   keyword: string = ''; 
+  nameImage:string="";
+  previsualizacion: string="";
+
 
   eventosLista : Event[]=[{
     eventId:0,
@@ -64,11 +68,14 @@ export class DashboardComponent implements OnInit {
     private router: Router,
     private generalService: GeneralUserService,
     private pipe:DatePipe,
-    private generalUserService:GeneralUserService) {
+    private generalUserService:GeneralUserService,
+    private sanitizer: DomSanitizer) {
       this.fechaMinima= new Date(new Date().getFullYear(),new Date().getMonth(), new Date().getDate());
-
       this.fechaStrMinima= this.pipe.transform(this.fechaMinima, "yyyy-MM-dd")!;
      }
+
+    
+  
 
     ngOnInit(): void {
       let usuarioId= this.generalUserService.getEmail();
@@ -77,6 +84,56 @@ export class DashboardComponent implements OnInit {
 
     }
 
+    /*extraerBase64 = async ($event: any) =>{
+      try {
+        const reader = new FileReader();
+        reader.readAsDataURL($event);
+        reader.onload = () => {
+          return{
+            base: reader.result
+          }
+        };
+        reader.onerror = error => {
+          return{
+            base: null
+          }
+        };
+  
+      } catch (e) {
+        throw null;
+      }}*/
+      extraerBase64 = async ($event: any) => new Promise((resolve, reject) => {
+        try {
+          const unsafeImg = window.URL.createObjectURL($event);
+          const image = this.sanitizer.bypassSecurityTrustUrl(unsafeImg);
+          const reader = new FileReader();
+          reader.readAsDataURL($event);
+          reader.onload = () => {
+            resolve({
+              base: reader.result
+            });
+          };
+          reader.onerror = error => {
+            resolve({
+              base: null
+            });
+          };
+    
+        } catch (e) {
+          throw null;
+        }
+      })
+  
+    capturarFile(event:any):any{
+      this.nameImage=event.target.files[0].name;
+      console.log("esta es la nombre de la imagen",this.nameImage);
+      const archivoCapturado=event.target.files[0];
+     this.extraerBase64(archivoCapturado).then((imagen: any) => {
+        this.previsualizacion = imagen.base;
+        console.log("base 64",imagen.base);
+      })
+
+    }
 
 get photo (){
   return this.eventoForm.get('photo');
@@ -108,6 +165,7 @@ get modality(){
 
   createEvents(){
     this.eventoForm.value.institutionId=Number(this.eventoForm.value.institutionId)
+    this.eventoForm.value.photo=this.nameImage;
     console.log(this.eventoForm.value);
     this.eventServ.createEvent(this.eventoForm.value,this.generalService.getEmail()).subscribe(
       res =>  {console.log(res)},

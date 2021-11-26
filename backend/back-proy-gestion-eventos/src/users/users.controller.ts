@@ -47,7 +47,7 @@ export class UsersController {
     }
     @Put('/updatePasswordUser/:email')
     async updatePasswordUser(@Param('email') id:string,@Body() user:updateUser){
-      console.log("llegamos aqui al update con el usuaio",user);
+      console.log("llegamos aqui al updatepassword con el cambio",user);
       return this.userService.updatePasswordUser(id,user);
     }
 }
