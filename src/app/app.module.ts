@@ -24,6 +24,7 @@ import { RestartPasswordComponent } from './components/restartPassword/restart-p
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,7 +47,7 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
-    Ng2SearchPipeModule
+    Ng2SearchPipeModule,
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]
