@@ -12,14 +12,8 @@
   <div class="d-flex justify-content-end">
     <div class="col-lg-3 col-md-4 col-sm-12 col-12 mx-2">
       <div class="input-group mb-3">
-        <input type="text" class="form-control" [(ngModel)]="keyword" aria-label="Buscar">
-        <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Filtrar</button>
-        <ul class="dropdown-menu dropdown-menu-end">
-          <li><a class="dropdown-item" (click)="getFilterEvents('disponibilidad')">Disponibilidad</a></li>
-          <li><a class="dropdown-item" (click)="getFilterEvents('privacidad')">Privacidad</a></li>
-          <li><a class="dropdown-item" (click)="getFilterEvents('nombre')">Nombre</a></li>
-          <li><a class="dropdown-item" (click)="getFilterEvents('organizador')">Organizador</a></li>
-        </ul>
+        <input type="text" class="form-control" [(ngModel)]="keyword" aria-label="Buscar" placeholder="Introduzca un nombre o fecha">
+        <div class="btn btn-primary">Buscar</div>
       </div>
     </div>
   </div>
@@ -31,7 +25,7 @@
           <div class="row">
             <div class="col-10">
               <h5 class="card-title">{{evento.name}}</h5>
-          <div class="card-text">{{evento.startDate|date:'shortDate'}}</div>
+          <div class="card-text">{{evento.startDate|date:'dd-MM-yyyy'}}</div>
           <div class="card-text">{{evento.description_}}</div>
             </div>
             <div class="col-2" style="position: relative;">

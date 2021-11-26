@@ -23,8 +23,8 @@
     <img style="height: 50vh;" [src]="event.image == undefined || event.image == '' ? '../../../../assets/images/default.jpg' : event.image" alt="">
   </div>
   <div class="d-flex mb-3">
-    <div>Fecha de inicio: <label for="" class="mx-2">{{event.startDate|date:'shortDate'}}</label></div>
-    <div>Fecha de finalización: <label for="" class="mx-2">{{event.endDate|date:'shortDate'}}</label></div>
+    <div>Fecha de inicio: <label for="" class="mx-2">{{event.startDate|date:'dd-MM-yyyy'}}</label></div>
+    <div>Fecha de finalización: <label for="" class="mx-2">{{event.endDate|date:'dd-MM-yyyy'}}</label></div>
   </div>
   <div class="row mb-3">
     <div>Institución: <label for="" class="mx-2">{{event.institutionId}}</label></div>
