@@ -1,6 +1,7 @@
 import { Status } from "src/status/Entities/status.entity";
 import { Users } from "src/users/Entities/user.entity";
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import {  Event} from "../../events/entities/event.entity";
 
 @Entity('ScheduledEvent')
 export class ScheduledEvent {
@@ -41,10 +42,16 @@ export class ScheduledEvent {
     StatusID!: Status;
 
     @Column({name:'managerId'})
-    managerId:number
+    managerId:string
     
     @ManyToOne(type => Users, Users=> Users.EventID) 
     @JoinColumn({name:'managerId'})
     UsersID!: Users;
 
+    @Column({name:'eventId'})
+    eventId:number
+
+    @ManyToOne(type => Event, Event=> Event.eventId) 
+    @JoinColumn({name:'eventId'})
+    EventID!: Event;
 }
