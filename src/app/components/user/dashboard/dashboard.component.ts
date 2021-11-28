@@ -9,8 +9,12 @@ import { Router } from '@angular/router';
 import { GeneralUserService } from 'src/app/services/user/general-user/general-user.service';
 import { DatePipe } from '@angular/common';
 import { ValidadoresEspeciales, dateValidator } from 'src/app/util/ValidadorEspecial';
-//import { RestService } from './../rest.service';
 import { DomSanitizer } from '@angular/platform-browser';
+import { AngularFireStorage} from '@angular/fire/compat/storage';
+import { finalize } from 'rxjs/operators';
+import { Observable } from 'rxjs/internal/Observable';
+
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -25,8 +29,10 @@ export class DashboardComponent implements OnInit {
   mode: string = 'virtual';
   privacy: string = 'publico';
   keyword: string = ''; 
-  nameImage:string="";
   previsualizacion: string="";
+  urlImage: string="";
+  urlImage2!: Observable<string>;
+  nameImage="";
 
 
   eventosLista : Event[]=[{
@@ -69,13 +75,11 @@ export class DashboardComponent implements OnInit {
     private generalService: GeneralUserService,
     private pipe:DatePipe,
     private generalUserService:GeneralUserService,
-    private sanitizer: DomSanitizer) {
+    private sanitizer: DomSanitizer,
+    private storage: AngularFireStorage) {
       this.fechaMinima= new Date(new Date().getFullYear(),new Date().getMonth(), new Date().getDate());
       this.fechaStrMinima= this.pipe.transform(this.fechaMinima, "yyyy-MM-dd")!;
      }
-
-    
-  
 
     ngOnInit(): void {
       let usuarioId= this.generalUserService.getEmail();
@@ -83,7 +87,6 @@ export class DashboardComponent implements OnInit {
       this.getInstitution();
 
     }
-
    
       extraerBase64 = async ($event: any) => new Promise((resolve, reject) => {
         try {
@@ -108,14 +111,24 @@ export class DashboardComponent implements OnInit {
       })
   
     capturarFile(event:any):any{
-      this.nameImage=event.target.files[0].name;
-      console.log("esta es la nombre de la imagen",this.nameImage);
       const archivoCapturado=event.target.files[0];
-     this.extraerBase64(archivoCapturado).then((imagen: any) => {
+      this.nameImage=archivoCapturado.name;
+    /* this.extraerBase64(archivoCapturado).then((imagen: any) => {
         this.previsualizacion = imagen.base;
         console.log("base 64",imagen.base);
-      })
+      })*/
+      this.upload(archivoCapturado);
+    }
 
+    upload(file:any){
+     const filePath=`upload/${file.name}`;
+     const ref=this.storage.ref(filePath);
+     const task=this.storage.upload(filePath,file)
+     task.snapshotChanges().pipe(finalize(()=>{ref.getDownloadURL().subscribe(url=>{
+       this.urlImage=url;
+       console.log(url)
+       console.log(this.urlImage);
+     })})).subscribe();
     }
 
 get photo (){
@@ -148,13 +161,13 @@ get modality(){
 
   createEvents(){
     this.eventoForm.value.institutionId=Number(this.eventoForm.value.institutionId)
-    this.eventoForm.value.photo=this.nameImage;
+    this.eventoForm.value.photo=this.urlImage;
+    console.log("la url es ", this.urlImage);
     console.log(this.eventoForm.value);
     this.eventServ.createEvent(this.eventoForm.value,this.generalService.getEmail()).subscribe(
       res =>  {console.log(res)},
       error => console.log(error))
     this.router.initialNavigation;
-
   }
 
   getEvents(usuarioId:string){

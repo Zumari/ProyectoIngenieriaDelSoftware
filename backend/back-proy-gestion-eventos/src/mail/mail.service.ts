@@ -20,4 +20,18 @@ export class MailService {
         },
       });
     }
+
+    async sendCharge(emailCharge:string,nameOrganizer:string,nameCharge:string,nameEvent:string,emailOrganizer:string) {
+      await this.mailerService.sendMail({
+        to: emailCharge,
+        subject: 'Encargado de evento',
+        template: './notifyInCharge', 
+        context: { 
+          name: nameCharge,
+          nameOrganizer:nameOrganizer,
+          nameEvent:nameEvent,
+          emailOrganizer:emailOrganizer
+        },
+      });
+    }
 }
