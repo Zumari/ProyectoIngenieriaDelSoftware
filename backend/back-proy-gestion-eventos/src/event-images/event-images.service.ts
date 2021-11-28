@@ -15,7 +15,7 @@ export class EventImagesService {
     }
     //ADD IMAGE
     async createImage(body){
-        const image=await this.eventImagesRepository.findOne(body);
+        const image=await this.eventImagesRepository.findOne(body.URL);
         if(image) throw new NotFoundException('Ya existe una imagen con la misma direccíon')
         const newImage = this.eventImagesRepository.create(body)
         return await this.eventImagesRepository.save(newImage);

@@ -1,4 +1,4 @@
-import { IsInt, IsNotEmpty, IsString, IsDateString, IsOptional,} from "class-validator";
+import { IsInt, IsNotEmpty, IsString, IsDateString, IsOptional, IsNumber,} from "class-validator";
 
 export class ScheduledEventDTO {
     
@@ -37,4 +37,8 @@ export class ScheduledEventDTO {
     @IsNotEmpty()
     @IsString()
     managerId:string
+
+    @IsNotEmpty()
+    @IsNumber()
+    eventId:number
 }
