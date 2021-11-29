@@ -1,7 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Institutions } from 'src/institutions/Entities/Institutions.entity';
-import { InstitutionsService } from 'src/institutions/institutions.service';
 import { Repository } from 'typeorm';
 import { ScheduledEventDTO } from './DTO/scheduledEvent.dto';
 import { ScheduledEvent } from './Entities/scheduledEvent.entity';
@@ -11,7 +9,7 @@ import { UsersService } from "./../users/users.service";
 export class ScheduledEventService {
     constructor(
         @InjectRepository(ScheduledEvent)
-        private readonly scheduledEventRepository: Repository<ScheduledEvent>,
+        private  scheduledEventRepository: Repository<ScheduledEvent>,
         private usersService: UsersService){}
         
     async updateScheduledEvent(scheduledEventId: string, body: ScheduledEventDTO) {

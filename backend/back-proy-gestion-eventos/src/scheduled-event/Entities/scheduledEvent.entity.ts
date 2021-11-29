@@ -44,7 +44,7 @@ export class ScheduledEvent {
     @Column({name:'managerId'})
     managerId:string
     
-    @ManyToOne(type => Users, Users=> Users.EventID) 
+    @ManyToOne(type => Users, Users=> Users.email) 
     @JoinColumn({name:'managerId'})
     UsersID!: Users;
 

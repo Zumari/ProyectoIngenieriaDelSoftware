@@ -4,6 +4,7 @@ import { Console } from "console";
 import { Status } from "src/status/Entities/status.entity";
 import { Event } from "src/events/entities/event.entity";
 import* as bcrypt from'bcrypt';
+import { ScheduledEvent } from "src/scheduled-event/Entities/scheduledEvent.entity";
 
 @Entity('Users')
 export class Users{
@@ -52,6 +53,9 @@ export class Users{
     @OneToMany(type => Event,Event=>Event.UsersID!)
     EventID!: Event[];
 
+    @OneToMany(type => ScheduledEvent,ScheduledEvent=>ScheduledEvent.UsersID!)
+    scheduledEventId!: ScheduledEvent[];
+    
     @BeforeInsert()
     async hashPassword() {
       const salt = await bcrypt.genSalt();

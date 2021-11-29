@@ -21,7 +21,11 @@ export class MailService {
       });
     }
 
-    async sendCharge(emailCharge:string,nameOrganizer:string,nameCharge:string,nameEvent:string,emailOrganizer:string) {
+    async sendCharge(emailCharge:string,
+      nameOrganizer:string,
+      nameCharge:string,
+      nameEvent:string,
+      emailOrganizer:string,startDate:string,endDate:string,startHour:string,endHour:string,modality:string) {
       await this.mailerService.sendMail({
         to: emailCharge,
         subject: 'Encargado de evento',
@@ -30,7 +34,12 @@ export class MailService {
           name: nameCharge,
           nameOrganizer:nameOrganizer,
           nameEvent:nameEvent,
-          emailOrganizer:emailOrganizer
+          emailOrganizer:emailOrganizer,
+          startDate:startDate,
+          endDate:endDate,
+          startHour:startHour,
+          endHour:endHour,
+          modality:modality
         },
       });
     }
