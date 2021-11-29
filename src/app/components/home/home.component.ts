@@ -9,6 +9,9 @@ import { Router } from '@angular/router';
 import * as $ from 'jquery';
 import { faBookmark, faCamera, faLock } from '@fortawesome/free-solid-svg-icons';
 import { passwordMatchValidator } from 'src/app/util/ValidadorEspecial';
+import { AngularFireStorage} from '@angular/fire/compat/storage';
+import { DomSanitizer } from '@angular/platform-browser';
+import { finalize } from 'rxjs/operators';
 
 
 
@@ -23,6 +26,9 @@ export class HomeComponent implements OnInit {
   faBookmark = faBookmark;
   faLock = faLock;
   keyword: string = '';
+  nameImage="";
+  urlImage: string="";
+
 
   
  eventosLista : Event[]=[{
@@ -61,7 +67,8 @@ registerForm = new FormGroup({
   academicTraining: new FormControl('',[Validators.required]),
   description_ : new FormControl('',[Validators.required]),
   interests : new FormControl('',[Validators.required]),
-  institutionRepresenting :new FormControl(0,[Validators.required, Validators.min(0)])
+  institutionRepresenting :new FormControl(0,[Validators.required, Validators.min(0)]),
+  profilePhoto : new FormControl('')
 },{validators:passwordMatchValidator});
 
 institutionForm = new FormGroup({
@@ -76,7 +83,9 @@ loginForm = new FormGroup({
 
   constructor( private eventServ: EventsService,
     private generalUserService:GeneralUserService,
-    private institutionServ:InstitutionService, private router:Router) { }
+    private institutionServ:InstitutionService, private router:Router, 
+    private storage: AngularFireStorage,
+    private sanitizer: DomSanitizer) { }
 
   ngOnInit(): void {
     this.getInstitution();
@@ -84,7 +93,33 @@ loginForm = new FormGroup({
     this.getAllUsers();
   }
 
-  cambiarImagen(){
+  extraerBase64 = async ($event: any) => new Promise((resolve, reject) => {
+    try {
+      const unsafeImg = window.URL.createObjectURL($event);
+      const image = this.sanitizer.bypassSecurityTrustUrl(unsafeImg);
+      const reader = new FileReader();
+      reader.readAsDataURL($event);
+      reader.onload = () => {
+        resolve({
+          base: reader.result
+        });
+      };
+      reader.onerror = error => {
+        resolve({
+          base: null
+        });
+      };
+
+    } catch (e) {
+      throw null;
+    }
+  })
+
+  cambiarImagen(event:any):any{
+    const archivoCapturado=event.target.files[0];
+    this.nameImage=archivoCapturado.name;
+    this.upload(archivoCapturado);
+    
     let img = (document.getElementById('perfil')) as HTMLInputElement;
     if (img.files!.length>0){
       var reader = new FileReader();
@@ -94,9 +129,20 @@ loginForm = new FormGroup({
       reader.readAsDataURL(img.files![0]);
       // this.imgPerfil = URL.createObjectURL(img.files![0]);
 
-      console.log(this.imgPerfil);
     }
+    
   }
+
+  upload(file:any){
+    const filePath=`upload/${file.name}`;
+    const ref=this.storage.ref(filePath);
+    const task=this.storage.upload(filePath,file)
+    task.snapshotChanges().pipe(finalize(()=>{ref.getDownloadURL().subscribe(url=>{
+      this.urlImage=url;
+      //console.log(url)
+      //console.log(this.urlImage);
+    })})).subscribe();
+   }
 
   //Getters de los formControls de FormGroup loginForm para utilizar validaciones
   get emailLog(){
@@ -156,6 +202,10 @@ loginForm = new FormGroup({
     return this.registerForm.get('repassword_');
   }
 
+  get profilePhoto (){
+    return this.registerForm.get('profilePhoto');
+  }
+
   getEvents(){
     this.eventServ.getAllEvents().subscribe(
       res =>  {this.eventosLista=res},
@@ -181,9 +231,6 @@ loginForm = new FormGroup({
   }
 
   CreateUser(){
-    console.log(this.registerForm.value);
-    console.log(this.institutionForm.value);
-
     const institutionId = this.registerForm.value.institutionRepresenting;
 
     // Sino se selecciono institución obtener el nombre de la nueva institucion
@@ -194,6 +241,7 @@ loginForm = new FormGroup({
             console.log(res);
             this.registerForm.value.institutionRepresenting = res.InstitutionID;
             this.registerForm.get('repassword_')?.disable();
+            this.registerForm.value.profilePhoto=this.urlImage;
             this.generalUserService.createUser(this.registerForm.value).subscribe(
               res => {
                 for (const key in res){
@@ -211,6 +259,7 @@ loginForm = new FormGroup({
       }else{
         this.registerForm.value.institutionRepresenting = Number(this.registerForm.value.institutionRepresenting);
         this.registerForm.get('repassword_')?.disable();
+        this.registerForm.value.profilePhoto=this.urlImage;
         this.generalUserService.createUser(this.registerForm.value).subscribe(
           res => {
             console.log(res);
