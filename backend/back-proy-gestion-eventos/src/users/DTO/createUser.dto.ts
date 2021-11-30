@@ -38,7 +38,6 @@ export class createUserDto{
     @ApiProperty()
     description_ : string;
 
-
     @IsNotEmpty()
     @IsString()
     @ApiProperty()
@@ -46,11 +45,16 @@ export class createUserDto{
 
     @IsNotEmpty()
     @ApiProperty()
-     password_: string;
+    password_: string;
 
     @IsNotEmpty()
     @IsString()
     @ApiProperty()
     institutionRepresenting: string;
+    
+    @IsNotEmpty()
+    @IsString()
+    @ApiProperty()
+    profilePhoto: string;
 
 }

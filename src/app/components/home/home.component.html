@@ -109,15 +109,15 @@
               <img src="../.././../assets/images/ESLogo.svg" alt="...">
             </div>
           </div>
+        </div>
+        <form [formGroup]="registerForm">
           <div style="z-index: 10; background-color: gray; border-radius: 100%; height: 10vw; width: 10vw; margin: auto; top: -4vw; position: relative;">
             <img [src]="imgPerfil" alt="" style="width: 100%; height: 100%; border-radius: 100%;">
-            <input type="file" name="perfil" id="perfil" style="visibility: hidden;" (change)="cambiarImagen()">
+            <input type="file" formControlName="profilePhoto" name="perfil" id="perfil" style="visibility: hidden;" (change)="cambiarImagen($event)">
             <label for="perfil" class="perfil-registro">
               <fa-icon [icon]="faCamera"></fa-icon>
             </label>
           </div>
-        </div>
-        <form [formGroup]="registerForm">
           <div>
             <div class="row px-5">
               <div class="mb-3">

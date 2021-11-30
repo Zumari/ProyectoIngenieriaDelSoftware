@@ -15,12 +15,12 @@ export class UsersService {
       ) {}
 
     async addUser(userNew:createUserDto){
-          const {email,firstName,middleName,lastName,secondLastName,academicTraining, description_,interests ,password_, institutionRepresenting}=userNew;
+          const {email,firstName,middleName,lastName,secondLastName,academicTraining, description_,interests ,password_, institutionRepresenting, profilePhoto}=userNew;
           try {
               const exists= await this.usersRepository.findOne(userNew.email);
               if(!exists){
                   const institutionUser= await this.institutionService.getOneInstitution(institutionRepresenting);
-                  const post= this.usersRepository.create({email,firstName,middleName,lastName,secondLastName,academicTraining, description_,interests ,password_, institutionRepresenting:institutionUser});
+                  const post= this.usersRepository.create({email,firstName,middleName,lastName,secondLastName,academicTraining, description_,interests ,password_, profilePhoto, institutionRepresenting:institutionUser});
                   await this.usersRepository.save(post);
                   return{
                       "message":"Registro realizado con exito"

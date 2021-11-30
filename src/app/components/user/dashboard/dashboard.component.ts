@@ -182,7 +182,6 @@ get modality(){
     )
   }
 
-
   changeMod(val: number) {
     this.mode = val == 1 ? 'virtual' : 'presencial';
   }

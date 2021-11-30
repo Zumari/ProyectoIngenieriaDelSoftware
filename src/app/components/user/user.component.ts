@@ -15,6 +15,7 @@ export class UserComponent implements OnInit {
   faStat = faChartBar;
   faBell = faBell;
   nameUser=this.generalUserService.getNombreUsuario();
+  profilePhotoUser=this.generalUserService.getProfilePhoto();
   constructor(private generalUserService:GeneralUserService, private router:Router) { }
 
 
