@@ -117,10 +117,12 @@
                   </div>
                 </div>
               </div>
-              <div class="mb-3">
+              <div class="form-group mb-3">
                 <label for="" class="form-label">Seleccione imagen a utilizar:</label><br>
-                <label for="image" style="background-color: gray; padding: 3rem;"><img src="../../../../assets/images/mas.png" alt=""></label>
-                <input formControlName="photo" type="file" name="image" (change)="capturarFile($event)" id="image" style="visibility: hidden;">
+                <input formControlName="photo" accept=".png,.jpg" type="file" name="image" (change)="capturarFile($event)" id="image">
+              </div>
+              <div class="progress">
+                <div class="progress-bar progress-bar-success active" role="progressbar" [style.width]="(uploadPercent | async) +'%'"></div>
               </div>
               <div class="mb-3">
                 <label for="modalidad" class="form-label">Privacidad:</label>
@@ -139,7 +141,8 @@
                   </div>
                 </div>
               </div>
-<!--               <div class="mb-3">
+              <!--button type="button" class="btn btn-secondary" style="font-size: smaller;" *ngIf="privacy == 'privado'">Inserte lista de participantes</button-->
+              <!--<div class="mb-3">
                 <input type="text"  class="form-control" id="ubicacion" placeholder="Ubicación" *ngIf="mode == 'presencial'">
                 <div class="alert-danger" *ngIf="openEvent?.invalid && (openEvent?.dirty || openEvent?.touched)">
                   <div class="container-error-message" *ngIf="openEvent?.errors?.required">
@@ -147,7 +150,7 @@
                   </div>                 
                 </div>
               </div> -->
-              <div class="mb-3">
+              <!--div class="mb-3">
                 <label for="cantidad" class="form-label">Cantidad de participantes:</label>
                 <input formControlName="places" type="number" min=0 class="form-control" id="cantidad" placeholder="">
                 <div class="alert-danger" *ngIf="places?.invalid && (places?.dirty || places?.touched)">
@@ -155,8 +158,8 @@
                     No se admiten valores negativos
                   </div>                 
                 </div>
-              </div>
-              <div class="mb-3 d-flex">
+              </div-->
+              <!--div class="mb-3 d-flex">
                 <div class="form-check">
                   <input formControlName="modality" class="form-check-input" type="radio"  id="radioprivacidad1" (click)="changePriv(1)" checked value=Virtual>
                   <label class="form-check-label" for="radioprivacidad1">
@@ -169,8 +172,8 @@
                     Presencial
                   </label>
                 </div>
-               <!--  <button type="button" class="btn btn-secondary" style="font-size: smaller;" *ngIf="privacy == 'privado'">Inserte lista de participantes</button> -->
-              </div>
+                <button type="button" class="btn btn-secondary" style="font-size: smaller;" *ngIf="privacy == 'privado'">Inserte lista de participantes</button>
+              </div-->
               <div class="mb-5 d-flex justify-content-center">
                 <button  type="button" [disabled]="!eventoForm.valid" class="btn btn-warning" (click)="createEvents()"  >Generar</button>
               </div>

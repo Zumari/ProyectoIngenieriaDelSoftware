@@ -29,11 +29,11 @@ export class EventsService extends TypeOrmCrudService<Event> {
         --> No poder crear un evento si la hora de inicio es igual a la de finalizacion
         --> No poder crear un evento si es cerrado y no se define cuantas personas asistiran
     */
-    const {name, description_, startDate, endDate, places, openEvent,institutionId,modality,photo} = createEventDto;
+    const {name, description_, startDate, endDate,openEvent,institutionId,photo} = createEventDto;
     const institutionEvent = await this.institutionService.getOneInstitution(institutionId)
     const StatusEvent= await this.statusService.getOneStatus(1)
     const UserEvent= await this.userService.findUserAuth(idUser)
-    const post= this.repo.create({name, description_, startDate, endDate, places, openEvent, InstitutionID:institutionEvent, StatusID:StatusEvent, UsersID:UserEvent,modality,photo});
+    const post= this.repo.create({name, description_, startDate, endDate,openEvent, InstitutionID:institutionEvent, UsersID:UserEvent,photo});
     await this.repo.save(post);
     return{
       "result": `El evento con el nombre ${name} se ha creado con exito`

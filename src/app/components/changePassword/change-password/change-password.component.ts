@@ -23,8 +23,7 @@ export class ChangePasswordComponent implements OnInit {
 
   restartPasswordForm = new FormGroup({
     password_: new FormControl('',Validators.required ),
-    repassword_: new FormControl('',Validators.required )
-  },{validators:passwordMatchValidator});
+  },);
 
   get passLog(){
     return this.restartPasswordForm.get('password_');
@@ -38,7 +37,7 @@ export class ChangePasswordComponent implements OnInit {
     console.log(this.restartPasswordForm.value);
     console.log("email del usuario sacado de la url",this.emailUser);
     console.log("parametros a enviar",this.emailUser);
-    this.generalUserService.changePassword(this.emailUser,this.passLog?.value).subscribe(
+    this.generalUserService.changePassword(this.emailUser,this.restartPasswordForm.value).subscribe(
       res =>  {console.log(res)},
       error => console.log(error)
     );
