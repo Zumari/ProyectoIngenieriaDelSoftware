@@ -21,7 +21,9 @@ import { DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ChangePasswordComponent } from './components/changePassword/change-password/change-password.component';
 import { RestartPasswordComponent } from './components/restartPassword/restart-password/restart-password.component';
-
+import { AngularFireModule } from  '@angular/fire';
+import { AngularFirestoreModule } from  '@angular/fire/firestore';
+import { environment } from 'src/environments/environment.prod';
 
 @NgModule({
   declarations: [
@@ -44,7 +46,9 @@ import { RestartPasswordComponent } from './components/restartPassword/restart-p
     FontAwesomeModule,
     HttpClientModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]
