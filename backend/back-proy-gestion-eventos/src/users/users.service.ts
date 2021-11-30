@@ -15,12 +15,12 @@ export class UsersService {
       ) {}
 
     async addUser(userNew:createUserDto){
-          const {email,firstName,middleName,lastName,secondLastName,academicTraining, description_,interests ,password_, institutionRepresenting}=userNew;
+          const {email,firstName,middleName,lastName,secondLastName,academicTraining, description_,interests ,password_, institutionRepresenting, profilePhoto}=userNew;
           try {
               const exists= await this.usersRepository.findOne(userNew.email);
               if(!exists){
                   const institutionUser= await this.institutionService.getOneInstitution(institutionRepresenting);
-                  const post= this.usersRepository.create({email,firstName,middleName,lastName,secondLastName,academicTraining, description_,interests ,password_, institutionRepresenting:institutionUser});
+                  const post= this.usersRepository.create({email,firstName,middleName,lastName,secondLastName,academicTraining, description_,interests ,password_, profilePhoto, institutionRepresenting:institutionUser});
                   await this.usersRepository.save(post);
                   return{
                       "message":"Registro realizado con exito"
@@ -51,8 +51,21 @@ export class UsersService {
     async updateUser(email:string,user:updateUser){
         try {
             const post = await this.usersRepository.findOne(email);
-            if(!post) throw new NotFoundException(`El usuario ${user.firstName} con correo ${email} no existe dentro de la aplicacion`);
+            if(!post) throw new NotFoundException(`El usuario con correo ${email} no existe dentro de la aplicacion`);
+            
             const editPost =Object.assign(post,user);
+            return await this.usersRepository.save(editPost);
+        } catch (error) {
+            throw new Error(error);
+        }
+    }
+    async updatePasswordUser(email:string,user:updateUser){
+        try {
+            const post = await this.usersRepository.findOne(email);
+            if(!post) throw new NotFoundException(`El usuario con correo ${email} no existe dentro de la aplicacion`);
+            
+            const editPost =Object.assign(post,user);
+            await editPost.hashPassword();
             return await this.usersRepository.save(editPost);
         } catch (error) {
             throw new Error(error);

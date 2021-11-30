@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { User } from 'src/app/interfaces/user';
-import { Auth, UserResponse } from 'src/app/interfaces/auth';
+import { changePassword, User } from 'src/app/interfaces/user';
+import { Auth,ForgotUser, UserResponse } from 'src/app/interfaces/auth';
 import { tap } from 'rxjs/operators';
 //import { ToastrService } from 'ngx-toastr';
 @Injectable({
@@ -51,11 +51,24 @@ export class GeneralUserService {
     localStorage.removeItem('token');
   }
 
-  
+  /*forgotPassword(forgotUser:ForgotUser): Observable<ForgotUser>{
+    console.log("llegamos a la bd mandamos",forgotUser);
+    return this.httpClient.post<ForgotUser>(`http://localhost:3000/auth/forgot`,forgotUser);
+  }*/
+
+  forgotPassword(forgotUser:ForgotUser){
+    console.log("pasamos el back y mandamos",forgotUser);
+    return  this.httpClient.post('http://localhost:3000/auth/forgot/',forgotUser);
+  }
+
+  changePassword(email:string,user:changePassword):Observable<User>{
+    console.log(user);
+    console.log(`http://localhost:3000/users/updatePasswordUser/${email}`,user);
+    return this.httpClient.put<User>(`http://localhost:3000/users/updatePasswordUser/${email}`,user);
+  }
+
    setToken(token: string):void{
-     console.log("llego esta M",token);
     localStorage.setItem('token',token) ;
-  
   }
   
   getToken():string{
@@ -80,6 +93,29 @@ export class GeneralUserService {
     const valuesJson = JSON.parse(values);
     const nombreUsuario = valuesJson.firstName;
     return nombreUsuario;
+  }
+
+  getProfilePhoto(): any {
+    if (!this.isLogged()) {
+      return 'usario no loggedo'
+    }
+    const token = this.getToken();
+    const payload = token.split('.')[1];
+    const values = atob(payload);
+    const valuesJson = JSON.parse(values);
+    var profilePhoto = valuesJson.profilePhoto;
+    /*
+    this.getUser(valuesJson.email).subscribe(
+      res =>  {
+        profilePhoto = Object.values(res)[1].profilePhoto;        
+      },
+      error => console.log(error)
+      
+      );
+      console.log('La FOTOOO');
+      console.log(profilePhoto);
+      */
+    return profilePhoto;
   }
  
   getEmail(): string {

@@ -9,6 +9,11 @@ import { Router } from '@angular/router';
 import { GeneralUserService } from 'src/app/services/user/general-user/general-user.service';
 import { DatePipe } from '@angular/common';
 import { ValidadoresEspeciales, dateValidator } from 'src/app/util/ValidadorEspecial';
+import { DomSanitizer } from '@angular/platform-browser';
+import { AngularFireStorage} from '@angular/fire/compat/storage';
+import { finalize } from 'rxjs/operators';
+import { Observable } from 'rxjs/internal/Observable';
+
 
 @Component({
   selector: 'app-dashboard',
@@ -23,6 +28,11 @@ export class DashboardComponent implements OnInit {
   faLock = faLock;
   mode: string = 'virtual';
   privacy: string = 'publico';
+  keyword: string = ''; 
+  previsualizacion: string="";
+  urlImage: string="";
+  urlImage2!: Observable<string>;
+  nameImage="";
 
 
   eventosLista : Event[]=[{
@@ -63,18 +73,63 @@ export class DashboardComponent implements OnInit {
     private institutionServ: InstitutionService,
     private router: Router,
     private generalService: GeneralUserService,
-    private pipe:DatePipe) {
+    private pipe:DatePipe,
+    private generalUserService:GeneralUserService,
+    private sanitizer: DomSanitizer,
+    private storage: AngularFireStorage) {
       this.fechaMinima= new Date(new Date().getFullYear(),new Date().getMonth(), new Date().getDate());
-
       this.fechaStrMinima= this.pipe.transform(this.fechaMinima, "yyyy-MM-dd")!;
      }
 
     ngOnInit(): void {
-      this.getEvents();
+      let usuarioId= this.generalUserService.getEmail();
+      this.getEvents(usuarioId);
       this.getInstitution();
 
     }
+   
+      extraerBase64 = async ($event: any) => new Promise((resolve, reject) => {
+        try {
+          const unsafeImg = window.URL.createObjectURL($event);
+          const image = this.sanitizer.bypassSecurityTrustUrl(unsafeImg);
+          const reader = new FileReader();
+          reader.readAsDataURL($event);
+          reader.onload = () => {
+            resolve({
+              base: reader.result
+            });
+          };
+          reader.onerror = error => {
+            resolve({
+              base: null
+            });
+          };
+    
+        } catch (e) {
+          throw null;
+        }
+      })
+  
+    capturarFile(event:any):any{
+      const archivoCapturado=event.target.files[0];
+      this.nameImage=archivoCapturado.name;
+    /* this.extraerBase64(archivoCapturado).then((imagen: any) => {
+        this.previsualizacion = imagen.base;
+        console.log("base 64",imagen.base);
+      })*/
+      this.upload(archivoCapturado);
+    }
 
+    upload(file:any){
+     const filePath=`upload/${file.name}`;
+     const ref=this.storage.ref(filePath);
+     const task=this.storage.upload(filePath,file)
+     task.snapshotChanges().pipe(finalize(()=>{ref.getDownloadURL().subscribe(url=>{
+       this.urlImage=url;
+       console.log(url)
+       console.log(this.urlImage);
+     })})).subscribe();
+    }
 
 get photo (){
   return this.eventoForm.get('photo');
@@ -106,16 +161,17 @@ get modality(){
 
   createEvents(){
     this.eventoForm.value.institutionId=Number(this.eventoForm.value.institutionId)
+    this.eventoForm.value.photo=this.urlImage;
+    console.log("la url es ", this.urlImage);
     console.log(this.eventoForm.value);
     this.eventServ.createEvent(this.eventoForm.value,this.generalService.getEmail()).subscribe(
       res =>  {console.log(res)},
       error => console.log(error))
     this.router.initialNavigation;
-
   }
 
-  getEvents(){
-    this.eventServ.getAllEvents().subscribe(
+  getEvents(usuarioId:string){
+    this.eventServ.getAllEventsDash(usuarioId).subscribe(
       res =>  {this.eventosLista=res},
       error => console.log(error)
 
@@ -130,7 +186,6 @@ get modality(){
 
     )
   }
-
 
   changeMod(val: number) {
     this.mode = val == 1 ? 'virtual' : 'presencial';

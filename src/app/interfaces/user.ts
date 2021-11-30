@@ -10,3 +10,7 @@ export interface User {
     interests : string;
     institutionRepresenting :string;
 }
+
+export interface changePassword {
+    password_: string; 
+}

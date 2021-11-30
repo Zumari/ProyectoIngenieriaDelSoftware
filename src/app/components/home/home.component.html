@@ -12,26 +12,20 @@
   <div class="d-flex justify-content-end">
     <div class="col-lg-3 col-md-4 col-sm-12 col-12 mx-2">
       <div class="input-group mb-3">
-        <input type="text" class="form-control" [(ngModel)]="keyword" aria-label="Buscar">
-        <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Filtrar</button>
-        <ul class="dropdown-menu dropdown-menu-end">
-          <li><a class="dropdown-item" (click)="getFilterEvents('disponibilidad')">Disponibilidad</a></li>
-          <li><a class="dropdown-item" (click)="getFilterEvents('privacidad')">Privacidad</a></li>
-          <li><a class="dropdown-item" (click)="getFilterEvents('nombre')">Nombre</a></li>
-          <li><a class="dropdown-item" (click)="getFilterEvents('organizador')">Organizador</a></li>
-        </ul>
+        <input type="text" class="form-control" [(ngModel)]="keyword" aria-label="Buscar" placeholder="Introduzca un nombre o fecha">
+        <div class="btn btn-primary">Buscar</div>
       </div>
     </div>
   </div>
   <div class="container">
     <div class="d-flex flex-wrap">
-      <div class="card col-lg-3 col-xl-3 col-md-3 col-sm-6 col-12 p-0 m-2" style="width: 18vw;" *ngFor="let evento of eventosLista; let i = index">
-        <img [src]="evento.image == undefined ? '../../../assets/images/default.jpg': evento.image" class="card-img-top" alt="...">
+      <div class="card col-lg-3 col-xl-3 col-md-3 col-sm-6 col-12 p-0 m-2" style="width: 18vw;" *ngFor="let evento of eventosLista | filter:keyword; let i = index">
+       <img [src]="evento.photo" class="card-img-top" alt="...">
         <div class="card-body">
           <div class="row">
             <div class="col-10">
               <h5 class="card-title">{{evento.name}}</h5>
-          <div class="card-text">{{evento.startDate|date:'shortDate'}}</div>
+          <div class="card-text">{{evento.startDate|date:'dd-MM-yyyy'}}</div>
           <div class="card-text">{{evento.description_}}</div>
             </div>
             <div class="col-2" style="position: relative;">
@@ -115,15 +109,15 @@
               <img src="../.././../assets/images/ESLogo.svg" alt="...">
             </div>
           </div>
+        </div>
+        <form [formGroup]="registerForm">
           <div style="z-index: 10; background-color: gray; border-radius: 100%; height: 10vw; width: 10vw; margin: auto; top: -4vw; position: relative;">
             <img [src]="imgPerfil" alt="" style="width: 100%; height: 100%; border-radius: 100%;">
-            <input type="file" name="perfil" id="perfil" style="visibility: hidden;" (change)="cambiarImagen()">
+            <input type="file" formControlName="profilePhoto" name="perfil" id="perfil" style="visibility: hidden;" (change)="cambiarImagen($event)">
             <label for="perfil" class="perfil-registro">
               <fa-icon [icon]="faCamera"></fa-icon>
             </label>
           </div>
-        </div>
-        <form [formGroup]="registerForm">
           <div>
             <div class="row px-5">
               <div class="mb-3">
@@ -215,13 +209,18 @@
               </div>
               <div class="mb-3">
                 <label for="contrasenia" class="form-label">Confirme su contraseña:</label>
-                <input type="repassword" formControlName="repassword_" class="form-control" id="recontrasenia" placeholder="">
+                <input type="password" formControlName="repassword_" class="form-control" id="recontrasenia" placeholder="">
                 <div class="alert-danger" *ngIf="repassReg?.invalid && (repassReg?.dirty || repassReg?.touched)">
                   <div class="container-error-message" *ngIf="repassReg?.errors?.required">
                     Campo obligatorio
                   </div>
                   <div class="container-error-message" *ngIf="repassReg?.errors?.minlength">
                     Mínimo 5 caracteres
+                  </div>
+                  <div class="alert-danger" *ngIf="registerForm.hasError('mismatch')">
+                    <div class="container-error-message" *ngIf="registerForm.hasError('mismatch')">
+                      Las contraseñas no coinciden
+                    </div>
                   </div>
                 </div>
               </div>

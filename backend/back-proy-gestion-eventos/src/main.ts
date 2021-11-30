@@ -5,7 +5,7 @@ import { AppModule } from './app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.useGlobalPipes(new ValidationPipe({whitelist:true,forbidNonWhitelisted:true}));
+  app.useGlobalPipes(new ValidationPipe({whitelist:true,forbidNonWhitelisted:true,transform:true}));
   const config = new DocumentBuilder()
     .setTitle('EVENTS API')
     .setDescription('API DE APLICAION DE GESTION DE EVENTOS ACADEMICOS')

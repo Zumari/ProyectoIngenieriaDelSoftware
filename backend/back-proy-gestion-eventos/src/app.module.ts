@@ -17,6 +17,12 @@ import { StatusService } from './status/status.service';
 import { AuthModule } from './auth/auth.module';
 import { EventsModule } from './events/events.module';
 import { MailModule } from './mail/mail.module';
+import { EventImagesController } from './event-images/event-images.controller';
+import { EventImagesModule } from './event-images/event-images.module';
+import { UserImagesModule } from './user-images/user-images.module';
+import { ScheduledEventController } from './scheduled-event/scheduled-event.controller';
+import { ScheduledEventService } from './scheduled-event/scheduled-event.service';
+import { ScheduledEventModule } from './scheduled-event/scheduled-event.module';
 
 @Module({
   imports: [TypeOrmModule.forRoot({
@@ -41,10 +47,10 @@ import { MailModule } from './mail/mail.module';
       validateConnection: false,
       IntegratedSecurity: false,
     }
-  }),UsersModule,InstitutionsModule,StatusModule, AuthModule, EventsModule, MailModule
+  }),UsersModule,InstitutionsModule,StatusModule, AuthModule, EventsModule, MailModule, EventImagesModule, UserImagesModule, ScheduledEventModule
 ],
-  controllers: [AppController, UsersController,InstitutionsController,StatusController],
-  providers: [AppService, UsersService,InstitutionsService,StatusService],
+  controllers: [AppController, UsersController,InstitutionsController,StatusController, EventImagesController, ScheduledEventController],
+  providers: [AppService, UsersService,InstitutionsService,StatusService, ScheduledEventService],
 })
 export class AppModule {
  // constructor(private connection: Connection) {}

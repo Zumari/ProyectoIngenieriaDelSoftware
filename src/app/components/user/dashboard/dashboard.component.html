@@ -6,28 +6,22 @@
         Generar evento
       </button>
     </div>
-    <div class="col-lg-3 col-md-4 col-sm-12 col-12 mx-2">
+    <div class="col-lg-3 col-md-4 col-sm-12 col-12 mx-2" >
       <div class="input-group mb-3">
-        <input type="text" class="form-control" aria-label="Buscar" placeholder="Buscar">
-        <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Filtrar</button>
-        <ul class="dropdown-menu dropdown-menu-end">
-          <li><a class="dropdown-item" href="#">Disponibilidad</a></li>
-          <li><a class="dropdown-item" href="#">Privacidad</a></li>
-          <li><a class="dropdown-item" href="#">Nombre</a></li>
-          <li><a class="dropdown-item" href="#">Organizador</a></li>
-        </ul>
+        <input type="text" class="form-control" [(ngModel)]="keyword" aria-label="Buscar" placeholder="Introduzca un nombre o fecha">
+        <div class="btn btn-primary">Buscar</div>
       </div>
     </div>
   </div>
   <div class="">
     <div class="d-flex flex-wrap">
-      <div class="card col-lg-3 col-xl-3 col-md-3 col-sm-6 col-12 p-0 m-2" style="width: 18vw;" *ngFor="let evento of eventosLista; let i = index" (click)="viewEvent(evento.eventId) ">
-         <img [src]="evento.image == undefined ? '../../../assets/images/default.jpg': evento.image" class="card-img-top" alt="..."> 
+      <div class="card col-lg-3 col-xl-3 col-md-3 col-sm-6 col-12 p-0 m-2" style="width: 18vw; cursor: pointer" *ngFor="let evento of eventosLista | filter:keyword; let i = index" (click)="viewEvent(evento.eventId) ">
+        <img [src]="evento.photo" class="card-img-top" alt="..."> 
         <div class="card-body">
           <div class="row">
             <div class="col-10">
               <h5 class="card-title">{{evento.name}}</h5>
-          <div class="card-text">{{evento.startDate|date:'shortDate'}} - {{evento.endDate|date:'shortDate'}}</div>
+          <div class="card-text">{{evento.startDate|date:'dd-MM-yyyy'}} - {{evento.endDate|date:'dd-MM-yyyy'}}</div>
           <div class="card-text">{{evento.modality}}</div>
             </div>
             <div class="col-2" style="position: relative;">
@@ -45,7 +39,7 @@
 </div>
 
 
-<!-- Modal -->
+<!-- Modal Generar Evento -->
 <div class="modal fade" id="crearevento" tabindex="-1" aria-labelledby="creareventoLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -125,8 +119,14 @@
               </div>
               <div class="mb-3">
                 <label for="" class="form-label">Seleccione imagen a utilizar:</label><br>
-                <label for="image" style="background-color: gray; padding: 3rem;"><img src="../../../../assets/images/mas.png" alt=""></label>
-                <input formControlName="photo" type="file" name="image" id="image" style="visibility: hidden;">
+                <div class="file-field md-form">
+                  <div mdbBtn rounded="true" gradient="aqua" size="md" mdbWavesEffect>
+                    <input mdbFileSelect formControlName="photo" type="file" name="image" (change)="capturarFile($event)" id="image">
+                  </div>
+                  <div class="file-path-wrapper mt-2">
+                    <input class="file-path" style="display: none;">
+                  </div>
+                </div>
               </div>
               <div class="mb-3">
                 <label for="modalidad" class="form-label">Privacidad:</label>
@@ -178,7 +178,7 @@
                <!--  <button type="button" class="btn btn-secondary" style="font-size: smaller;" *ngIf="privacy == 'privado'">Inserte lista de participantes</button> -->
               </div>
               <div class="mb-5 d-flex justify-content-center">
-                <button  type="button" [disabled]="!eventoForm.valid" class="btn btn-warning" (click)="createEvents()" onclick="location.reload()" >Generar</button>
+                <button  type="button" [disabled]="!eventoForm.valid" class="btn btn-warning" (click)="createEvents()"  >Generar</button>
               </div>
             </div>
           </div>
@@ -187,4 +187,5 @@
     </div>
   </div>
 </div>
+
 
