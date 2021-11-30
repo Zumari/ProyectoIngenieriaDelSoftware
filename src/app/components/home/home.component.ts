@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 import * as $ from 'jquery';
 import { faBookmark, faCamera, faLock } from '@fortawesome/free-solid-svg-icons';
 import { passwordMatchValidator } from 'src/app/util/ValidadorEspecial';
-import { AngularFireStorage} from '@angular/fire/compat/storage';
+import { AngularFireStorage} from '@angular/fire/storage';
 import { DomSanitizer } from '@angular/platform-browser';
 import { finalize } from 'rxjs/operators';
 
@@ -30,7 +30,7 @@ export class HomeComponent implements OnInit {
   urlImage: string="";
 
 
-  
+
  eventosLista : Event[]=[{
   eventId:0,
   name: '',
@@ -44,7 +44,7 @@ export class HomeComponent implements OnInit {
   description_: '',
   userId: 0,
   image: '',
-  }  
+  }
 ]; //Arreglo de eventos para recorrer y pintar el html con NGFOR
   faCamera = faCamera;
   imgPerfil: any;
@@ -83,7 +83,7 @@ loginForm = new FormGroup({
 
   constructor( private eventServ: EventsService,
     private generalUserService:GeneralUserService,
-    private institutionServ:InstitutionService, private router:Router, 
+    private institutionServ:InstitutionService, private router:Router,
     private storage: AngularFireStorage,
     private sanitizer: DomSanitizer) { }
 
@@ -119,7 +119,7 @@ loginForm = new FormGroup({
     const archivoCapturado=event.target.files[0];
     this.nameImage=archivoCapturado.name;
     this.upload(archivoCapturado);
-    
+
     let img = (document.getElementById('perfil')) as HTMLInputElement;
     if (img.files!.length>0){
       var reader = new FileReader();
@@ -130,7 +130,7 @@ loginForm = new FormGroup({
       // this.imgPerfil = URL.createObjectURL(img.files![0]);
 
     }
-    
+
   }
 
   upload(file:any){

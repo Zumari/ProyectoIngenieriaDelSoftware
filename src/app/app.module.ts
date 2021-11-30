@@ -20,26 +20,14 @@ import { DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ChangePasswordComponent } from './components/changePassword/change-password/change-password.component';
 import { RestartPasswordComponent } from './components/restartPassword/restart-password/restart-password.component';
-<<<<<<< HEAD
 import { AngularFireModule } from  '@angular/fire';
 import { AngularFirestoreModule } from  '@angular/fire/firestore';
 import { environment } from 'src/environments/environment.prod';
-=======
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
-import { AngularFireModule} from '@angular/fire/compat'
-import { AngularFireStorageModule } from '@angular/fire/compat/storage';
-import { AngularFireAuthModule } from '@angular/fire/compat/auth';
-import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
+import { AngularFireStorageModule } from '@angular/fire/storage';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
 
-const config = {
-  apiKey: 'AIzaSyArD0fzANzKYTs4k8rLHbK3UnCWG_Ip9pM',
-  authDomain: 'imageneseventos-1e0bb.firebaseapp.com',
-  databaseURL: 'https://imageneseventos-1e0bb-default-rtdb.firebaseio.com',
-  projectId: 'imageneseventos-1e0bb',
-  storageBucket: 'gs://imageneseventos-1e0bb.appspot.com',
-  messagingSenderId: '796279284343'
-};
->>>>>>> 125b8950edf56ed841b479d9dc15255d28e0fe06
 
 @NgModule({
   declarations: [
@@ -63,16 +51,12 @@ const config = {
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
-<<<<<<< HEAD
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFirestoreModule
-=======
+    AngularFirestoreModule,
     Ng2SearchPipeModule,
-    AngularFireModule.initializeApp(config),
     AngularFireAuthModule,
     AngularFireStorageModule,// storagec
     AngularFireDatabaseModule
->>>>>>> 125b8950edf56ed841b479d9dc15255d28e0fe06
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]

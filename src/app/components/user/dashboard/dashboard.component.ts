@@ -10,7 +10,7 @@ import { GeneralUserService } from 'src/app/services/user/general-user/general-u
 import { DatePipe } from '@angular/common';
 import { ValidadoresEspeciales, dateValidator } from 'src/app/util/ValidadorEspecial';
 import { DomSanitizer } from '@angular/platform-browser';
-import { AngularFireStorage} from '@angular/fire/compat/storage';
+import { AngularFireStorage} from '@angular/fire/storage';
 import { finalize } from 'rxjs/operators';
 import { Observable } from 'rxjs/internal/Observable';
 
@@ -28,7 +28,8 @@ export class DashboardComponent implements OnInit {
   faLock = faLock;
   mode: string = 'virtual';
   privacy: string = 'publico';
-  keyword: string = ''; 
+  typeEvent: string = 'conferencia';
+  keyword: string = '';
   previsualizacion: string="";
   urlImage: string="";
   urlImage2!: Observable<string>;
@@ -60,6 +61,17 @@ export class DashboardComponent implements OnInit {
     openEvent:  new FormControl(true, [Validators.required]),
     institutionId: new FormControl(0,[Validators.required, Validators.min(0)]),
     modality: new FormControl('', Validators.required)
+  },{validators:dateValidator});
+
+  conferenciaForm = new FormGroup({
+    name: new FormControl('',[Validators.required, Validators.maxLength(50), Validators.pattern('[a-zA-ZÑÁÉÍÓÚáéíóú][a-zA-Zñáéíóú ]{1,}')]),
+    description_:new FormControl('',Validators.compose([Validators.required, Validators.maxLength(300), Validators.pattern('[a-zA-ZÑÁÉÍÓÚáéíóú][a-zA-Zñáéíóú ]{1,}')])),
+    startDate: new FormControl('', [Validators.required, ValidadoresEspeciales.ValidarFechas]),
+    endDate: new FormControl('', [Validators.required]),
+    startTime: new FormControl('', [Validators.required]),
+    endTime: new FormControl('', [Validators.required]),
+    openEvent:  new FormControl(true, [Validators.required]),
+    modality: new FormControl('', Validators.required)
   },{validators:dateValidator})
 
   institutions: institution[]=[{
@@ -87,7 +99,7 @@ export class DashboardComponent implements OnInit {
       this.getInstitution();
 
     }
-   
+
       extraerBase64 = async ($event: any) => new Promise((resolve, reject) => {
         try {
           const unsafeImg = window.URL.createObjectURL($event);
@@ -104,12 +116,12 @@ export class DashboardComponent implements OnInit {
               base: null
             });
           };
-    
+
         } catch (e) {
           throw null;
         }
       })
-  
+
     capturarFile(event:any):any{
       const archivoCapturado=event.target.files[0];
       this.nameImage=archivoCapturado.name;
@@ -193,6 +205,10 @@ get modality(){
 
   changePriv(val: number) {
     this.privacy = val == 1 ? 'publico' : 'privado';
+  }
+
+  changeType(val: number) {
+    this.typeEvent = val == 1 ? 'conferencia': 'taller';
   }
 
   viewEvent(id: number) {
