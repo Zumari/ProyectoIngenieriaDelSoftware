@@ -29,6 +29,10 @@ export class ScheduledEventDTO {
     @IsOptional()
     @IsInt()
     places: string;
+
+    @IsOptional()
+    @IsString()
+    address: string;
     
     @IsNotEmpty()
     @IsString()
