@@ -29,19 +29,19 @@
   <div class="divider"></div>
   <div class="row mb-3">
     <div class="row my-3">Agenda</div>
-    <div class="row mb-3 py-2" style="background-color: #d5caca82; border-radius: 5px;" >
+    <div class="row mb-3 py-2" style="background-color: #d5caca82; border-radius: 5px;"  *ngFor="let evento of eventosProgramados; let i = index" >
       <div class="col-lg-3 col-md-3 col-sm-12 col-12">
-        <div class="d-flex justify-content-between"><div>Fecha de inicio:</div> <div>{{event.startDate|date:'dd-MM-yyyy'}}</div></div>
-        <div class="d-flex justify-content-between"><div>Fecha de fin:</div> <div>{{event.endDate|date:'dd-MM-yyyy'}}</div></div>
-<!--         <div class="d-flex justify-content-between"><div>Hora de inicio:</div> <div>{{event.startTime}}</div></div>
-        <div class="d-flex justify-content-between"><div>Hora de fin:</div> <div>{{event.endTime}}</div></div> -->
+        <div class="d-flex justify-content-between"><div>Fecha de inicio:</div> <div>{{evento.startDate|date:'dd-MM-yyyy'}}</div></div>
+        <div class="d-flex justify-content-between"><div>Fecha de fin:</div> <div>{{evento.endDate|date:'dd-MM-yyyy'}}</div></div>
+         <div class="d-flex justify-content-between"><div>Hora de inicio:</div> <div>{{evento.startHour}}</div></div>
+        <div class="d-flex justify-content-between"><div>Hora de fin:</div> <div>{{evento.endHour}}</div></div> 
       </div>
       <div class="col-lg-9 col-md-9 col-sm-12 col-12" style="border-left: solid 2px gray;">
-        <div>{{event.name}}</div>
-        <div>Descripción: {{event.description_}}</div>
+        <div>{{evento.name}}</div>
+        <div>Descripción: {{evento.description_}}</div>
         <div><a href="">URL de la ubicación o enlace</a></div>
         <div class="row mb-3">
-          <div class="d-flex align-items-center justify-content-center"><div class="sm-avatar"></div><div class="mx-2">{{event.userId}}</div></div>
+          <div class="d-flex align-items-center justify-content-center"><div class="sm-avatar"></div><div class="mx-2">{{evento.managerId}}</div></div>
         </div>
         <div class="mb-2 d-flex justify-content-right">
           <button  type="button" class="btn btn-warning">Inscribirme</button>
