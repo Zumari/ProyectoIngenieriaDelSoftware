@@ -5,6 +5,8 @@ import { EventsService } from 'src/app/services/user/events/events.service';
 import { Event } from 'src/app/interfaces/event';
 import { ActivatedRoute, Router } from '@angular/router';
 import { InstitutionService } from 'src/app/services/institutions/institutions.service';
+import { ScheduledEventService } from 'src/app/services/user/scheduled-event/scheduled-event.service';
+import { ScheduledEvent } from 'src/app/interfaces/scheduled-event';
 
 @Component({
   selector: 'app-myevent',
@@ -28,11 +30,30 @@ export class MyeventComponent implements OnInit {
     institutionId: '',
     description_: '',
     userId: '',
-    startTime: '',
-    endTime: '',
+    startHour: '',
+    endHour: '',
     image: ''
   };
  
+
+  eventosProgramados: ScheduledEvent[]=[{
+    scheduledEventId: 0,
+    name:'',
+    description_: '',
+    startDate: '',
+    endDate: '',
+    startHour: '',
+    endHour: '',
+    //Cada que se registre un participante nuevo deberia editarse este campo y reducir una unidad
+    places: '',
+    modality:'',
+    statusId:0,
+    managerId:'',
+    eventId:0,
+    address: ''
+   }
+  ]
+  
 
   inst: any ={
     institutionId:0,
@@ -41,6 +62,7 @@ export class MyeventComponent implements OnInit {
   constructor(private eventServ: EventsService, 
      private activatedRoute:ActivatedRoute,
      private institutionService: InstitutionService,
+     private schEvent : ScheduledEventService,
      private router: Router ) { }
 
   ngOnInit(): void {
@@ -74,5 +96,25 @@ export class MyeventComponent implements OnInit {
       },
       error => console.log(error)
     )
+  }
+  
+  getAllScheduledEvents(){
+    this.schEvent.getAllScheduledEvents().subscribe(
+      res =>  {this.eventosProgramados=res},
+      error => console.log(error)
+    )
+  }
+
+  deleteScheduledEvent(idEvento:number){
+    this.schEvent.deleteScheduledEvent(idEvento).subscribe(
+      res=>{
+        console.log(res);
+        this.getAllScheduledEvents();
+        
+      },
+      error=> console.log(error)
+      
+    )
+    
   }
 }
