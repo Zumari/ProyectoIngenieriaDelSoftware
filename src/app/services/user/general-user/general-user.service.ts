@@ -68,9 +68,7 @@ export class GeneralUserService {
   }
 
    setToken(token: string):void{
-     console.log("llego esta M",token);
     localStorage.setItem('token',token) ;
-  
   }
   
   getToken():string{
@@ -95,6 +93,29 @@ export class GeneralUserService {
     const valuesJson = JSON.parse(values);
     const nombreUsuario = valuesJson.firstName;
     return nombreUsuario;
+  }
+
+  getProfilePhoto(): any {
+    if (!this.isLogged()) {
+      return 'usario no loggedo'
+    }
+    const token = this.getToken();
+    const payload = token.split('.')[1];
+    const values = atob(payload);
+    const valuesJson = JSON.parse(values);
+    var profilePhoto = valuesJson.profilePhoto;
+    /*
+    this.getUser(valuesJson.email).subscribe(
+      res =>  {
+        profilePhoto = Object.values(res)[1].profilePhoto;        
+      },
+      error => console.log(error)
+      
+      );
+      console.log('La FOTOOO');
+      console.log(profilePhoto);
+      */
+    return profilePhoto;
   }
  
   getEmail(): string {
