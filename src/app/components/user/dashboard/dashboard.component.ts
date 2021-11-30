@@ -15,6 +15,8 @@ import { finalize } from 'rxjs/operators';
 import { Observable } from 'rxjs/internal/Observable';
 
 
+
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -32,8 +34,9 @@ export class DashboardComponent implements OnInit {
   keyword: string = '';
   previsualizacion: string="";
   urlImage: string="";
-  urlImage2!: Observable<string>;
+  //urlImage2!: Observable<string>;
   nameImage="";
+  uploadPercent:Observable<number|undefined> | undefined;
 
 
   eventosLista : Event[]=[{
@@ -57,7 +60,6 @@ export class DashboardComponent implements OnInit {
     description_:new FormControl('',Validators.compose([Validators.required, Validators.maxLength(300), Validators.pattern('[a-zA-ZÑÁÉÍÓÚáéíóú][a-zA-Zñáéíóú ]{1,}')])),
     startDate: new FormControl('', [Validators.required, ValidadoresEspeciales.ValidarFechas]),
     endDate: new FormControl('', [Validators.required]),
-    places:  new FormControl(0, [ Validators.min(0)]),
     openEvent:  new FormControl(true, [Validators.required]),
     institutionId: new FormControl(0,[Validators.required, Validators.min(0)]),
     modality: new FormControl('', Validators.required)
@@ -125,17 +127,14 @@ export class DashboardComponent implements OnInit {
     capturarFile(event:any):any{
       const archivoCapturado=event.target.files[0];
       this.nameImage=archivoCapturado.name;
-    /* this.extraerBase64(archivoCapturado).then((imagen: any) => {
-        this.previsualizacion = imagen.base;
-        console.log("base 64",imagen.base);
-      })*/
       this.upload(archivoCapturado);
     }
 
     upload(file:any){
      const filePath=`upload/${file.name}`;
      const ref=this.storage.ref(filePath);
-     const task=this.storage.upload(filePath,file)
+     const task=this.storage.upload(filePath,file);
+     this.uploadPercent=task.percentageChanges() ;
      task.snapshotChanges().pipe(finalize(()=>{ref.getDownloadURL().subscribe(url=>{
        this.urlImage=url;
        console.log(url)
@@ -174,8 +173,6 @@ get modality(){
   createEvents(){
     this.eventoForm.value.institutionId=Number(this.eventoForm.value.institutionId)
     this.eventoForm.value.photo=this.urlImage;
-    console.log("la url es ", this.urlImage);
-    console.log(this.eventoForm.value);
     this.eventServ.createEvent(this.eventoForm.value,this.generalService.getEmail()).subscribe(
       res =>  {console.log(res)},
       error => console.log(error))
@@ -186,7 +183,6 @@ get modality(){
     this.eventServ.getAllEventsDash(usuarioId).subscribe(
       res =>  {this.eventosLista=res},
       error => console.log(error)
-
     )
   }
 

@@ -9,6 +9,6 @@ export class Status{
     @Column({type:'varchar',length:50,nullable:false})
     name:string
     
-    @OneToMany( type => Event,Event=>Event.StatusID)
-    Event: Event[];
+   /* @OneToMany( type => Event,Event=>Event.StatusID)
+    Event: Event[];*/
 }

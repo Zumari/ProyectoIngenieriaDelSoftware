@@ -17,23 +17,19 @@ export class CreateEventDto {
     @IsNotEmpty()
     @IsDateString()
     endDate : Date;
-    
-    @IsOptional()
-    @IsInt()
-    places: string;
 
     @IsNotEmpty()
     @IsBoolean()
     openEvent: boolean;
-
+/*
+    @IsOptional()
+    @IsBoolean()
+    openEventk: JSON;
+*/
     @IsNotEmpty()
     @IsNumber()
     institutionId: number;
-    
-    @IsNotEmpty()
-    @IsString()
-    modality: string;
-    
+        
     @IsNotEmpty()
     @IsString()
     photo: string;
