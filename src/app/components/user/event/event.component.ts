@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { faCertificate, faEye, faPlusCircle, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { param } from 'jquery';
+import { ScheduledEvent } from 'src/app/interfaces/scheduled-event';
 import { EventsService } from 'src/app/services/user/events/events.service';
+import { ScheduledEventService } from 'src/app/services/user/scheduled-event/scheduled-event.service';
 import { InstitutionService  } from "../../../services/institutions/institutions.service";
 
 
@@ -30,6 +32,55 @@ export class EventComponent implements OnInit {
     image: ''
   };
 
+  eventosProgramados: ScheduledEvent[]=[{
+    scheduledEventId: 0,
+    name:'Conferencia',
+    description_: '',
+    startDate: '',
+    endDate: '',
+    startHour: '',
+    endHour: '',
+    //Cada que se registre un participante nuevo deberia editarse este campo y reducir una unidad
+    places: '',
+    modality:'',
+    statusId:0,
+    managerId:'',
+    eventId:0,
+    address: ''
+   },
+   {
+    scheduledEventId: 1,
+    name:'Taller',
+    description_: 'sssssadada',
+    startDate: '',
+    endDate: '',
+    startHour: '',
+    endHour: '',
+    //Cada que se registre un participante nuevo deberia editarse este campo y reducir una unidad
+    places: '',
+    modality:'',
+    statusId:0,
+    managerId:'',
+    eventId:0,
+    address: ''
+   },
+   {
+    scheduledEventId: 2,
+    name:'Conffff',
+    description_: 'dads',
+    startDate: '',
+    endDate: '',
+    startHour: '',
+    endHour: '',
+    //Cada que se registre un participante nuevo deberia editarse este campo y reducir una unidad
+    places: '',
+    modality:'',
+    statusId:0,
+    managerId:'',
+    eventId:0,
+    address: ''
+   },
+  ]
 
   inst: any ={
     institutionId:0,
@@ -38,6 +89,7 @@ export class EventComponent implements OnInit {
   constructor(private eventServ: EventsService,
      private activatedRoute:ActivatedRoute,
      private institutionService: InstitutionService,
+     private schEvent: ScheduledEventService
      ) { }
 
   ngOnInit(): void {
@@ -57,6 +109,13 @@ export class EventComponent implements OnInit {
           error => console.log(error)
         )
       },
+      error => console.log(error)
+    )
+  }
+
+  getAllScheduledEvents(){
+    this.schEvent.getAllScheduledEvents().subscribe(
+      res =>  {this.eventosProgramados=res},
       error => console.log(error)
     )
   }

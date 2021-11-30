@@ -34,8 +34,12 @@ export class ScheduledEvent {
     @Column({type: 'varchar', nullable:false})
     modality:string
     
+    @Column({type: 'varchar', nullable:false})
+    address:string
+
     @Column({name:'status'})
     statusId:number
+
     
     @ManyToOne(type => Status,Status => Status.StatusID)
     @JoinColumn({name:'status'})

@@ -22,20 +22,16 @@ export class Event {
 
     @Column({ type: 'datetime', nullable:false})
     endDate: Date;
-
-    @Column({type: 'int', nullable:true, default:0})
-    places: string;
     
     @Column({type: 'bit', default: true , nullable:false})
     openEvent: boolean;
-    
-    @Column({type: 'varchar', nullable:false})
-    modality:string
-    
-    //Es el enlace de la foto que es la portada de la tarjeta del evento
+
     @Column({type: 'varchar', nullable:false})
     photo:string
     
+    /*@Column({type: 'json', nullable:true})
+    listWhite:JSON*/
+
     @Column({name:'Institution'})
     institutionId:number
 
@@ -43,13 +39,9 @@ export class Event {
     @JoinColumn({name:'Institution'})
     InstitutionID!: Institutions;
     
-    @Column({name:'status'})
-    statusId:number
+    @Column({name:'status', nullable:true, default: false})
+    status:boolean
     
-    @ManyToOne(type => Status,Status => Status.StatusID)
-    @JoinColumn({name:'status'})
-    StatusID!: Status;
-
     @Column({name:'user'})
     userId:number
     
