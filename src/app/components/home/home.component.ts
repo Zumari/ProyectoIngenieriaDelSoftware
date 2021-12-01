@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 import * as $ from 'jquery';
 import { faBookmark, faCamera, faLock } from '@fortawesome/free-solid-svg-icons';
 import { passwordMatchValidator } from 'src/app/util/ValidadorEspecial';
-import { AngularFireStorage} from '@angular/fire/storage';
+import { AngularFireStorage} from '@angular/fire/compat/storage';
 import { DomSanitizer } from '@angular/platform-browser';
 import { finalize } from 'rxjs/operators';
 
