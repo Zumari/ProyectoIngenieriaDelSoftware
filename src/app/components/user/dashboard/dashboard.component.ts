@@ -8,7 +8,7 @@ import { institution } from 'src/app/interfaces/institution';
 import { Router } from '@angular/router';
 import { GeneralUserService } from 'src/app/services/user/general-user/general-user.service';
 import { DatePipe } from '@angular/common';
-import { ValidadoresEspeciales, dateValidator } from 'src/app/util/ValidadorEspecial';
+import { ValidadoresEspeciales, dateValidator, hourValidator } from 'src/app/util/ValidadorEspecial';
 import { DomSanitizer } from '@angular/platform-browser';
 import { AngularFireStorage} from '@angular/fire/storage';
 import { finalize } from 'rxjs/operators';
@@ -62,19 +62,11 @@ export class DashboardComponent implements OnInit {
     endDate: new FormControl('', [Validators.required]),
     openEvent:  new FormControl(true, [Validators.required]),
     institutionId: new FormControl(0,[Validators.required, Validators.min(0)]),
-    modality: new FormControl('', Validators.required)
+    
   },{validators:dateValidator});
 
-  conferenciaForm = new FormGroup({
-    name: new FormControl('',[Validators.required, Validators.maxLength(50), Validators.pattern('[a-zA-ZÑÁÉÍÓÚáéíóú][a-zA-Zñáéíóú ]{1,}')]),
-    description_:new FormControl('',Validators.compose([Validators.required, Validators.maxLength(300), Validators.pattern('[a-zA-ZÑÁÉÍÓÚáéíóú][a-zA-Zñáéíóú ]{1,}')])),
-    startDate: new FormControl('', [Validators.required, ValidadoresEspeciales.ValidarFechas]),
-    endDate: new FormControl('', [Validators.required]),
-    startTime: new FormControl('', [Validators.required]),
-    endTime: new FormControl('', [Validators.required]),
-    openEvent:  new FormControl(true, [Validators.required]),
-    modality: new FormControl('', Validators.required)
-  },{validators:dateValidator})
+
+ 
 
   institutions: institution[]=[{
     InstitutionID:0,
@@ -166,9 +158,7 @@ get openEvent(){
 get institutionId(){
   return this.eventoForm.get('institutionId');
 }
-get modality(){
-  return this.eventoForm.get('modality');
-}
+
 
   createEvents(){
     this.eventoForm.value.institutionId=Number(this.eventoForm.value.institutionId)
@@ -210,4 +200,7 @@ get modality(){
   viewEvent(id: number) {
     this.router.navigate(['usuario/evento/'+id]);
   }
+
+
+  
 }

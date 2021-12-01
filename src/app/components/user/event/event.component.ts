@@ -97,6 +97,7 @@ export class EventComponent implements OnInit {
     if(params){
       this.getEvent(params.name)
     }
+    this.getAllScheduledEvents();
   }
 
   getEvent(id:number){

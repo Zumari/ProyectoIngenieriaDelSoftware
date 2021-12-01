@@ -59,7 +59,6 @@
   </div>
 </div>
 
-
 <!-- Modal Generar Evento -->
 <div class="modal fade" id="creartaller" tabindex="-1" aria-labelledby="creartallerLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -214,7 +213,7 @@
                 </div>
               </div>
               <div class="mb-5 d-flex justify-content-center">
-                <button  type="button" [disabled]="!conferenciaForm.valid" class="btn btn-warning" (click)="createEvents()"  >Generar</button>
+                <button  type="button" [disabled]="!eventoProgramadoForm.valid" class="btn btn-warning" (click)="createScheduledEvent()"  >Generar</button>
               </div>
             </div>
           </div>
@@ -223,5 +222,3 @@
     </div>
   </div>
 </div>
-
-
