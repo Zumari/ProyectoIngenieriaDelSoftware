@@ -13,6 +13,7 @@ export interface Auth {
 export interface UserResponse{
     email: string; 
     firsName: string;
+    urlPhoto:string;
         
 }
 

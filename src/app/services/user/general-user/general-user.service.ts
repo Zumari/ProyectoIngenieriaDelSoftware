@@ -92,10 +92,11 @@ export class GeneralUserService {
     const values = atob(payload);
     const valuesJson = JSON.parse(values);
     const nombreUsuario = valuesJson.firstName;
+    console.log("url del usuario",nombreUsuario);
     return nombreUsuario;
   }
 
-  getProfilePhoto(): any {
+  getProfilePhoto(): string {
     if (!this.isLogged()) {
       return 'usario no loggedo'
     }
@@ -103,19 +104,10 @@ export class GeneralUserService {
     const payload = token.split('.')[1];
     const values = atob(payload);
     const valuesJson = JSON.parse(values);
-    var profilePhoto = valuesJson.profilePhoto;
-    /*
-    this.getUser(valuesJson.email).subscribe(
-      res =>  {
-        profilePhoto = Object.values(res)[1].profilePhoto;        
-      },
-      error => console.log(error)
-      
-      );
-      console.log('La FOTOOO');
-      console.log(profilePhoto);
-      */
-    return profilePhoto;
+    console.log("datos",valuesJson);
+    var urlPhotoUser = valuesJson.urlPhoto;
+    console.log("url del usuario",urlPhotoUser);
+    return urlPhotoUser;
   }
  
   getEmail(): string {
@@ -127,6 +119,7 @@ export class GeneralUserService {
     const values = atob(payload);
     const valuesJson = JSON.parse(values);
     const email = valuesJson.email;
+    console.log("url del usuario",email);
     return email;
   }
 

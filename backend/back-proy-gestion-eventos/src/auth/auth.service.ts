@@ -24,7 +24,8 @@ export class AuthService {
         const user = await this.usersService.findUserAuth(email);
         if(!user)throw new NotFoundException("datos no validos");
         
-        const payload: JWTPayload = { email: user.email,firstName:user.firstName };
+        const payload: JWTPayload = { email: user.email,firstName:user.firstName,urlPhoto:user.profilePhoto };
+        console.log("datos del back",payload)
         return {
           access_token: this.jwtService.sign(payload),
         };

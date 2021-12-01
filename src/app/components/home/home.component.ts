@@ -93,27 +93,7 @@ loginForm = new FormGroup({
     this.getAllUsers();
   }
 
-  extraerBase64 = async ($event: any) => new Promise((resolve, reject) => {
-    try {
-      const unsafeImg = window.URL.createObjectURL($event);
-      const image = this.sanitizer.bypassSecurityTrustUrl(unsafeImg);
-      const reader = new FileReader();
-      reader.readAsDataURL($event);
-      reader.onload = () => {
-        resolve({
-          base: reader.result
-        });
-      };
-      reader.onerror = error => {
-        resolve({
-          base: null
-        });
-      };
 
-    } catch (e) {
-      throw null;
-    }
-  })
 
   cambiarImagen(event:any):any{
     const archivoCapturado=event.target.files[0];
@@ -134,13 +114,11 @@ loginForm = new FormGroup({
   }
 
   upload(file:any){
-    const filePath=`upload/${file.name}`;
+    const filePath=`uploadUser/${file.name}`;
     const ref=this.storage.ref(filePath);
     const task=this.storage.upload(filePath,file)
     task.snapshotChanges().pipe(finalize(()=>{ref.getDownloadURL().subscribe(url=>{
       this.urlImage=url;
-      //console.log(url)
-      //console.log(this.urlImage);
     })})).subscribe();
    }
 
@@ -289,13 +267,12 @@ loginForm = new FormGroup({
 
 
   Onlogin():void{
-    console.log(this.loginForm.value);
 
     this.generalUserService.login(this.loginForm.value)
     .subscribe((res)=>{
       if(res){
         this.router.navigate(['usuario/eventos']);   //DENTRO DE CORCHETES PONER DIRECCIÓN A LA QUE REDIRIGE AL HACER CLICK EN BOTON LOGIN
-        console.log(res);
+        console.log("entro a redireccionar",res);
       }
     },error=> alert(error.error.message));
     $('body').removeClass('modal-open');
