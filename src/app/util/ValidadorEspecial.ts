@@ -33,6 +33,16 @@ export function dateValidator(control: AbstractControl) {
     }
 
 
+    export function hourValidator(control: AbstractControl) {
+      const start = control.get('startHour')?.value;
+      const end = control.get('endHour')?.value;
+      
+      let invalido:boolean
+      /*console.log('invalido= ',(new Date(end ).getTime()-new Date(start).getTime() <0 ));*/
+      invalido=((new Date(end ).getTime()-new Date(start).getTime() <0 ));
+      return  invalido? { hourValid:true }:null ;
+      
+        }
 
     
     export function passwordMatchValidator(g: AbstractControl) {
