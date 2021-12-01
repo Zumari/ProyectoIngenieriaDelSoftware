@@ -18,20 +18,7 @@ export class MyeventsComponent implements OnInit {
   faLock = faLock;
   keyword: string = '';
 
-  eventosLista : Event[]=[{
-    eventId:0,
-    image: '',
-    name:'',
-    description_:'',
-    startDate:'',
-    endDate:'',
-    places: 0,
-    openEvent: true,
-    institutionId: 0,
-    statusId:0,
-    userId:0,
-    modality:'',
-  }];
+  eventosLista : Event[]=[];
 
   
   constructor(

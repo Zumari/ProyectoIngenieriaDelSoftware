@@ -10,11 +10,9 @@ import { GeneralUserService } from 'src/app/services/user/general-user/general-u
 import { DatePipe } from '@angular/common';
 import { ValidadoresEspeciales, dateValidator, hourValidator } from 'src/app/util/ValidadorEspecial';
 import { DomSanitizer } from '@angular/platform-browser';
-import { AngularFireStorage} from '@angular/fire/storage';
+import { AngularFireStorage} from '@angular/fire/compat/storage';
 import { finalize } from 'rxjs/operators';
 import { Observable } from 'rxjs/internal/Observable';
-
-
 
 
 @Component({
@@ -34,25 +32,11 @@ export class DashboardComponent implements OnInit {
   keyword: string = '';
   previsualizacion: string="";
   urlImage: string="";
-  //urlImage2!: Observable<string>;
   nameImage="";
   uploadPercent:Observable<number|undefined> | undefined;
 
 
-  eventosLista : Event[]=[{
-    eventId:0,
-    image: '',
-    name:'',
-    description_:'',
-    startDate:'',
-    endDate:'',
-    places: 0,
-    openEvent: true,
-    institutionId: 0,
-    statusId:0,
-    userId:0,
-    modality:'',
-  }]; //Arreglo de eventos para recorrer y pintar el html con NGFOR
+  eventosLista : Event[]=[]; 
 
   eventoForm = new FormGroup({
     photo : new FormControl(''),
@@ -62,7 +46,6 @@ export class DashboardComponent implements OnInit {
     endDate: new FormControl('', [Validators.required]),
     openEvent:  new FormControl(true, [Validators.required]),
     institutionId: new FormControl(0,[Validators.required, Validators.min(0)]),
-    
   },{validators:dateValidator});
 
 
@@ -166,7 +149,7 @@ get institutionId(){
     this.eventServ.createEvent(this.eventoForm.value,this.generalService.getEmail()).subscribe(
       res =>  {console.log(res)},
       error => console.log(error))
-    this.router.initialNavigation;
+    this.router.initialNavigation();
   }
 
   getEvents(usuarioId:string){

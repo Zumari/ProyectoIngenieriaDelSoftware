@@ -31,21 +31,7 @@ export class HomeComponent implements OnInit {
 
 
 
- eventosLista : Event[]=[{
-  eventId:0,
-  name: '',
-  startDate: '',
-  endDate: '',
-  places :0,
-  modality:'',
-  statusId:0,
-  institutionId:0,
-  openEvent: true,
-  description_: '',
-  userId: 0,
-  image: '',
-  }
-]; //Arreglo de eventos para recorrer y pintar el html con NGFOR
+ eventosLista : Event[]=[]; //Arreglo de eventos para recorrer y pintar el html con NGFOR
   faCamera = faCamera;
   imgPerfil: any;
 

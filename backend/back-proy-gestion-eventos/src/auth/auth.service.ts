@@ -23,9 +23,8 @@ export class AuthService {
       async generateAccessToken(email: string) {
         const user = await this.usersService.findUserAuth(email);
         if(!user)throw new NotFoundException("datos no validos");
-        
         const payload: JWTPayload = { email: user.email,firstName:user.firstName,urlPhoto:user.profilePhoto };
-        console.log("datos del back",payload)
+        console.log(payload);
         return {
           access_token: this.jwtService.sign(payload),
         };

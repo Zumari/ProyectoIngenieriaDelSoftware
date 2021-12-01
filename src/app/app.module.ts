@@ -17,17 +17,30 @@ import {HttpClientModule} from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 
+
+//import { AngularFirestoreModule } from  '@angular/fire/firestore';
 import { FormsModule } from '@angular/forms';
 import { ChangePasswordComponent } from './components/changePassword/change-password/change-password.component';
 import { RestartPasswordComponent } from './components/restartPassword/restart-password/restart-password.component';
-import { AngularFireModule } from  '@angular/fire';
-import { AngularFirestoreModule } from  '@angular/fire/firestore';
+//import { AngularFirestoreModule } from  '@angular/fire/compat/firestore';
 import { environment } from 'src/environments/environment.prod';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
-import { AngularFireStorageModule } from '@angular/fire/storage';
-import { AngularFireAuthModule } from '@angular/fire/auth';
-import { AngularFireDatabaseModule } from '@angular/fire/database';
+//import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 
+import { AngularFireModule} from '@angular/fire/compat'
+import { AngularFireStorageModule } from '@angular/fire/compat/storage';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
+
+
+ const config={
+  apiKey: 'AIzaSyArD0fzANzKYTs4k8rLHbK3UnCWG_Ip9pM',
+  authDomain: 'project-796279284343',
+  databaseURL: 'AIzaSyArD0fzANzKYTs4k8rLHbK3UnCWG_Ip9pM',
+  projectId: 'imageneseventos-1e0bb',
+  storageBucket: 'gs://imageneseventos-1e0bb.appspot.com',
+  messagingSenderId: '796279284343'
+}
 
 @NgModule({
   declarations: [
@@ -51,8 +64,7 @@ import { AngularFireDatabaseModule } from '@angular/fire/database';
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
-    AngularFireModule.initializeApp(environment.firebase),
-    AngularFirestoreModule,
+    AngularFireModule.initializeApp(config),
     Ng2SearchPipeModule,
     AngularFireAuthModule,
     AngularFireStorageModule,// storagec

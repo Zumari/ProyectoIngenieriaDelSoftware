@@ -43,6 +43,7 @@ export class EventsController implements CrudController<Event> {
  /*  @UseGuards(AuthGuard('jwt')) */
   @Post('/createEvent/:email')
   create(@Body() createEventDto: CreateEventDto,@Param('email') email:string) {
+    console.log("llegamos a crear el evento");
     return this.service.create(createEventDto,email);
   }
 
