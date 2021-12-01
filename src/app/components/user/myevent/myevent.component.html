@@ -59,7 +59,7 @@
   </div>
 </div>
 
-<!-- Modal Generar Taller -->
+<!-- Modal Generar Evento -->
 <div class="modal fade" id="creartaller" tabindex="-1" aria-labelledby="creartallerLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -67,23 +67,10 @@
         <div class="bg-primary d-flex justify-content-start" style="height: 8vw;">
               <img src="../../../../assets/images/ESLogo.svg" alt="...">
         </div>
-        <form [formGroup]="conferenciaForm">
+        <form [formGroup]="eventoProgramadoForm">
           <div>
             <div class="row px-5">
-              <div class="mb-3 d-flex">
-                <div class="form-check">
-                  <input formControlName="tipoevento" class="form-check-input" type="radio"  id="radiotipo1" (click)="changeType(1)" checked value="conferencia">
-                  <label class="form-check-label" for="radiotipo1">
-                    Conferencia
-                  </label>
-                </div>
-                <div class="form-check mx-4">
-                  <input formControlName="tipoevento" class="form-check-input" type="radio"  id="radiotipo2" (click)="changeType(2)" value="taller">
-                  <label class="form-check-label" for="radiotipo2">
-                    Taller
-                  </label>
-                </div>
-              </div>
+              
               <div class="mb-3">
                 <label for="nombre" class="form-label">Nombre:</label>
                 <input type="text" formControlName="name" class="form-control" id="nombre" placeholder="">
@@ -116,16 +103,13 @@
               </div>
               <div class="mb-3">
                 <label for="nombre" class="form-label">Encargado:</label>
-                <input type="text" formControlName="encargado" class="form-control" id="encargado" placeholder="">
-                <div class="alert-danger" *ngIf="name?.invalid && (name?.dirty || name?.touched)">
-                  <div class="container-error-message" *ngIf="name?.errors?.required">
+                <input type="text" formControlName="managerId" class="form-control" id="encargado" placeholder="">
+                <div class="alert-danger" *ngIf="managerId?.invalid && (managerId?.dirty || managerId?.touched)">
+                  <div class="container-error-message" *ngIf="managerId?.errors?.required">
                     Campo obligatorio
                   </div>
-                  <div class="container-error-message" *ngIf="name?.errors?.pattern">
+                  <div class="container-error-message" *ngIf="managerId?.errors?.pattern">
                     No es un nombre válido
-                  </div>
-                  <div  class="container-error-message" *ngIf="name?.errors?.maxLength">
-                    El tamaño excede
                   </div>
                 </div>
               </div>
@@ -144,14 +128,14 @@
               <div class="mb-3">
                 <label for="final" class="form-label">Fecha final:</label>
                 <input formControlName="endDate" type="date" [min]="fechaStrMinima" class="form-control" id="final" placeholder="">
-                <div class="alert-danger" *ngIf="endDate?.invalid && conferenciaForm?.invalid && (endDate?.dirty || endDate?.touched)">
+                <div class="alert-danger" *ngIf="endDate?.invalid && eventoProgramadoForm?.invalid && (endDate?.dirty || endDate?.touched)">
                   <div class="container-error-message" *ngIf="endDate?.errors?.required">
                     Campo obligatorio
                   </div>
 
                 </div>
-                <div class="alert-danger"*ngIf="conferenciaForm.hasError('dateValid')">
-                  <div class="container-error-message" *ngIf="conferenciaForm.hasError('dateValid')"  >
+                <div class="alert-danger"*ngIf="eventoProgramadoForm.hasError('dateValid')">
+                  <div class="container-error-message" *ngIf="eventoProgramadoForm.hasError('dateValid')"  >
                     Asegúrese que la fecha final es mayor que la de inicio
                   </div>
                 </div>
@@ -159,15 +143,15 @@
               </div>
               <div class="mb-3">
                 <label for="final" class="form-label">Hora inicio:</label>
-                <input formControlName="startTime" type="time" [min]="fechaStrMinima" class="form-control" id="final" placeholder="">
-                <div class="alert-danger" *ngIf="endDate?.invalid && conferenciaForm?.invalid && (endDate?.dirty || endDate?.touched)">
-                  <div class="container-error-message" *ngIf="endDate?.errors?.required">
+                <input formControlName="startHour" type="time" [min]="fechaStrMinima" class="form-control" id="final" placeholder="">
+                <div class="alert-danger" *ngIf="startHour?.invalid && eventoProgramadoForm?.invalid && (startHour?.dirty || startHour?.touched)">
+                  <div class="container-error-message" *ngIf="startHour?.errors?.required">
                     Campo obligatorio
                   </div>
 
                 </div>
-                <div class="alert-danger"*ngIf="conferenciaForm.hasError('dateValid')">
-                  <div class="container-error-message" *ngIf="conferenciaForm.hasError('dateValid')"  >
+                <div class="alert-danger"*ngIf="eventoProgramadoForm.hasError('dateValid')">
+                  <div class="container-error-message" *ngIf="eventoProgramadoForm.hasError('dateValid')"  >
                     Asegúrese que la fecha final es mayor que la de inicio
                   </div>
                 </div>
@@ -175,15 +159,15 @@
               </div>
               <div class="mb-3">
                 <label for="final" class="form-label">Hora final:</label>
-                <input formControlName="endTime" type="time" [min]="fechaStrMinima" class="form-control" id="final" placeholder="">
-                <div class="alert-danger" *ngIf="endDate?.invalid && conferenciaForm?.invalid && (endDate?.dirty || endDate?.touched)">
-                  <div class="container-error-message" *ngIf="endDate?.errors?.required">
+                <input formControlName="endHour" type="time" [min]="fechaStrMinima" class="form-control" id="final" placeholder="">
+                <div class="alert-danger" *ngIf="endHour?.invalid && eventoProgramadoForm?.invalid && (endHour?.dirty || endHour?.touched)">
+                  <div class="container-error-message" *ngIf="endHour?.errors?.required">
                     Campo obligatorio
                   </div>
 
                 </div>
-                <div class="alert-danger"*ngIf="conferenciaForm.hasError('dateValid')">
-                  <div class="container-error-message" *ngIf="conferenciaForm.hasError('dateValid')"  >
+                <div class="alert-danger"*ngIf="eventoProgramadoForm.hasError('dateValid')">
+                  <div class="container-error-message" *ngIf="eventoProgramadoForm.hasError('dateValid')"  >
                     Asegúrese que la hora final es mayor que la de inicio
                   </div>
                 </div>
