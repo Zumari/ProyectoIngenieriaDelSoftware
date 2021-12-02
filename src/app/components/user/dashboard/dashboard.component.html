@@ -127,7 +127,7 @@
                   <div mdbBtn rounded="true" gradient="aqua" size="md" mdbWavesEffect>
                     <input mdbFileSelect formControlName="photo" type="file" name="image" (change)="capturarFile($event)" id="image">
                   </div>
-                  <div class="progress">
+                  <div class="progress " style="margin-top: 20px;">
                     <div class="progress-bar progress-bar-success active" role="progressbar" [style.width]="(uploadPercent | async) +'%'"></div>
                   </div>
                 </div>

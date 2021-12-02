@@ -49,16 +49,20 @@ export class UsersService {
     }
     
     async updateUser(email:string,user:updateUser){
+        console.log('TUMAMA');
+        const {firstName,middleName,lastName,secondLastName,academicTraining, description_,interests , institutionRepresenting, profilePhoto}=user;
         try {
             const post = await this.usersRepository.findOne(email);
             if(!post) throw new NotFoundException(`El usuario con correo ${email} no existe dentro de la aplicacion`);
             
-            const editPost =Object.assign(post,user);
+            const institutionUser= await this.institutionService.getOneInstitution(Number(institutionRepresenting));
+            const editPost =Object.assign(post,{firstName,middleName,lastName,secondLastName,academicTraining, description_,interests , profilePhoto, institutionRepresenting:institutionUser});
             return await this.usersRepository.save(editPost);
         } catch (error) {
             throw new Error(error);
         }
     }
+
     async updatePasswordUser(email:string,user:updateUser){
         try {
             const post = await this.usersRepository.findOne(email);
