@@ -47,7 +47,7 @@
       <div class="col-lg-9 col-md-9 col-sm-12 col-12" style="border-left: solid 2px gray;">
         <div>{{evento.name}}</div>
         <div>Descripción: {{evento.description_}}</div>
-        <div><a href="">URL de la ubicación o enlace</a></div>
+        <div>{{evento.address}}</div>
         <div class="row mb-3" >
           <div class="d-flex align-items-center justify-content-center"><div class="sm-avatar"></div><div class="mx-2">{{evento.managerId}}</div></div>
         </div>
@@ -185,6 +185,16 @@
                   <label class="form-check-label" for="radioprivacidad2">
                     Presencial
                   </label>
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label for="nombre" class="form-label">Dirrección o URL:</label>
+                <input type="text" formControlName="address" class="form-control" id="nombre" placeholder="">
+                <div class="alert-danger" *ngIf="address?.invalid && (address?.dirty || address?.touched)">
+                  <div class="container-error-message" *ngIf="address?.errors?.required">
+                    Campo obligatorio 
+                  </div>
                 </div>
               </div>
               <div class="mb-3">

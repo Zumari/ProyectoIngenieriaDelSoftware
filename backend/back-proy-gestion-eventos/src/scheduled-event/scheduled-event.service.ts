@@ -28,11 +28,12 @@ export class ScheduledEventService {
     }
     async createScheduledEvent(body: ScheduledEventDTO) {
         //Validar que exista el MANAGER 
+        console.log(body.managerId)
         const manager=await this.usersService.findOne(body.managerId)
-        if(manager) throw new NotFoundException('No existe ningún usuario con ese correo, no se puede asignar el MANAGER')
+        if(!manager) throw new NotFoundException('No existe ningún usuario con ese correo, no se puede asignar el MANAGER') 
         //EN caso de que ya exista un evento programado con ese mismo nombre en la BD para ese evento
-        const scheduledEvent=await this.scheduledEventRepository.findOne(body.name);
-        if(scheduledEvent) throw new NotFoundException('Ya existe un taller o conferencia con ese nombre')
+ /*        const scheduledEvent=await this.scheduledEventRepository.findOne(body.name);
+        if(scheduledEvent) throw new NotFoundException('Ya existe un taller o conferencia con ese nombre') */
         const newScheduledEvent= this.scheduledEventRepository.create(body)
         return await this.scheduledEventRepository.save(newScheduledEvent);
     }

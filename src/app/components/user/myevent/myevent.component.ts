@@ -10,6 +10,7 @@ import { ScheduledEvent } from 'src/app/interfaces/scheduled-event';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { dateValidator, hourValidator, ValidadoresEspeciales } from 'src/app/util/ValidadorEspecial';
 import { DatePipe } from '@angular/common';
+import { param } from 'jquery';
 
 @Component({
   selector: 'app-myevent',
@@ -27,17 +28,6 @@ export class MyeventComponent implements OnInit {
   mode: string = 'virtual';
   typeEvent: string = 'conferencia';
   privacy: string = 'publico';
-
-  conferenciaForm = new FormGroup({
-    name: new FormControl('',[Validators.required, Validators.maxLength(50), Validators.pattern('[a-zA-ZÑÁÉÍÓÚáéíóú][a-zA-Zñáéíóú ]{1,}')]),
-    description_:new FormControl('',Validators.compose([Validators.required, Validators.maxLength(300), Validators.pattern('[a-zA-ZÑÁÉÍÓÚáéíóú][a-zA-Zñáéíóú ]{1,}')])),
-    startDate: new FormControl('', [Validators.required, ValidadoresEspeciales.ValidarFechas]),
-    endDate: new FormControl('', [Validators.required]),
-    startTime: new FormControl('', [Validators.required]),
-    endTime: new FormControl('', [Validators.required]),
-    openEvent:  new FormControl(true, [Validators.required]),
-    modality: new FormControl('', Validators.required)
-  },{validators:dateValidator})
 
   event: any = {
     name: '',
@@ -90,7 +80,8 @@ export class MyeventComponent implements OnInit {
     places:  new FormControl(0, [ Validators.min(0)]),
     modality: new FormControl('', Validators.required),
     managerId: new FormControl('', [Validators.required, Validators.pattern(/^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i)]),
-    address: new FormControl('', Validators.required)
+    address: new FormControl('',Validators.required),
+    eventId:new FormControl(0)
   },{validators:dateValidator } )
 
 
@@ -185,7 +176,10 @@ export class MyeventComponent implements OnInit {
   }
 
 
-  createScheduledEvent(){
+  createScheduledEvent(){ 
+    this.eventoProgramadoForm.value.eventId=Number(this.activatedRoute.snapshot.params.name)
+    this.eventoProgramadoForm.value.startHour=this.eventoProgramadoForm.value.startDate+' '+this.eventoProgramadoForm.value.startHour
+    this.eventoProgramadoForm.value.endHour=this.eventoProgramadoForm.value.endDate+' '+this.eventoProgramadoForm.value.endHour
     this.schEvent.createScheduledEvent(this.eventoProgramadoForm.value).subscribe(
       res =>  {console.log(res)},
       error=> alert(error.error.message))

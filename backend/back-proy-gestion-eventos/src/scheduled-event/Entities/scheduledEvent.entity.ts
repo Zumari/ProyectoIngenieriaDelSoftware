@@ -37,7 +37,7 @@ export class ScheduledEvent {
     @Column({type: 'varchar', nullable:false})
     address:string
 
-    @Column({name:'status'})
+    @Column({name:'status',default:1})
     statusId:number
 
     

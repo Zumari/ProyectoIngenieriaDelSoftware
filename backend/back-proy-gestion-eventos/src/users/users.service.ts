@@ -87,7 +87,7 @@ export class UsersService {
     }
 
     async findOne(id:string){
-        try {
+/*         try {
             const user= await this.usersRepository.findOne(id);
             if(!user) throw new NotFoundException(`El usuario con correo ${id} no existe dentro de la aplicacion`);
             return {
@@ -96,7 +96,8 @@ export class UsersService {
             }
         } catch (error) {
             throw new Error(error);
-        }
+        } */
+        return await this.usersRepository.findOne(id);
     }
 
     async findUserAuth(id:string):Promise<Users>{
