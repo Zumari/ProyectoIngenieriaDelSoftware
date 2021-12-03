@@ -24,7 +24,7 @@
   </div>
   <div class="row mb-3">
     <div class="mb-2">Organizador:</div>
-    <div class="d-flex align-items-center"><div class="sm-avatar mx-2"></div> {{event.userId}}</div>
+    <div class="d-flex align-items-center" (click)="goToProfile(event.userId)"><div class="sm-avatar mx-2"></div> {{event.userId}}</div>
   </div>
   <div class="divider"></div>
   <div class="row mb-3">
@@ -41,7 +41,9 @@
         <div>Descripción: {{evento.description_}}</div>
         <div>{{evento.address}}</div> (CAMBIAR)
         <div class="row mb-3">
-          <div class="d-flex align-items-center justify-content-center"><div class="sm-avatar"></div><div class="mx-2">{{evento.managerId}}</div></div>
+          <div class="d-flex align-items-center justify-content-center" (click)="goToProfile(event.managerId)">
+            <div class="sm-avatar"></div>
+            <div class="mx-2">{{evento.managerId}}</div></div>
         </div>
         <div class="mb-2 d-flex justify-content-right">
           <button  type="button" class="btn btn-warning">Inscribirme</button>
