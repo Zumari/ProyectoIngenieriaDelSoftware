@@ -27,10 +27,10 @@ import { environment } from 'src/environments/environment.prod';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 //import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 
-import { AngularFireModule} from '@angular/fire/compat'
-import { AngularFireStorageModule } from '@angular/fire/compat/storage';
-import { AngularFireAuthModule } from '@angular/fire/compat/auth';
-import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
+import { AngularFireModule} from '@angular/fire'
+import { AngularFireStorageModule } from '@angular/fire/storage';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
 
 
  const config={

@@ -10,7 +10,7 @@ import { GeneralUserService } from 'src/app/services/user/general-user/general-u
 import { DatePipe } from '@angular/common';
 import { ValidadoresEspeciales, dateValidator, hourValidator } from 'src/app/util/ValidadorEspecial';
 import { DomSanitizer } from '@angular/platform-browser';
-import { AngularFireStorage} from '@angular/fire/compat/storage';
+import { AngularFireStorage} from '@angular/fire/storage';
 import { finalize } from 'rxjs/operators';
 import { Observable } from 'rxjs/internal/Observable';
 
