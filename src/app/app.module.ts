@@ -31,6 +31,8 @@ import { AngularFireModule} from '@angular/fire'
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { PublicProfileComponent } from './components/user/public-profile/public-profile.component';
+import { ParticipantsComponent } from './components/user/myevent/participants/participants.component';
 
 
  const config={
@@ -55,7 +57,9 @@ import { AngularFireDatabaseModule } from '@angular/fire/database';
     EventComponent,
     HomeComponent,
     ChangePasswordComponent,
-    RestartPasswordComponent
+    RestartPasswordComponent,
+    PublicProfileComponent,
+    ParticipantsComponent
   ],
   imports: [
     BrowserModule,

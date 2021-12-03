@@ -29,6 +29,8 @@ export class MyeventComponent implements OnInit {
   typeEvent: string = 'conferencia';
   privacy: string = 'publico';
 
+  eventName: String = '';
+
   event: any = {
     name: '',
     startDate: '',
@@ -99,7 +101,8 @@ export class MyeventComponent implements OnInit {
   ngOnInit(): void {
     let params= this.activatedRoute.snapshot.params;
     if(params){
-      this.getEvent(params.name)
+      this.eventName = params.name;
+      this.getEvent(params.name);
     }
     this.getAllScheduledEvents();
   }
@@ -219,6 +222,14 @@ export class MyeventComponent implements OnInit {
 
   changeMod(val: number) {
     this.mode = val == 1 ? 'virtual' : 'presencial';
+  }
+
+  goToParticipants() {
+    this.router.navigate(['/usuario/mi-evento/'+ this.eventName +'/participants']);
+  }
+
+  goToProfile(id: String) {
+    this.router.navigate(['/usuario/perfil-publico/'+ id]);
   }
 
 }

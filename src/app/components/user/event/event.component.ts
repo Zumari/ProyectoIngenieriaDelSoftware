@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { faCertificate, faEye, faPlusCircle, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { param } from 'jquery';
 import { ScheduledEvent } from 'src/app/interfaces/scheduled-event';
@@ -89,7 +89,8 @@ export class EventComponent implements OnInit {
   constructor(private eventServ: EventsService,
      private activatedRoute:ActivatedRoute,
      private institutionService: InstitutionService,
-     private schEvent: ScheduledEventService
+     private schEvent: ScheduledEventService,
+     private router: Router
      ) { }
 
   ngOnInit(): void {
@@ -119,6 +120,10 @@ export class EventComponent implements OnInit {
       res =>  {this.eventosProgramados=res},
       error => console.log(error)
     )
+  }
+
+  goToProfile(id: String) {
+    this.router.navigate(['/usuario/perfil-publico/'+ id]);
   }
   
 }
