@@ -7,4 +7,5 @@ export interface Event{
     openEvent: boolean;
     institutionId: number;
     photo: string;
+    userId: string
     }
