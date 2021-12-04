@@ -1,7 +1,8 @@
 import { Status } from "src/status/Entities/status.entity";
 import { Users } from "src/users/Entities/user.entity";
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import {  Event} from "../../events/entities/event.entity";
+import { Inscriptions } from "src/inscriptions/Entities/Inscriptions.entity";
 
 @Entity('ScheduledEvent')
 export class ScheduledEvent {
@@ -58,4 +59,11 @@ export class ScheduledEvent {
     @ManyToOne(type => Event, Event=> Event.eventId) 
     @JoinColumn({name:'eventId'})
     EventID!: Event;
+
+    @OneToMany(type=>Inscriptions, Inscriptions=>Inscriptions.inscriptionsScheduledEvent)
+    inscriptionsScheduledEvent!:ScheduledEvent[];
+
+/*     @ManyToMany(type => Users, Users=> Users.eventsInscripted, { cascade: true }) 
+    @JoinTable()
+    usersInscripted: Users[]; */
 }
