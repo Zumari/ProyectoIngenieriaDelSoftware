@@ -71,8 +71,8 @@ export class DashboardComponent implements OnInit {
      }
 
     ngOnInit(): void {
-      let usuarioId= this.generalUserService.getEmail();
-      this.getEvents(usuarioId);
+      
+      this.getEvents();
       this.getInstitution();
 
     }
@@ -152,8 +152,8 @@ get institutionId(){
     this.router.initialNavigation();
   }
 
-  getEvents(usuarioId:string){
-    this.eventServ.getAllEventsDash(usuarioId).subscribe(
+  getEvents(){
+    this.eventServ.getAllEvents().subscribe(
       res =>  {this.eventosLista=res},
       error => console.log(error)
     )
@@ -180,8 +180,14 @@ get institutionId(){
     this.typeEvent = val == 1 ? 'conferencia': 'taller';
   }
 
-  viewEvent(id: number) {
-    this.router.navigate(['usuario/evento/'+id]);
+  viewEvent(id: number, idUser: string) {
+    let usuarioId = this.generalUserService.getEmail();
+    if (idUser==usuarioId) {
+      this.router.navigate(['usuario/mi-evento/'+id]);
+    } else {
+      this.router.navigate(['usuario/evento/'+id]);  
+    }
+    
   }
 
 

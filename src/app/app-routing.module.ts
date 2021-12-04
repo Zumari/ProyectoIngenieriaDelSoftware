@@ -11,6 +11,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MyeventComponent } from './components/user/myevent/myevent.component';
 import { EventComponent } from './components/user/event/event.component';
+import { ParticipantsComponent } from './components/user/myevent/participants/participants.component';
+import { PublicProfileComponent } from './components/user/public-profile/public-profile.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/inicio', pathMatch: 'full'},
@@ -23,7 +25,9 @@ const routes: Routes = [
     {path: 'perfil', component: ProfileComponent},
     {path: 'estadisticas', component: StatisticsComponent},
     {path: 'mi-evento/:name', component: MyeventComponent},
-    {path: 'evento/:name', component: EventComponent}
+    {path: 'evento/:name', component: EventComponent},
+    {path: 'mi-evento/:name/participants', component: ParticipantsComponent},
+    {path: 'perfil-publico/:id', component: PublicProfileComponent}
   ] },
   { path: 'restaurar-contrasenia/:email', component: ChangePasswordComponent },
   { path: 'resetear-contrasenia', component: RestartPasswordComponent }
