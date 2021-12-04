@@ -3,7 +3,8 @@ import { Institutions } from 'src/institutions/Entities/Institutions.entity';
 import { Status } from 'src/status/Entities/status.entity';
 import { Users } from 'src/users/Entities/user.entity';
 import { ScheduledEvent } from "../../scheduled-event/Entities/scheduledEvent.entity";
-import { Entity, Column, PrimaryGeneratedColumn, OneToOne, ManyToOne, OneToMany, JoinColumn, AfterUpdate, BeforeUpdate, BeforeInsert } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToOne, ManyToOne, OneToMany, JoinColumn, AfterUpdate, BeforeUpdate, BeforeInsert, JoinTable, ManyToMany } from 'typeorm';
+
 
 @Entity('Event')
 export class Event {
@@ -54,4 +55,6 @@ export class Event {
 
     @OneToMany( type => ScheduledEvent,ScheduledEvent=>ScheduledEvent.EventID)
     scheduledEvents: ScheduledEvent[];
+
+
 }

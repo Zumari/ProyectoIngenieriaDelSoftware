@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 import { ScheduledEventDTO } from './DTO/scheduledEvent.dto';
 import { ScheduledEvent } from './Entities/scheduledEvent.entity';
 import { UsersService } from "./../users/users.service";
+import { Users } from 'src/users/Entities/user.entity';
 
 @Injectable()
 export class ScheduledEventService {
@@ -18,6 +19,15 @@ export class ScheduledEventService {
         const editedScheduledEvent =Object.assign(scheduledEvent,body);
         return await this.scheduledEventRepository.save(editedScheduledEvent);
     }
+
+/*     async inscribe(email:string, scheduledEventId:number){
+        const userSol= await this.usersService.findOne(email);
+        const scheduledEventSol=await this.scheduledEventRepository.findOne(scheduledEventId);
+        scheduledEventSol.usersInscripted=[userSol]
+        return await this.scheduledEventRepository.save(scheduledEventSol) 
+    
+        
+      } */
     async deleteScheduledEvent(scheduledEventId: string) {
         const scheduledEvent=await this.scheduledEventRepository.findOne(scheduledEventId);
         if(!scheduledEvent) throw new NotFoundException('No se econtraron coincidencias para el evento programado')

@@ -23,6 +23,9 @@ import { UserImagesModule } from './user-images/user-images.module';
 import { ScheduledEventController } from './scheduled-event/scheduled-event.controller';
 import { ScheduledEventService } from './scheduled-event/scheduled-event.service';
 import { ScheduledEventModule } from './scheduled-event/scheduled-event.module';
+import { InscriptionsModule } from './inscriptions/inscriptions.module';
+import { InscriptionsController } from './inscriptions/inscriptions.controller';
+import { InscriptionsService } from './inscriptions/inscriptions.service';
 
 @Module({
   imports: [TypeOrmModule.forRoot({
@@ -47,10 +50,10 @@ import { ScheduledEventModule } from './scheduled-event/scheduled-event.module';
       validateConnection: false,
       IntegratedSecurity: false,
     }
-  }),UsersModule,InstitutionsModule,StatusModule, AuthModule, EventsModule, MailModule, EventImagesModule, UserImagesModule, ScheduledEventModule
+  }),UsersModule,InstitutionsModule,StatusModule, AuthModule, EventsModule, MailModule, EventImagesModule, UserImagesModule, ScheduledEventModule, InscriptionsModule,
 ],
-  controllers: [AppController, UsersController,InstitutionsController,StatusController, EventImagesController, ScheduledEventController],
-  providers: [AppService, UsersService,InstitutionsService,StatusService, ScheduledEventService],
+  controllers: [AppController, UsersController,InstitutionsController,StatusController, EventImagesController, ScheduledEventController,InscriptionsController],
+  providers: [AppService, UsersService,InstitutionsService,StatusService, ScheduledEventService,InscriptionsService],
 })
 export class AppModule {
  // constructor(private connection: Connection) {}
