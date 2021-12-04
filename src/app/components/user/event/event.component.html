@@ -40,9 +40,9 @@
         <div class="d-flex justify-content-between"><div>Hora de fin:</div> <div>{{evento.endHour}}</div></div> 
       </div>
       <div class="col-lg-9 col-md-9 col-sm-12 col-12" style="border-left: solid 2px gray;">
-        <div>{{evento.name}}</div>
-        <div>Descripción: {{evento.description_}}</div>
-        <div>{{evento.address}}</div> (CAMBIAR)
+        <div class="title-conference">{{evento.name}}</div>
+        <div class="ml-5">Descripción: {{evento.description_}}</div>
+        <div class="ml-5">{{evento.address}}</div> (CAMBIAR)
         <div class="row mb-3">
           <div class="d-flex align-items-center justify-content-center" (click)="goToProfile(event.managerId)">
             <div class="sm-avatar"></div>

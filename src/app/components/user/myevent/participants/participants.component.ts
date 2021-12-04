@@ -7,9 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ParticipantsComponent implements OnInit {
 
+  mode: string = 'virtual';
+
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  changeMod(val: number) {
+    this.mode = val == 1 ? 'Ausente' : 'Presente';
   }
 
 }
