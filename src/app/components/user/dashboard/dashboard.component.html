@@ -147,6 +147,9 @@
                       Cerrado
                     </label>
                   </div>
+                  <div>
+                    <input formControlName="listWhite"type="file" name="excel" accept=".xls,.xlsx" (change)="capturarExcel($event)" id="excel">
+                  </div>
                 </div>
               </div>
               <!--button type="button" class="btn btn-secondary" style="font-size: smaller;" *ngIf="privacy == 'privado'">Inserte lista de participantes</button-->
