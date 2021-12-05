@@ -8,8 +8,8 @@ import { ScheduledEvent } from './Entities/scheduledEvent.entity';
 import { ScheduledEventController } from './scheduled-event.controller';
 import { ScheduledEventService } from './scheduled-event.service';
 
-@Module({imports:[TypeOrmModule.forFeature([ScheduledEvent]),UsersModule,InstitutionsModule],
+@Module({imports:[TypeOrmModule.forFeature([ScheduledEvent]),UsersModule,InstitutionsModule,],
     controllers: [ScheduledEventController],
-    providers: [ScheduledEventService,UsersService,InstitutionsService],
+    providers: [ScheduledEventService,UsersService,InstitutionsService,],
     exports:[ScheduledEventService,TypeOrmModule]})
 export class ScheduledEventModule {}

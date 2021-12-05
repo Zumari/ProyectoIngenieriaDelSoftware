@@ -1,11 +1,11 @@
 import { Institutions } from "src/institutions/Entities/Institutions.entity";
-import { BeforeInsert, Column,ManyToOne, Entity, PrimaryColumn, PrimaryGeneratedColumn, OneToMany, JoinColumn, OneToOne } from "typeorm";
-import { Console } from "console";
-import { Status } from "src/status/Entities/status.entity";
+import { BeforeInsert, Column,ManyToOne, Entity, PrimaryColumn, PrimaryGeneratedColumn, OneToMany, JoinColumn, OneToOne, ManyToMany } from "typeorm";
 import { Event } from "src/events/entities/event.entity";
 import* as bcrypt from'bcrypt';
 import { ScheduledEvent } from "src/scheduled-event/Entities/scheduledEvent.entity";
 import { UserImage } from "src/user-images/entities/user-image.entity";
+import { Inscriptions } from "src/inscriptions/Entities/Inscriptions.entity";
+
 
 @Entity('Users')
 export class Users{
@@ -60,6 +60,13 @@ export class Users{
 
     @OneToOne( type => UserImage,UserImage=>UserImage.userID)
     userImage: UserImage;
+/* 
+    //Inscription
+    @ManyToMany(type => ScheduledEvent, ScheduledEvent=> ScheduledEvent.usersInscripted) 
+    eventsInscripted: ScheduledEvent[]; */
+
+    @OneToMany(type =>Inscriptions, Inscriptions=>Inscriptions.inscriptionsUsers)
+    inscriptionsUsers!:Users[];
     
     @BeforeInsert()
     async hashPassword() {

@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { faCertificate, faEye, faPlusCircle, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { param } from 'jquery';
 import { ScheduledEvent } from 'src/app/interfaces/scheduled-event';
 import { EventsService } from 'src/app/services/user/events/events.service';
 import { ScheduledEventService } from 'src/app/services/user/scheduled-event/scheduled-event.service';
 import { InstitutionService  } from "../../../services/institutions/institutions.service";
+import {Inscription } from 'src/app/interfaces/inscription';
+import { CheckInService } from 'src/app/services/check in/check-in.service';
+import { GeneralUserService } from 'src/app/services/user/general-user/general-user.service';
 
 
 @Component({
@@ -32,9 +35,16 @@ export class EventComponent implements OnInit {
     image: ''
   };
 
+  inscriptions:Inscription[]=[{
+    idInscription:0,
+    idScheduledEvent:0, 
+    idUser:'',
+    attendance:false
+  }]
+
   eventosProgramados: ScheduledEvent[]=[{
     scheduledEventId: 0,
-    name:'Conferencia',
+    name:'',
     description_: '',
     startDate: '',
     endDate: '',
@@ -47,40 +57,7 @@ export class EventComponent implements OnInit {
     managerId:'',
     eventId:0,
     address: ''
-   },
-   {
-    scheduledEventId: 1,
-    name:'Taller',
-    description_: 'sssssadada',
-    startDate: '',
-    endDate: '',
-    startHour: '',
-    endHour: '',
-    //Cada que se registre un participante nuevo deberia editarse este campo y reducir una unidad
-    places: '',
-    modality:'',
-    statusId:0,
-    managerId:'',
-    eventId:0,
-    address: ''
-   },
-   {
-    scheduledEventId: 2,
-    name:'Conffff',
-    description_: 'dads',
-    startDate: '',
-    endDate: '',
-    startHour: '',
-    endHour: '',
-    //Cada que se registre un participante nuevo deberia editarse este campo y reducir una unidad
-    places: '',
-    modality:'',
-    statusId:0,
-    managerId:'',
-    eventId:0,
-    address: ''
-   },
-  ]
+   }  ]
 
   inst: any ={
     institutionId:0,
@@ -89,7 +66,10 @@ export class EventComponent implements OnInit {
   constructor(private eventServ: EventsService,
      private activatedRoute:ActivatedRoute,
      private institutionService: InstitutionService,
-     private schEvent: ScheduledEventService
+     private schEvent: ScheduledEventService,
+     private insc: CheckInService,
+     private generalUserService:GeneralUserService,
+     private router: Router
      ) { }
 
   ngOnInit(): void {
@@ -98,6 +78,7 @@ export class EventComponent implements OnInit {
       this.getEvent(params.name)
     }
     this.getAllScheduledEvents();
+    this.getInscriptions();
   }
 
   getEvent(id:number){
@@ -120,5 +101,42 @@ export class EventComponent implements OnInit {
       error => console.log(error)
     )
   }
+
+  goToProfile(id: String) {
+    this.router.navigate(['/usuario/perfil-publico/'+ id]);
+  }
+
+  //Métodos de Inscripción
+  createInscription(scheduledEventId: number){
+    let usuarioId = this.generalUserService.getEmail();
+
+    this.insc.createInscription(scheduledEventId, usuarioId).subscribe(
+       res =>  {console.log(res)},
+      error=> alert(error.error.message)
+      )
+  }
+
+  deleteInscription(idInscription:number){
+    this.insc.deleteInscription(idInscription).subscribe(
+       res =>  {console.log(res)},
+      error=> alert(error.error.message)
+    )
+  }
+
+  /*getOneInscription(){
+    this.insc.getOneInscription().subscribe(
+      res =>  {this.inscript=res},
+      error=> alert(error.error.message)
+    )
+  }*/
+
+  getInscriptions(){
+    this.insc.getInscriptions().subscribe(
+      res =>  {this.inscriptions=res},
+      error=> alert(error.error.message)
+    )
+  }
+  
+
   
 }

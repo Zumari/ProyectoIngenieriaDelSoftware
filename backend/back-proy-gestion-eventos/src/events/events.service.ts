@@ -53,6 +53,7 @@ export class EventsService extends TypeOrmCrudService<Event> {
     return this.repo.find();
   }
 
+
   findAllDash(email: string): Promise<Event[]> {
     return this.repo.find({ where: { userId: Not (email) }} );
   }

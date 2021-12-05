@@ -1,4 +1,5 @@
 import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import { scheduled } from 'rxjs';
 import { ScheduledEventDTO } from './DTO/scheduledEvent.dto';
 import { ScheduledEventService } from './scheduled-event.service';
 
@@ -32,4 +33,11 @@ export class ScheduledEventController {
     async updateScheduledEvent(@Param('scheduledEventId') scheduledEventId:string,@Body() body:ScheduledEventDTO){
       return await this.scheduledEventService.updateScheduledEvent(scheduledEventId,body)  ;
     }
+
+/*     @Put('inscribe/:scheduledEventId/:email')
+    async inscribe(@Param('scheduledEventId') scheduledEventId:number, @Param('email') email:string){
+/*       console.log(scheduledEventId)
+      console.log(email) 
+    return await this.scheduledEventService.inscribe(email,scheduledEventId)  ; 
+    } */
 }

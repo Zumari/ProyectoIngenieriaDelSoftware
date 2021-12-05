@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row">
-    <div class="d-flex justify-content-between">
+    <div class="d-flex">
       <button class="btn" style="color: orange;" data-bs-toggle="modal" data-bs-target="#creartaller">
         <fa-icon [icon]="faPlus"></fa-icon>
         Generar conferencia o taller
@@ -28,7 +28,10 @@
   </div>
   <div class="row mb-3">
     <div class="mb-2">Organizador:</div>
-    <div class="d-flex align-items-center"><div class="sm-avatar mx-2"></div> {{event.userId}}</div>
+    <div class="d-flex align-items-center" (click)="goToProfile(event.userId)">
+      <div class="sm-avatar mx-2"></div> 
+      <div class="cp">{{event.userId}}</div>
+    </div>
   </div>
   <div class="divider"></div>
   <div class="row mb-3">
@@ -45,11 +48,14 @@
         <div class="ml-5">Descripción: {{evento.description_}}</div>
         <div class="ml-5">{{evento.address}}</div>
         <div class="row mb-3" >
-          <div class="d-flex align-items-center justify-content-center"><div class="sm-avatar"></div><div class="mx-2">{{evento.managerId}}</div></div>
+          <div class="d-flex align-items-center justify-content-center" (click)="goToProfile(event.managerId)">
+            <div class="sm-avatar"></div>
+            <div class="mx-2 cp">{{evento.managerId}}</div>
+          </div>
         </div>
         <div class="mb-2 d-flex justify-content-right ccsss">
-          <button  type="button" class="btn btn-warning ml-5" (click)="deleteScheduledEvent(evento.scheduledEventId)">Participantes</button>
-          <button  type="button" class="btn btn-warning ml-5" (click)="deleteScheduledEvent(evento.scheduledEventId)">Generar diplomas</button>
+          <button  type="button" class="btn btn-warning ml-5" (click)="goToParticipants()">Participantes</button>
+          <button  type="button" class="btn btn-warning ml-5" >Generar diplomas</button>
           <button  type="button" class="btn btn-warning ml-5" (click)="deleteScheduledEvent(evento.scheduledEventId)">Eliminar</button>    
         </div>
         
@@ -58,7 +64,7 @@
   </div>
 </div>
 
-<!-- Modal Generar Evento -->
+<!-- Modal Generar Conferencia o taller -->
 <div class="modal fade" id="creartaller" tabindex="-1" aria-labelledby="creartallerLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
