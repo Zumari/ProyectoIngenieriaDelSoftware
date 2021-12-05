@@ -39,7 +39,7 @@
          <div class="d-flex justify-content-between"><div>Hora de inicio:</div> <div>{{evento.startHour}}</div></div>
         <div class="d-flex justify-content-between"><div>Hora de fin:</div> <div>{{evento.endHour}}</div></div> 
       </div>
-      <div class="col-lg-9 col-md-9 col-sm-12 col-12" style="border-left: solid 2px gray;">
+      <div class="col-lg-9 col-md-9 col-sm-12 col-12" style="border-left: solid 2px gray;"  *ngFor="let inscrip of inscriptions, let j = index">
         <div class="title-conference">{{evento.name}}</div>
         <div class="ml-5">Descripción: {{evento.description_}}</div>
         <div class="ml-5">{{evento.address}}</div> (CAMBIAR)
@@ -50,8 +50,8 @@
           </div>
         </div>
         <div class="mb-2 d-flex justify-content-right">
-          <button  type="button" class="btn btn-warning">Inscribirme</button>
-          <button  type="button" class="btn btn-warning">Cancelar inscripción</button>
+          <button  type="button" class="btn btn-warning" (click)="createInscription(evento.scheduledEventId)">Inscribirme</button>
+          <button   type="button" class="btn btn-warning" (click)="deleteInscription(inscrip.idInscription)">Cancelar inscripción</button>
         </div>
       </div>
     </div>
