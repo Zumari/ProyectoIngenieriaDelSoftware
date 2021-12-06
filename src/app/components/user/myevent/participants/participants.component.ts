@@ -90,6 +90,7 @@ export class ParticipantsComponent implements OnInit {
       this.checkInService.updateInscriptions(inscription.idInscription, this.updateInscription).subscribe(
         (data: any) => {
           console.log(data);
+          alert('Asistencia guardada exitosamente')
         }
       )
     });
