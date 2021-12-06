@@ -220,7 +220,7 @@ loginForm = new FormGroup({
           },
           err =>console.log('No se intento crear una institucion')
         )
-        window.location.reload();
+   
       }else{
         this.registerForm.value.institutionRepresenting = Number(this.registerForm.value.institutionRepresenting);
         this.registerForm.get('repassword_')?.disable();
@@ -231,7 +231,7 @@ loginForm = new FormGroup({
           },
           err =>console.log(err)
         )
-        window.location.reload();
+    
       }
     } else {
       //pongan mensaje de contraseñas no coinciden

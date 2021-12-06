@@ -22,19 +22,17 @@ export class MailService {
     }
 
     async sendCharge(emailCharge:string,
-      nameOrganizer:string,
       nameCharge:string,
       nameEvent:string,
-      emailOrganizer:string,startDate:string,endDate:string,startHour:string,endHour:string,modality:string) {
+      startDate:string,endDate:string,startHour:string,endHour:string,modality:string) {
+      console.log("a este correo se manda del encargado del evento",emailCharge);
       await this.mailerService.sendMail({
         to: emailCharge,
         subject: 'Encargado de evento',
         template: './notifyInCharge', 
         context: { 
           name: nameCharge,
-          nameOrganizer:nameOrganizer,
           nameEvent:nameEvent,
-          emailOrganizer:emailOrganizer,
           startDate:startDate,
           endDate:endDate,
           startHour:startHour,
