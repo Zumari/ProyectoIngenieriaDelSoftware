@@ -30,7 +30,7 @@ export class ScheduledEvent {
 
     //Cada que se registre un participante nuevo deberia editarse este campo y reducir una unidad
     @Column({type: 'int', nullable:true, default:0})
-    places: string;
+    places:number;
         
     @Column({type: 'varchar', nullable:false})
     modality:string

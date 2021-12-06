@@ -18,8 +18,8 @@ import { GeneralUserService } from 'src/app/services/user/general-user/general-u
 })
 export class EventComponent implements OnInit {
 
-  boton_pulsadoC: boolean=false
-  boton_pulsadoI: boolean=true
+  inscripted: boolean=false
+  /*boton_pulsadoI: boolean=true */
 
   faPlus = faPlusCircle;
   faTrash = faTrash;
@@ -35,7 +35,8 @@ export class EventComponent implements OnInit {
     userId: '',
     startTime: '',
     endTime: '',
-    image: ''
+    image: '',
+
   };
 
   inscriptions:Inscription={
@@ -46,22 +47,8 @@ export class EventComponent implements OnInit {
     attendance:false
   } 
 
-  eventosProgramados: ScheduledEvent[]=[{
-    scheduledEventId: 0,
-    name:'',
-    description_: '',
-    startDate: '',
-    endDate: '',
-    startHour: '',
-    endHour: '',
-    //Cada que se registre un participante nuevo deberia editarse este campo y reducir una unidad
-    places: '',
-    modality:'',
-    statusId:0,
-    managerId:'',
-    eventId:0,
-    address: ''
-   }  ]
+  eventosProgramados: ScheduledEvent[]=[
+  ]
 
   inst: any ={
     institutionId:0,
@@ -82,7 +69,8 @@ export class EventComponent implements OnInit {
       this.getEvent(params.name)
     }
     this.getAllScheduledEvents(params.name);
-/*     this.getInscriptions(); */
+    /* console.log(this.getOneInscription(3)) */
+
   }
 
   getEvent(id:number){
@@ -121,8 +109,8 @@ export class EventComponent implements OnInit {
        res =>  alert(res.message),
       error=> alert(error.error.message)
       )
-      this.boton_pulsadoC=true
-      this.boton_pulsadoI=false
+ /*      this.boton_pulsadoC=true
+      this.boton_pulsadoI=false */
   }
 
   deleteInscription(idScheduledEventF:number){
@@ -130,16 +118,14 @@ export class EventComponent implements OnInit {
        res =>  alert(res.message),
       error=> alert(error.error.message)
     )
-    this.boton_pulsadoC=false
-    this.boton_pulsadoI=true
+/*     this.boton_pulsadoC=false
+    this.boton_pulsadoI=true */
   }
 
-  /*getOneInscription(){
-    this.insc.getOneInscription().subscribe(
-      res =>  {this.inscript=res},
-      error=> alert(error.error.message)
-    )
-  }*/
+  getOneInscription(idScheduledEventF:number){
+    this.insc.getOneInscription(idScheduledEventF,this.generalUserService.getEmail()).subscribe(
+      res => this.inscripted=res)
+    }
 
   getInscriptions(){
     this.insc.getInscriptions().subscribe(
