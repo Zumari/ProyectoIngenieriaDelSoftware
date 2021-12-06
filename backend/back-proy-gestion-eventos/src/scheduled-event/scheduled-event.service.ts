@@ -5,13 +5,15 @@ import { ScheduledEventDTO } from './DTO/scheduledEvent.dto';
 import { ScheduledEvent } from './Entities/scheduledEvent.entity';
 import { UsersService } from "./../users/users.service";
 import { Users } from 'src/users/Entities/user.entity';
+import { MailService } from 'src/mail/mail.service';
 
 @Injectable()
 export class ScheduledEventService {
     constructor(
         @InjectRepository(ScheduledEvent)
         private  scheduledEventRepository: Repository<ScheduledEvent>,
-        private usersService: UsersService){}
+        private usersService: UsersService,
+        private mailService:MailService){}
         
     async updateScheduledEvent(scheduledEventId: string, body: ScheduledEventDTO) {
         const scheduledEvent = await this.scheduledEventRepository.findOne(scheduledEventId);
@@ -49,6 +51,8 @@ export class ScheduledEventService {
  /*        const scheduledEvent=await this.scheduledEventRepository.findOne(body.name);
         if(scheduledEvent) throw new NotFoundException('Ya existe un taller o conferencia con ese nombre') */
         const newScheduledEvent= this.scheduledEventRepository.create(body)
+        await this.mailService.sendCharge(body.managerId,manager.firstName,body.name,body.startDate.toString(),body.endDate.toString(),body.startHour.toString(),body.endHour.toString(),body.modality);
+        //    async sendCharge(emailCharge:string, nameOrganizer:string, nameCharge:string, nameEvent:string, emailOrganizer:string,startDate:string,endDate:string,startHour:string,endHour:string,modality:string)
         return await this.scheduledEventRepository.save(newScheduledEvent);
     }
     async getOneScheduledEvent(scheduledEventId: string) {

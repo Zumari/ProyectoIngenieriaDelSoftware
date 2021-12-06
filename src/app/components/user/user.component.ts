@@ -18,8 +18,6 @@ export class UserComponent implements OnInit {
   profilePhotoUser=this.generalUserService.getProfilePhoto();
   constructor(private generalUserService:GeneralUserService, private router:Router) { }
 
-
-
   ngOnInit(): void {
   }
 
@@ -27,6 +25,5 @@ export class UserComponent implements OnInit {
   this.generalUserService.logout();
   this.router.navigate(['inicio']); 
   }
-
 
 }

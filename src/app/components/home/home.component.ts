@@ -77,8 +77,44 @@ loginForm = new FormGroup({
     this.getInstitution();
     this.getEvents();
     this.getAllUsers();
+    this.readOnlyAll();
   }
 
+  editAll(){
+    // Hacer editable todos los campos
+    $('#institutionSelect').prop('disabled', false);
+    $('#firstName').prop('readonly', false);
+    $('#middleName').prop('readonly', false);
+    $('#lastName').prop('readonly', false);
+    $('#secondLastName').prop('readonly', false);
+    $('#academicTraining').prop('readonly', false);
+    $('#description_').prop('readonly', false);
+    $('#interests').prop('readonly', false);
+    $('#institutionRepresenting').prop('readonly', false);
+    $('#institutionForm').prop('readonly', false);
+    $('#faperfil').css({"visibility": "visible"});  
+    $('#email').prop('readonly', false);
+    $('#password').prop('readonly', false);
+    $('#repassword_').prop('readonly', false);
+  }
+
+  readOnlyAll(){
+    // Hacer readonly todos los campos
+    $('#institutionSelect').prop('disabled', true);
+    $('#firstName').prop('readonly', true);
+    $('#middleName').prop('readonly', true);
+    $('#lastName').prop('readonly', true);
+    $('#secondLastName').prop('readonly', true);
+    $('#academicTraining').prop('readonly', true);
+    $('#description_').prop('readonly', true);
+    $('#interests').prop('readonly', true);
+    $('#institutionRepresenting').prop('readonly', true);
+    $('#institutionForm').prop('readonly', true);
+    $('#faperfil').css({"visibility": "hidden"});
+    $('#email').prop('readonly', true);
+    $('#password').prop('readonly', true);
+    $('#repassword_').prop('readonly', true);
+  }
 
 
   cambiarImagen(event:any):any{
@@ -96,7 +132,7 @@ loginForm = new FormGroup({
       // this.imgPerfil = URL.createObjectURL(img.files![0]);
 
     }
-
+    this.editAll();
   }
 
   upload(file:any){
@@ -220,7 +256,7 @@ loginForm = new FormGroup({
           },
           err =>console.log('No se intento crear una institucion')
         )
-        window.location.reload();
+   
       }else{
         this.registerForm.value.institutionRepresenting = Number(this.registerForm.value.institutionRepresenting);
         this.registerForm.get('repassword_')?.disable();
@@ -231,7 +267,7 @@ loginForm = new FormGroup({
           },
           err =>console.log(err)
         )
-        window.location.reload();
+    
       }
     } else {
       //pongan mensaje de contraseñas no coinciden
