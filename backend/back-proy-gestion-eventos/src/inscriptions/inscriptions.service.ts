@@ -17,11 +17,13 @@ export class InscriptionsService {
     async findAllInscriptions(): Promise<Inscriptions[]>{
         return await this.inscriptionRepository.find();
     }
+
     async createInscription(body){
         const scheduledEvent=this.scheduledEventService.getOneScheduledEvent(body.idScheduledEvent)
         if(!scheduledEvent) throw new NotFoundException('No existe este ScheduledEvent') 
         const user=this.usersService.findOne(body.idUser)
         if(!user) throw new NotFoundException('No existe este user') 
+        body.nameUser = (await user).firstName + " " + (await user).lastName;
         const newInscription = this.inscriptionRepository.create(body)
         await this.inscriptionRepository.save(newInscription);
         return  {
@@ -31,9 +33,14 @@ export class InscriptionsService {
         
     }
 
-
     async getOneInscription(ID){
         const inscription = await this.inscriptionRepository.findOne(ID)
+        if(!inscription) throw new NotFoundException('No se econtraron coincidencias de esta Inscripción')
+        return inscription
+    }
+
+    async findByShedEvent(idScheduledEventF:number){
+        const inscription = await this.inscriptionRepository.find({idScheduledEvent:idScheduledEventF})
         if(!inscription) throw new NotFoundException('No se econtraron coincidencias de esta Inscripción')
         return inscription
     }

@@ -25,8 +25,8 @@
   <div class="row mb-3">
     <div class="mb-2">Organizador:</div>
     <div class="d-flex align-items-center" (click)="goToProfile(event.userId)">
-      <div class="sm-avatar mx-2"></div> 
-      <div class="cp">{{event.userId}}</div>
+      <!--<div class="sm-avatar mx-2"></div>--> 
+      <div class="cp h5">{{event.userId}}</div>
     </div>
   </div>
   <div class="divider"></div>
@@ -45,8 +45,9 @@
         <div class="ml-5">{{evento.address}}</div>
         <div class="row mb-3">
           <div class="d-flex align-items-center justify-content-center" (click)="goToProfile(evento.managerId)">
-            <div class="sm-avatar"></div>
-            <div class="mx-2 cp">{{evento.managerId}}</div>
+            <div class="mb-2">Encargado:</div>
+            <!--<div class="sm-avatar"></div>-->
+            <div class="mx-2 cp h5">{{evento.managerId}}</div>
           </div>
         </div>
         <div class="mb-2 d-flex justify-content-right">

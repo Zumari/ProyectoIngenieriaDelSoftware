@@ -27,7 +27,12 @@ export class CheckInService {
     return this.http.get<any>(`http://localhost:3000/inscriptions/getAll`)
   }
 
+  getInscriptionsByShedEvent(idScheduledEventF:number):Observable<any>{
+    return this.http.get<any>(`http://localhost:3000/inscriptions/getAllByShedEvent/${idScheduledEventF}`)
+  }
+
   updateInscriptions(inscriptionId:number, insc: Inscription):Observable<any>{
+    console.log(inscriptionId)
     return this.http.put<any>(`http://localhost:3000/inscriptions/updateInscription/${inscriptionId}`, insc);
   }
 

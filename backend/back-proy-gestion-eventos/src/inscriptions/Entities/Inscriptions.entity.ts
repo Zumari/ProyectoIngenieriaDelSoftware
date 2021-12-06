@@ -13,6 +13,9 @@ export class Inscriptions{
     @Column({ name:'idUser',type:'varchar',nullable:false})
     idUser:string
 
+    @Column({ name:'nameUser',type:'varchar',nullable:false})
+    nameUser:string
+
     @Column({type:'bit',nullable:true})
     attendance:boolean
 

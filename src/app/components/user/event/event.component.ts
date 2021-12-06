@@ -42,6 +42,7 @@ export class EventComponent implements OnInit {
     idInscription:0,
     idScheduledEvent:0, 
     idUser:'',
+    nameUser:'',
     attendance:false
   } 
 
@@ -113,6 +114,7 @@ export class EventComponent implements OnInit {
     let inscription ={
       idScheduledEvent:scheduledEventId, 
       idUser:this.generalUserService.getEmail(),
+      nameUser:this.generalUserService.getNombreUsuario(),
     }
     
     this.insc.createInscription(inscription).subscribe(

@@ -225,8 +225,8 @@ export class MyeventComponent implements OnInit {
     this.mode = val == 1 ? 'virtual' : 'presencial';
   }
 
-  goToParticipants() {
-    this.router.navigate(['/usuario/mi-evento/'+ this.eventName +'/participants']);
+  goToParticipants(idScheduledEventF:number) {
+    this.router.navigate(['/usuario/mi-evento/'+ this.eventName +'/participants/'+ idScheduledEventF]);
   }
 
   goToProfile(id: String) {

@@ -107,9 +107,9 @@ export class GeneralUserService {
     const payload = token.split('.')[1];
     const values = atob(payload);
     const valuesJson = JSON.parse(values);
-    console.log("datos",valuesJson);
+    //console.log("datos",valuesJson);
     var urlPhotoUser = valuesJson.urlPhoto;
-    console.log("url del usuario",urlPhotoUser);
+    //console.log("url del usuario",urlPhotoUser);
     return urlPhotoUser;
   }
  
