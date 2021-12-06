@@ -80,7 +80,7 @@ export class EventComponent implements OnInit {
     if(params){
       this.getEvent(params.name)
     }
-    this.getAllScheduledEvents();
+    this.getAllScheduledEvents(params.name);
 /*     this.getInscriptions(); */
   }
 
@@ -98,13 +98,12 @@ export class EventComponent implements OnInit {
     )
   }
 
-  getAllScheduledEvents(){
-    this.schEvent.getAllScheduledEvents().subscribe(
+  getAllScheduledEvents(idEvent:number){
+    this.schEvent.getAllScheduledEventsWhere(idEvent).subscribe(
       res =>  {this.eventosProgramados=res},
       error => console.log(error)
     )
   }
-
   goToProfile(id: String) {
     this.router.navigate(['/usuario/perfil-publico/'+ id]);
   }
