@@ -43,7 +43,6 @@ export class EventComponent implements OnInit {
     idInscription:0,
     idScheduledEvent:0, 
     idUser:'',
-    nameUser:'',
     attendance:false
   } 
 
@@ -90,7 +89,7 @@ export class EventComponent implements OnInit {
   getAllScheduledEvents(idEvent:number){
     this.schEvent.getAllScheduledEventsWhere(idEvent).subscribe(
       res =>  {this.eventosProgramados=res},
-      error => console.log(error)
+      error => console.log(error),
     )
   }
   goToProfile(id: String) {
@@ -102,7 +101,6 @@ export class EventComponent implements OnInit {
     let inscription ={
       idScheduledEvent:scheduledEventId, 
       idUser:this.generalUserService.getEmail(),
-      nameUser:this.generalUserService.getNombreUsuario(),
     }
     
     this.insc.createInscription(inscription).subscribe(
@@ -122,11 +120,11 @@ export class EventComponent implements OnInit {
     this.boton_pulsadoI=true */
   }
 
-  getOneInscription(idScheduledEventF:number){
+/*   getOneInscription(idScheduledEventF:number){
     this.insc.getOneInscription(idScheduledEventF,this.generalUserService.getEmail()).subscribe(
       res => this.inscripted=res)
     }
-
+ */
   getInscriptions(){
     this.insc.getInscriptions().subscribe(
       res =>  {this.inscriptions=res},

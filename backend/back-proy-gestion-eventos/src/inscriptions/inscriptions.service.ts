@@ -18,26 +18,17 @@ export class InscriptionsService {
     async findAllInscriptions(): Promise<Inscriptions[]>{
         return await this.inscriptionRepository.find();
     }
-
     async createInscription(body){
 
         const scheduledEvent=this.scheduledEventService.getOneScheduledEvent(body.idScheduledEvent)
-<<<<<<< Updated upstream
-        if(!scheduledEvent) throw new NotFoundException('No existe este ScheduledEvent') 
-        const user=this.usersService.findOne(body.idUser)
-        if(!user) throw new NotFoundException('No existe este user') 
-        body.nameUser = (await user).firstName + " " + (await user).lastName;
-=======
         if((await scheduledEvent).places==0){
             return {
                 "message":`Lo sentimos, ya no hay cupos para este evento :)`
            }
         }
->>>>>>> Stashed changes
         const newInscription = this.inscriptionRepository.create(body)
         await this.inscriptionRepository.save(newInscription);
         this.scheduledEventService.updateScheduledEventPlaces((await scheduledEvent).scheduledEventId)
-        console.log(scheduledEvent);
         
         return  {
              "message":`Inscripcíon correcta`
@@ -46,12 +37,6 @@ export class InscriptionsService {
         
     }
 
-<<<<<<< Updated upstream
-    async getOneInscription(ID){
-        const inscription = await this.inscriptionRepository.findOne(ID)
-        if(!inscription) throw new NotFoundException('No se econtraron coincidencias de esta Inscripción')
-        return inscription
-=======
     async getOneInscription(idSE,idU){
         const inscription = await this.inscriptionRepository.findOne({idScheduledEvent:idSE,idUser:idU})
         if(!inscription){
@@ -59,13 +44,6 @@ export class InscriptionsService {
         }else{
             return true
         }
->>>>>>> Stashed changes
-    }
-
-    async findByShedEvent(idScheduledEventF:number){
-        const inscription = await this.inscriptionRepository.find({idScheduledEvent:idScheduledEventF})
-        if(!inscription) throw new NotFoundException('No se econtraron coincidencias de esta Inscripción')
-        return inscription
     }
     async deleteInscription(idScheduledEventF:number , idUserF:string){
 /*         const inscription=await this.inscriptionRepository.findOne(id);
