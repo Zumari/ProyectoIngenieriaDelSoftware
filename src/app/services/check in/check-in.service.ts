@@ -19,8 +19,8 @@ export class CheckInService {
     return this.http.delete<any>(`http://localhost:3000/inscriptions/deleteInscription/${idScheduledEventF}/${idUserF}`,);
   }
 
-  getOneInscription(inscriptionId:number):Observable<any>{
-    return this.http.get<any>(`http://localhost:3000/inscriptions/getInscription/${inscriptionId}`)
+  getOneInscription(idScheduledEventF:number,idUserF:string):Observable<any>{
+    return this.http.get<any>(`http://localhost:3000/inscriptions/getInscription/${idScheduledEventF}/${idUserF}`);
   }
 
   getInscriptions():Observable<any>{

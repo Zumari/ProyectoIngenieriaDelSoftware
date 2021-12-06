@@ -32,10 +32,14 @@ export class InscriptionsService {
     }
 
 
-    async getOneInscription(ID){
-        const inscription = await this.inscriptionRepository.findOne(ID)
-        if(!inscription) throw new NotFoundException('No se econtraron coincidencias de esta Inscripción')
-        return inscription
+    async getOneInscription(idSE,idU){
+        const inscription = await this.inscriptionRepository.findOne({idScheduledEvent:idSE,idUser:idU})
+        if(!inscription){
+            return false
+        }else{
+            return true
+        }
+
     }
     async deleteInscription(idScheduledEventF:number , idUserF:string){
 /*         const inscription=await this.inscriptionRepository.findOne(id);
