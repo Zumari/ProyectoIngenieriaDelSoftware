@@ -45,7 +45,7 @@ export class EventComponent implements OnInit {
     attendance:false
   } 
 
-  eventosProgramados: any[]=[{
+  eventosProgramados: ScheduledEvent[]=[{
     scheduledEventId: 0,
     name:'',
     description_: '',
@@ -59,9 +59,7 @@ export class EventComponent implements OnInit {
     statusId:0,
     managerId:'',
     eventId:0,
-    address: '',
-    disabledButton1:false,
-    disabledButton2:true
+    address: ''
    }  ]
 
   inst: any ={
@@ -133,13 +131,14 @@ export class EventComponent implements OnInit {
     this.boton_pulsadoC=false
     this.boton_pulsadoI=true
   }
- 
-  getOneInscription(idScheduledEventF:number){
-    this.insc.getOneInscription(idScheduledEventF,this.generalUserService.getEmail()).subscribe(
-      res =>  {res}
+
+  /*getOneInscription(){
+    this.insc.getOneInscription().subscribe(
+      res =>  {this.inscript=res},
+      error=> alert(error.error.message)
     )
-  }
- 
+  }*/
+
   getInscriptions(){
     this.insc.getInscriptions().subscribe(
       res =>  {this.inscriptions=res},

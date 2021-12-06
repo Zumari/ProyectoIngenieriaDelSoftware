@@ -7,9 +7,9 @@ export class InscriptionsController {
 
     constructor(private inscriptionService: InscriptionsService){}
     
-    @Get('getInscription/:idScheduledEventF/:idUserF')
-    async getOneInscription(@Param('idScheduledEventF') idScheduledEventF:number,@Param('idUserF') idUserF:string){
-        return await this.inscriptionService.getOneInscription(idScheduledEventF,idUserF);
+    @Get('getInscription/:InscriptionId')
+    async getOneInscription(@Param('InscriptionId') InscriptionId:number){
+        return await this.inscriptionService.getOneInscription(InscriptionId);
         
     }
 
