@@ -15,6 +15,10 @@ export class ScheduledEventService {
     return this.http.get<any[]>(`http://localhost:3000/scheduled-event/getAll`,{});
   }
 
+  getAllScheduledEventsWhere(idEvent: number):Observable<any[]>{
+    return this.http.get<any[]>(`http://localhost:3000/scheduled-event/getAllWhere/${idEvent}`);
+  }
+
   getOneScheduledEvent(scheduledEventId: number):Observable<any>{
     return this.http.get<any>(`http://localhost:3000/scheduled-event/getScheduledEvent/${scheduledEventId}`,);
   }

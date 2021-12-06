@@ -23,7 +23,12 @@ export class InscriptionsService {
         const user=this.usersService.findOne(body.idUser)
         if(!user) throw new NotFoundException('No existe este user') 
         const newInscription = this.inscriptionRepository.create(body)
-        return await this.inscriptionRepository.save(newInscription);
+        await this.inscriptionRepository.save(newInscription);
+        return  {
+             "message":`Inscripcíon correcta`
+              
+        }
+        
     }
 
 
@@ -32,10 +37,13 @@ export class InscriptionsService {
         if(!inscription) throw new NotFoundException('No se econtraron coincidencias de esta Inscripción')
         return inscription
     }
-    async deleteInscription(id){
-        const inscription=await this.inscriptionRepository.findOne(id);
-        if(!inscription) throw new NotFoundException('No se econtraron coincidencias de esta Inscripción')
-        return this.inscriptionRepository.delete(id)
+    async deleteInscription(idScheduledEventF:number , idUserF:string){
+/*         const inscription=await this.inscriptionRepository.findOne(id);
+        if(!inscription) throw new NotFoundException('No se econtraron coincidencias de esta Inscripción') */
+        await this.inscriptionRepository.delete({idScheduledEvent:idScheduledEventF,idUser:idUserF})
+        return {
+            "message":"Inscripción cancelada"
+        }
 
     }
     async updateInscription(id,body){

@@ -36,6 +36,10 @@ export class ScheduledEventService {
     async findAllScheduledEvents():Promise <ScheduledEvent[]> {
         return await this.scheduledEventRepository.find();   
     }
+
+    async findAllScheduledEventsWhere(idEvent: number):Promise <ScheduledEvent[]> {
+        return await this.scheduledEventRepository.find({ where: { eventId: (idEvent) } });   
+    }
     async createScheduledEvent(body: ScheduledEventDTO) {
         //Validar que exista el MANAGER 
         console.log(body.managerId)

@@ -18,6 +18,9 @@ import { GeneralUserService } from 'src/app/services/user/general-user/general-u
 })
 export class EventComponent implements OnInit {
 
+  boton_pulsadoC: boolean=false
+  boton_pulsadoI: boolean=true
+
   faPlus = faPlusCircle;
   faTrash = faTrash;
   event: any = {
@@ -35,12 +38,12 @@ export class EventComponent implements OnInit {
     image: ''
   };
 
-  inscriptions:Inscription[]=[{
+  inscriptions:Inscription={
     idInscription:0,
     idScheduledEvent:0, 
     idUser:'',
     attendance:false
-  }]
+  } 
 
   eventosProgramados: ScheduledEvent[]=[{
     scheduledEventId: 0,
@@ -78,7 +81,7 @@ export class EventComponent implements OnInit {
       this.getEvent(params.name)
     }
     this.getAllScheduledEvents();
-    this.getInscriptions();
+/*     this.getInscriptions(); */
   }
 
   getEvent(id:number){
@@ -108,19 +111,26 @@ export class EventComponent implements OnInit {
 
   //Métodos de Inscripción
   createInscription(scheduledEventId: number){
-    let usuarioId = this.generalUserService.getEmail();
-
-    this.insc.createInscription(scheduledEventId, usuarioId).subscribe(
-       res =>  {console.log(res)},
+    let inscription ={
+      idScheduledEvent:scheduledEventId, 
+      idUser:this.generalUserService.getEmail(),
+    }
+    
+    this.insc.createInscription(inscription).subscribe(
+       res =>  alert(res.message),
       error=> alert(error.error.message)
       )
+      this.boton_pulsadoC=true
+      this.boton_pulsadoI=false
   }
 
-  deleteInscription(idInscription:number){
-    this.insc.deleteInscription(idInscription).subscribe(
-       res =>  {console.log(res)},
+  deleteInscription(idScheduledEventF:number){
+    this.insc.deleteInscription(idScheduledEventF,this.generalUserService.getEmail()).subscribe(
+       res =>  alert(res.message),
       error=> alert(error.error.message)
     )
+    this.boton_pulsadoC=false
+    this.boton_pulsadoI=true
   }
 
   /*getOneInscription(){
@@ -136,7 +146,7 @@ export class EventComponent implements OnInit {
       error=> alert(error.error.message)
     )
   }
-  
+   
 
   
 }

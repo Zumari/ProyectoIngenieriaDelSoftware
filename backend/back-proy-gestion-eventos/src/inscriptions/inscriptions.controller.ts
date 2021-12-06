@@ -24,9 +24,9 @@ export class InscriptionsController {
       return await this.inscriptionService.findAllInscriptions()  
     }
 
-    @Delete('deleteInscription/:InscriptionId')
-    async deleteInscription(@Param('InscriptionId') InscriptionId:number){
-        return await this.inscriptionService.deleteInscription(InscriptionId);
+    @Delete('deleteInscription/:idScheduledEventF/:idUserF')
+    async deleteInscription(@Param('idScheduledEventF') idScheduledEventF:number,@Param('idUserF') idUserF:string){
+        return await this.inscriptionService.deleteInscription(idScheduledEventF,idUserF);
     }
 
     @Put('updateInscription/:InscriptionId')

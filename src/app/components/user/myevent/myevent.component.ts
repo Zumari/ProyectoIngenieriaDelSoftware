@@ -104,7 +104,7 @@ export class MyeventComponent implements OnInit {
       this.eventName = params.name;
       this.getEvent(params.name);
     }
-    this.getAllScheduledEvents();
+    this.getAllScheduledEvents(params.name);
   }
 
 
@@ -184,14 +184,14 @@ export class MyeventComponent implements OnInit {
     this.eventoProgramadoForm.value.startHour=this.eventoProgramadoForm.value.startDate+' '+this.eventoProgramadoForm.value.startHour
     this.eventoProgramadoForm.value.endHour=this.eventoProgramadoForm.value.endDate+' '+this.eventoProgramadoForm.value.endHour
     this.schEvent.createScheduledEvent(this.eventoProgramadoForm.value).subscribe(
-      res =>  {console.log(res)},
+      res =>  alert(res),
       error=> alert(error.error.message))
       window.location.reload();
   }
 
 
-  getAllScheduledEvents(){
-    this.schEvent.getAllScheduledEvents().subscribe(
+  getAllScheduledEvents(idEvent:number){
+    this.schEvent.getAllScheduledEventsWhere(idEvent).subscribe(
       res =>  {this.eventosProgramados=res},
       error => console.log(error)
     )
@@ -201,7 +201,7 @@ export class MyeventComponent implements OnInit {
     this.schEvent.deleteScheduledEvent(idEvento).subscribe(
       res=>{
         console.log(res);
-        this.getAllScheduledEvents();
+        this.getAllScheduledEvents(this.activatedRoute.snapshot.params.name);
 
       },
       error=> console.log(error)
