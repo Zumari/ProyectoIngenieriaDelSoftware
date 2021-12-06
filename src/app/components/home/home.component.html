@@ -122,7 +122,7 @@
             <div class="row px-5">
               <div class="mb-3">
                 <label for="nombre" class="form-label">Nombre:</label>
-                <input type="text" formControlName="firstName" class="form-control" id="nombre" placeholder="">
+                <input type="text" formControlName="firstName" class="form-control" id="firstName" placeholder="">
                 <div class="alert-danger" *ngIf="firstName?.invalid && (firstName?.dirty || firstName?.touched)">
                   <div class="container-error-message" *ngIf="firstName?.errors?.required">
                     Campo obligatorio
@@ -133,7 +133,7 @@
                 </div>
                 <div class="mb-3">
                   <label for="nombre" class="form-label">Segundo nombre:</label>
-                  <input type="text" formControlName="middleName" class="form-control" id="nombre" placeholder="">
+                  <input type="text" formControlName="middleName" class="form-control" id="middleName" placeholder="">
                   <div class="alert-danger" *ngIf="middleName?.invalid && (middleName?.dirty || middleName?.touched)">
                     <div class="container-error-message" *ngIf="middleName?.errors?.maxLength">
                       Campo obligatorio
@@ -157,7 +157,7 @@
                 </div>
                 <div class="mb-3">
                   <label for="nombre" class="form-label">Segundo apellido:</label>
-                  <input type="text" formControlName="secondLastName" class="form-control" id="nombre" placeholder="">
+                  <input type="text" formControlName="secondLastName" class="form-control" id="secondLastName" placeholder="">
                   <div class="alert-danger" *ngIf="secondLastName?.invalid && (secondLastName?.dirty || secondLastName?.touched)">
                     <div class="container-error-message" *ngIf="secondLastName?.errors?.maxLength">
                       El tamaño no es aceptable
@@ -170,7 +170,7 @@
               </div>
               <div class="mb-3">
                 <label for="institucion" class="form-label">Institución que representa:</label>
-                <select formControlName="institutionRepresenting" class="form-select form-select" name="institucion" aria-label=".form-select-sm institucion">
+                <select formControlName="institutionRepresenting" class="form-select form-select" id="institutionSelect" name="institucion" aria-label=".form-select-sm institucion">
                   <option *ngFor="let institution of institutions, let i = index" [value]=institution.InstitutionID type="number">
                     {{institution.name}}
                   </option>
@@ -180,12 +180,12 @@
               <div class="mb-3" *ngIf="institutionRepresenting?.value==0">
                 <form [formGroup]="institutionForm">
                   <label for="otra" class="form-label" >Introduzca una nueva institución:</label>
-                  <input formControlName="name" type="text" class="form-control" id="otra" placeholder="">
+                  <input formControlName="name" type="text" class="form-control" id="institutionForm" placeholder="">
                 </form>
               </div>
               <div class="mb-3">
                 <label for="correo" class="form-label">Correo electrónico:</label>
-                <input type="email" formControlName="email" class="form-control" id="correo" placeholder="">
+                <input type="email" formControlName="email" class="form-control" id="email" placeholder="">
                 <div class="alert-danger" *ngIf="email?.invalid && (email?.dirty || email?.touched)">
                   <div class="container-error-message" *ngIf="email?.errors?.required">
                     Campo obligatorio
@@ -197,7 +197,7 @@
               </div>
               <div class="mb-3">
                 <label for="contrasenia" class="form-label">Contraseña:</label>
-                <input type="password" formControlName="password_" class="form-control" id="contrasenia" placeholder="">
+                <input type="password" formControlName="password_" class="form-control" id="password" placeholder="">
                 <div class="alert-danger" *ngIf="passReg?.invalid && (passReg?.dirty || passReg?.touched)">
                   <div class="container-error-message" *ngIf="passReg?.errors?.required">
                     Campo obligatorio
@@ -209,7 +209,7 @@
               </div>
               <div class="mb-3">
                 <label for="contrasenia" class="form-label">Confirme su contraseña:</label>
-                <input type="password" formControlName="repassword_" class="form-control" id="recontrasenia" placeholder="">
+                <input type="password" formControlName="repassword_" class="form-control" id="repassword_" placeholder="">
                 <div class="alert-danger" *ngIf="repassReg?.invalid && (repassReg?.dirty || repassReg?.touched)">
                   <div class="container-error-message" *ngIf="repassReg?.errors?.required">
                     Campo obligatorio
@@ -242,7 +242,7 @@
               </div>
               <div class="mb-3">
                 <label for="descripcion" class="form-label">Descripción:</label>
-                <textarea formControlName="description_" class="form-control" id="descripcion" rows="4"></textarea>
+                <textarea formControlName="description_" class="form-control" id="description_" rows="4"></textarea>
 
                 <div class="alert-danger" *ngIf="description_?.invalid && (description_?.dirty || description_?.touched)">
                   <div class="container-error-message" *ngIf="description_?.errors?.required">
@@ -253,7 +253,7 @@
               </div>
               <div class="mb-3">
                 <label for="intereses" class="form-label">Intereses:</label>
-                <input type="text" formControlName="interests" class="form-control" id="intereses" placeholder="">
+                <input type="text" formControlName="interests" class="form-control" id="interests" placeholder="">
                 <div class="alert-danger" *ngIf="interests?.invalid && (interests?.dirty || interests?.touched)">
                     <div class="container-error-message" *ngIf="interests?.errors?.required">
                       Campo obligatorio

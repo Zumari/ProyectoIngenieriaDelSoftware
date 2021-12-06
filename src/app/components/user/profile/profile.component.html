@@ -18,8 +18,8 @@
         <form [formGroup]="updateUserForm" >
           <div style="z-index: 10; background-color: gray; border-radius: 100%; height: 10vw; width: 10vw; margin: auto; top: -4vw; position: relative;">
             <img [src]="profilePhotoUser" alt="" style="width: 100%; height: 100%; border-radius: 100%;">
-            <input type="file" formControlName="profilePhoto" name="perfil" id="perfil" style="visibility: hidden;"  (change)="cambiarImagen($event)">
-            <label for="perfil" class="perfil-registro">
+            <input [readonly]="true" type="file" formControlName="profilePhoto" name="perfil" id="perfil" style="visibility: hidden;"  (change)="cambiarImagen($event)">
+            <label id="faperfil" for="perfil" class="perfil-registro" style="visibility: hidden;">
               <fa-icon [icon]="faCamera"></fa-icon>
             </label>
           </div>
@@ -184,7 +184,7 @@
                   </div>
               </div>
               <div class="mb-5 d-flex justify-content-center">
-                <button class="btn btn-warning rounded-2" id="saveBtn" type="button" (click)="UpdateUser()">
+                <button  [disabled]="!updateUserForm.valid" class="btn btn-warning rounded-2" id="saveBtn" type="button" (click)="UpdateUser()">
                   <fa-icon class="pr-4" [icon]="faSave"></fa-icon>
                   Guardar cambios
                 </button>

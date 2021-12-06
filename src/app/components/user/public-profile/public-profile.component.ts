@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { EventsService } from 'src/app/services/user/events/events.service';
 import { Event } from 'src/app/interfaces/event';
 import { GeneralUserService } from 'src/app/services/user/general-user/general-user.service';
+//import { ProfileService } from 'src/app/services/user/profile/profile.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { InstitutionService } from 'src/app/services/institutions/institutions.service';
 import { institution } from 'src/app/interfaces/institution';
@@ -19,7 +20,6 @@ import { finalize } from 'rxjs/operators';
   templateUrl: './public-profile.component.html',
   styleUrls: ['./public-profile.component.scss']
 })
-
 
 export class PublicProfileComponent implements OnInit {
 
@@ -38,7 +38,7 @@ export class PublicProfileComponent implements OnInit {
   previsualizacion: string="";
   urlImage: string="";
   nameImage="";
-  profilePhotoUser=this.generalUserService.getProfilePhoto();
+  profilePhotoUser: any;
 
   //Para recorrer y llenar el select-list de instituciones
   institutions: institution[]=[{
@@ -47,12 +47,9 @@ export class PublicProfileComponent implements OnInit {
   }];
 
   
-updateUserForm = new FormGroup({
+managerInfoForm = new FormGroup({
   //email: new FormControl('',[Validators.required, Validators.pattern(/^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i)]),
   firstName : new FormControl('',[Validators.required, Validators.maxLength(30), Validators.pattern('[a-zA-ZÑÁÉÍÓÚáéíóú][a-zA-Zñáéíóú ]{1,}')]),
-  middleName  : new FormControl('',[Validators.required, Validators.maxLength(30), Validators.pattern('[a-zA-ZÑÁÉÍÓÚáéíóú][a-zA-Zñáéíóú ]{1,}')]),
-  lastName : new FormControl('',[Validators.required, Validators.maxLength(30), Validators.pattern('[a-zA-ZÑÁÉÍÓÚáéíóú][a-zA-Zñáéíóú ]{1,}')]),
-  secondLastName: new FormControl('',[Validators.required, Validators.maxLength(30), Validators.pattern('[a-zA-ZÑÁÉÍÓÚáéíóú][a-zA-Zñáéíóú ]{1,}')]),
   academicTraining: new FormControl('',[Validators.required]),
   description_ : new FormControl('',[Validators.required]),
   interests : new FormControl('',[Validators.required]),
@@ -61,6 +58,7 @@ updateUserForm = new FormGroup({
 },{validators:passwordMatchValidator});
 
 constructor( private eventServ: EventsService,
+  //private profileUserService:ProfileService,
   private generalUserService:GeneralUserService,
   private institutionServ:InstitutionService,
   private router:Router,
@@ -69,52 +67,62 @@ constructor( private eventServ: EventsService,
 
   ngOnInit(): void {
     this.getInstitution();
-    this.getAllUsers();
+    //this.getAllUsers();
     this.getAllInfo();
   }
 
   getAllInfo(){
-    this.generalUserService.getUser(this.generalUserService.getEmail()).subscribe(
+    const lastUrlSegment = this.router.url.split('?')[0].split('/').pop()
+    this.generalUserService.getUser(String(lastUrlSegment)).subscribe(
       res =>  {
         console.log(res);
         this.readOnlyAll();
+        this.profilePhotoUser = this.generalUserService.getProfilePhoto();
+        var completeName = "";
         Object.values(res).map((value, index) => {
             
             /*
             if(index==0){
-                this.updateUserForm.controls['email'].setValue(value);
+                this.managerInfoForm.controls['email'].setValue(value);
             }
             */
             if(index==4){
-              this.updateUserForm.controls['firstName'].setValue(value);
+              completeName = value
+              //this.managerInfoForm.controls['firstName'].setValue(value);
             }
             if(index==5){
-              this.updateUserForm.controls['middleName'].setValue(value);
+              completeName = completeName +" "+ value;
+              //this.managerInfoForm.controls['middleName'].setValue(value);
             }
             if(index==7){
-              this.updateUserForm.controls['lastName'].setValue(value);
+              completeName = completeName+" "+ value
+              //this.managerInfoForm.controls['lastName'].setValue(value);
             }
             if(index==8){
-              this.updateUserForm.controls['secondLastName'].setValue(value);
+              completeName = completeName+" "+ value
+              this.managerInfoForm.controls['firstName'].setValue(completeName);
             }
             if(index==10){
-              this.updateUserForm.controls['institutionRepresenting'].setValue(value); 
+              this.managerInfoForm.controls['institutionRepresenting'].setValue(value); 
             }
             if(index==2){
-              this.updateUserForm.controls['academicTraining'].setValue(value);
+              this.managerInfoForm.controls['academicTraining'].setValue(value);
             }
             if(index==3){
-              this.updateUserForm.controls['description_'].setValue(value);
+              this.managerInfoForm.controls['description_'].setValue(value);
             }
             if(index==6){
-              this.updateUserForm.controls['interests'].setValue(value);
+              this.managerInfoForm.controls['interests'].setValue(value);
             }    
+            if(index==9){
+              this.profilePhotoUser = value;
+            }
         });
       },
       error => console.log(error)
     )
-  }
-
+  } 
+  
   readOnlyAll(){
     // Ocultar el botón de salvar cambios
     $('#saveBtn').hide();
@@ -190,107 +198,47 @@ constructor( private eventServ: EventsService,
     })})).subscribe();
    }
 
-//Getters de los formControls de FormGroup updateUserForm para utilizar validaciones
+//Getters de los formControls de FormGroup managerInfoForm para utilizar validaciones
   
 /*
 get email() {
-    return this.updateUserForm.get('email');
+    return this.managerInfoForm.get('email');
   }
 */
 
   get firstName() {
-    return this.updateUserForm.get('firstName');
+    return this.managerInfoForm.get('firstName');
   }
 
   get middleName() {
-    return this.updateUserForm.get('middleName');
+    return this.managerInfoForm.get('middleName');
   }
 
 
   get lastName() {
-    return this.updateUserForm.get('lastName');
+    return this.managerInfoForm.get('lastName');
   }
 
   get secondLastName(){
-    return this.updateUserForm.get('secondLastName');
+    return this.managerInfoForm.get('secondLastName');
   }
 
   get academicTraining(){
-    return this.updateUserForm.get('academicTraining');
+    return this.managerInfoForm.get('academicTraining');
   }
    get description_(){
-     return this.updateUserForm.get('description_');
+     return this.managerInfoForm.get('description_');
    }
   get interests(){
-    return this.updateUserForm.get('interests');
+    return this.managerInfoForm.get('interests');
   }
 
   get institutionRepresenting(){
-    return this.updateUserForm.get('institutionRepresenting');
+    return this.managerInfoForm.get('institutionRepresenting');
   }
 
   get profilePhoto (){
-    return this.updateUserForm.get('profilePhoto');
+    return this.managerInfoForm.get('profilePhoto');
   }
 
-  getAllUsers(){
-    this.generalUserService.getUsers().subscribe(
-      res =>  {console.log(res)},
-      error => console.log(error)
-    )
-  }
-
-  EditUser(){
-    // Ocultar el botón editar
-    $('#editBtn').hide();
-
-    // Mostar el botón Guardar cambios
-    $('#saveBtn').show();
-    
-    // Hacer editable todos los campos
-    $('#institutionSelect').prop('disabled', false);
-    $('#firstName').prop('readonly', false);
-    $('#middleName').prop('readonly', false);
-    $('#lastName').prop('readonly', false);
-    $('#secondLastName').prop('readonly', false);
-    $('#academicTraining').prop('readonly', false);
-    $('#description_').prop('readonly', false);
-    $('#interests').prop('readonly', false);
-    $('#institutionRepresenting').prop('readonly', false);
-    //$('#email').prop('readonly', false);
-  }
-
-  editableAll(){
-  
-  }
-
-  UpdateUser(){
-    this.readOnlyAll();
-    $('#editBtn').show();
-    $('#saveBtn').hide();
-    const institutionId = this.updateUserForm.value.institutionRepresenting;
-    /*
-    this.generalUserService.updateUser(this.updateUserForm.value).subscribe(
-      res =>  {
-        this.generalUserService.setUser(res);
-        this.router.navigate(['/user/profile']);
-      },
-      error => console.log(error)
-    )
-    */
-    // Sino se selecciono institución obtener el nombre de la nueva institucion
-    console.log(this.updateUserForm.value);
-    this.updateUserForm.value.institutionRepresenting = String(this.updateUserForm.value.institutionRepresenting);
-    if(this.urlImage.length > 0){
-      this.updateUserForm.value.profilePhoto=this.urlImage;
-    }else{
-      this.updateUserForm.value.profilePhoto=this.generalUserService.getProfilePhoto();;
-    }
-
-    this.generalUserService.updateUser(this.generalUserService.getEmail(), this.updateUserForm.value).subscribe(
-      res => {
-        console.log(res);
-      },
-      err =>console.log(err)
-    )}
 }
