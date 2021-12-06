@@ -186,6 +186,7 @@ export class MyeventComponent implements OnInit {
     this.schEvent.createScheduledEvent(this.eventoProgramadoForm.value).subscribe(
       res =>  {console.log(res)},
       error=> alert(error.error.message))
+      window.location.reload();
   }
 
 

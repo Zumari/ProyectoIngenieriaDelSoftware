@@ -120,24 +120,6 @@ export class DashboardComponent implements OnInit {
           const data=XLSX.utils.sheet_to_json( workbook.Sheets[sheet]);
           const jsonExcel= JSON.stringify(data);
           this.listUsersWhite=jsonExcel;
-         /* const j=JSON.parse(jsonExcel)
-          const k= JSON.stringify(j);
-          console.log("esto es lo normal",j);
-          console.log(typeof(j));
-          console.log(j[0].email);
-          console.log(typeof(j[0].email));
-          console.log("esto es lo inverso=>",k);
-          console.log("esto tiene jsonexcel",jsonExcel);
-          console.log(typeof(k));*/
-
-          /*console.log(typeof(data));
-          console.log(data);
-          console.log(typeof(jsonExcel));
-          console.log(jsonExcel);
-          console.log (data[0].email);*/
-
-          
-
         })
       }
     }
@@ -188,6 +170,7 @@ get institutionId(){
       res =>  {console.log(res)},
       error => console.log(error))
     this.router.initialNavigation();
+    window.location.reload();
   }
 
   getEvents(){
