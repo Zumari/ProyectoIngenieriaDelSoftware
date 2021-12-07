@@ -30,8 +30,8 @@ export class Event {
     @Column({type: 'varchar', nullable:false})
     photo:string
     
-    /*@Column({type: 'json', nullable:true})
-    listWhite:JSON*/
+    @Column({type: 'varchar', length:8000,nullable:true})
+    listWhite:string
 
     @Column({name:'Institution'})
     institutionId:number

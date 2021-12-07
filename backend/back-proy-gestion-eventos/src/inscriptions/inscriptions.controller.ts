@@ -24,13 +24,18 @@ export class InscriptionsController {
       return await this.inscriptionService.findAllInscriptions()  
     }
 
-    @Delete('deleteInscription/:InscriptionId')
-    async deleteInscription(@Param('InscriptionId') InscriptionId:number){
-        return await this.inscriptionService.deleteInscription(InscriptionId);
+    @Get('getAllByShedEvent/:idScheduledEventF')
+    async getAllByShedEvent(@Param('idScheduledEventF') idScheduledEventF : number){
+      return await this.inscriptionService.findByShedEvent(idScheduledEventF)
+    }
+
+    @Delete('deleteInscription/:idScheduledEventF/:idUserF')
+    async deleteInscription(@Param('idScheduledEventF') idScheduledEventF:number,@Param('idUserF') idUserF:string){
+        return await this.inscriptionService.deleteInscription(idScheduledEventF,idUserF);
     }
 
     @Put('updateInscription/:InscriptionId')
-    async updateInscription(@Param('InscriptionId') InscriptionId:string,@Body() body:inscriptionsDto){
+    async updateInscription(@Param('InscriptionId') InscriptionId:number,@Body() body:inscriptionsDto){
       return await this.inscriptionService.updateInscription(InscriptionId,body)  ;
     }
 }

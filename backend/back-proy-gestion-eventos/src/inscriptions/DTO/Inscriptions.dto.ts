@@ -10,6 +10,10 @@ export class inscriptionsDto{
     @IsString()
     idUser : string;
 
+    @IsNotEmpty()
+    @IsString()
+    nameUser : string;
+
     @IsOptional()
     @IsBoolean()
     attendance:boolean

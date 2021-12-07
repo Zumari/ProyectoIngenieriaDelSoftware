@@ -29,11 +29,19 @@ export class EventsService extends TypeOrmCrudService<Event> {
         --> No poder crear un evento si la hora de inicio es igual a la de finalizacion
         --> No poder crear un evento si es cerrado y no se define cuantas personas asistiran
     */
-    const {name, description_, startDate, endDate,openEvent,institutionId,photo} = createEventDto;
+   console.log(createEventDto.listWhite);
+   if(!createEventDto.listWhite){
+    console.log("esta vacia la lista blanca");
+   }else{
+    const formato =JSON.parse(createEventDto.listWhite);
+    console.log("primer elemento de la lista desde el back",formato[0].email);
+   }
+
+
+    const {name, description_, startDate, endDate,openEvent,institutionId,photo,listWhite} = createEventDto;
     const institutionEvent = await this.institutionService.getOneInstitution(institutionId)
-    /* const StatusEvent= await this.statusService.getOneStatus(1) */
     const UserEvent= await this.userService.findUserAuth(idUser)
-    const post= this.repo.create({name, description_, startDate, endDate,openEvent, InstitutionID:institutionEvent, UsersID:UserEvent,photo});
+    const post= this.repo.create({name, description_, startDate, endDate,openEvent, InstitutionID:institutionEvent, UsersID:UserEvent,photo,listWhite});
     await this.repo.save(post);
     return{
       "result": `El evento con el nombre ${name} se ha creado con exito`

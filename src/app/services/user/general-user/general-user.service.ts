@@ -89,7 +89,10 @@ export class GeneralUserService {
     }
     const token = this.getToken();
     const payload = token.split('.')[1];
+    console.log(payload);
+    console.log("si es el atob el del pedo");
     const values = atob(payload);
+    console.log("despues del atob",values);
     const valuesJson = JSON.parse(values);
     const nombreUsuario = valuesJson.firstName;
     console.log("url del usuario",nombreUsuario);
@@ -104,9 +107,9 @@ export class GeneralUserService {
     const payload = token.split('.')[1];
     const values = atob(payload);
     const valuesJson = JSON.parse(values);
-    console.log("datos",valuesJson);
+    //console.log("datos",valuesJson);
     var urlPhotoUser = valuesJson.urlPhoto;
-    console.log("url del usuario",urlPhotoUser);
+    //console.log("url del usuario",urlPhotoUser);
     return urlPhotoUser;
   }
  

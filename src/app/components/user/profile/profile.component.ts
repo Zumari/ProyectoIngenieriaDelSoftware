@@ -14,7 +14,6 @@ import { AngularFireStorage} from '@angular/fire/storage';
 import { DomSanitizer } from '@angular/platform-browser';
 import { finalize } from 'rxjs/operators';
 
-
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -24,7 +23,6 @@ export class ProfileComponent implements OnInit {
 
   display: string = 'none';
   faCamera = faCamera;
-  imgPerfil: any;
   faPlusCube = faPlus;
   faPencil = faPencilAlt;
   faSave = faSave;
@@ -37,7 +35,8 @@ export class ProfileComponent implements OnInit {
   previsualizacion: string="";
   urlImage: string="";
   nameImage="";
-  profilePhotoUser=this.generalUserService.getProfilePhoto();
+  profilePhotoUser: any;
+  readonly: Boolean = true;
 
   //Para recorrer y llenar el select-list de instituciones
   institutions: institution[]=[{
@@ -77,6 +76,7 @@ constructor( private eventServ: EventsService,
       res =>  {
         console.log(res);
         this.readOnlyAll();
+        this.profilePhotoUser = this.generalUserService.getProfilePhoto();
         Object.values(res).map((value, index) => {
             
             /*
@@ -127,6 +127,7 @@ constructor( private eventServ: EventsService,
     $('#description_').prop('readonly', true);
     $('#interests').prop('readonly', true);
     $('#institutionRepresenting').prop('readonly', true);
+    $('#faperfil').css({"visibility": "hidden"});
     //$('#email').prop('readonly', true);
   }
 
@@ -171,7 +172,7 @@ constructor( private eventServ: EventsService,
     if (img.files!.length>0){
       var reader = new FileReader();
       reader.onload = () => {
-        this.imgPerfil = reader.result;
+        this.profilePhotoUser = reader.result;
       };
       reader.readAsDataURL(img.files![0]);
       // this.imgPerfil = URL.createObjectURL(img.files![0]);
@@ -256,6 +257,7 @@ get email() {
     $('#description_').prop('readonly', false);
     $('#interests').prop('readonly', false);
     $('#institutionRepresenting').prop('readonly', false);
+    $('#faperfil').css({"visibility": "visible"});
     //$('#email').prop('readonly', false);
   }
 
@@ -278,17 +280,19 @@ get email() {
     )
     */
     // Sino se selecciono institución obtener el nombre de la nueva institucion
-    console.log(this.updateUserForm.value);
+    // console.log(this.updateUserForm.value);
     this.updateUserForm.value.institutionRepresenting = String(this.updateUserForm.value.institutionRepresenting);
     if(this.urlImage.length > 0){
       this.updateUserForm.value.profilePhoto=this.urlImage;
     }else{
-      this.updateUserForm.value.profilePhoto=this.generalUserService.getProfilePhoto();;
+      this.updateUserForm.value.profilePhoto=this.profilePhotoUser;
     }
 
     this.generalUserService.updateUser(this.generalUserService.getEmail(), this.updateUserForm.value).subscribe(
       res => {
         console.log(res);
+        alert('Usuario actualizado correctamente. Debe volver a iniciar sesión para que los cambios surtan efecto.');
+        this.router.navigate(['/inicio']);
       },
       err =>console.log(err)
     )}

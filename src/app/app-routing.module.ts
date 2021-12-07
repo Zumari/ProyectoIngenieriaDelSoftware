@@ -26,7 +26,7 @@ const routes: Routes = [
     {path: 'estadisticas', component: StatisticsComponent},
     {path: 'mi-evento/:name', component: MyeventComponent},
     {path: 'evento/:name', component: EventComponent},
-    {path: 'mi-evento/:name/participants', component: ParticipantsComponent},
+    {path: 'mi-evento/:name/participants/:id', component: ParticipantsComponent},
     {path: 'perfil-publico/:id', component: PublicProfileComponent}
   ] },
   { path: 'restaurar-contrasenia/:email', component: ChangePasswordComponent },

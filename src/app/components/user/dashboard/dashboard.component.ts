@@ -13,6 +13,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { AngularFireStorage} from '@angular/fire/storage';
 import { finalize } from 'rxjs/operators';
 import { Observable } from 'rxjs/internal/Observable';
+import * as XLSX  from 'xlsx';
 
 
 @Component({
@@ -34,6 +35,7 @@ export class DashboardComponent implements OnInit {
   urlImage: string="";
   nameImage="";
   uploadPercent:Observable<number|undefined> | undefined;
+  listUsersWhite!:string;
 
 
   eventosLista : Event[]=[]; 
@@ -46,6 +48,7 @@ export class DashboardComponent implements OnInit {
     endDate: new FormControl('', [Validators.required]),
     openEvent:  new FormControl(true, [Validators.required]),
     institutionId: new FormControl(0,[Validators.required, Validators.min(0)]),
+    listWhite : new FormControl(''),
   },{validators:dateValidator});
 
 
@@ -105,6 +108,22 @@ export class DashboardComponent implements OnInit {
       this.upload(archivoCapturado);
     }
 
+    capturarExcel(event:any){
+      const selectedFile=event.target.files[0];
+      const fileReader= new FileReader();
+      fileReader.readAsBinaryString(selectedFile);
+      fileReader.onload=(event:any)=>{
+        console.log(event)
+        let binaryData=event.target.result;
+        let workbook=XLSX.read(binaryData,{type:'binary'});
+        workbook.SheetNames.forEach(sheet=>{
+          const data=XLSX.utils.sheet_to_json( workbook.Sheets[sheet]);
+          const jsonExcel= JSON.stringify(data);
+          this.listUsersWhite=jsonExcel;
+        })
+      }
+    }
+
     upload(file:any){
      const filePath=`upload/${file.name}`;
      const ref=this.storage.ref(filePath);
@@ -146,10 +165,12 @@ get institutionId(){
   createEvents(){
     this.eventoForm.value.institutionId=Number(this.eventoForm.value.institutionId)
     this.eventoForm.value.photo=this.urlImage;
+    this.eventoForm.value.listWhite=this.listUsersWhite;
     this.eventServ.createEvent(this.eventoForm.value,this.generalService.getEmail()).subscribe(
       res =>  {console.log(res)},
       error => console.log(error))
     this.router.initialNavigation();
+    window.location.reload();
   }
 
   getEvents(){

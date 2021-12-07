@@ -21,16 +21,17 @@ export class CreateEventDto {
     @IsNotEmpty()
     @IsBoolean()
     openEvent: boolean;
-/*
+
     @IsOptional()
-    @IsBoolean()
-    openEventk: JSON;
-*/
+    @IsString()
+    listWhite: string;
+
     @IsNotEmpty()
     @IsNumber()
     institutionId: number;
         
-    @IsNotEmpty()
+
+    @IsOptional()
     @IsString()
     photo: string;
 }

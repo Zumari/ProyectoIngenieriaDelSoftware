@@ -23,6 +23,11 @@ export class ScheduledEventController {
     async getAllScheduledEvents(){
       return await this.scheduledEventService.findAllScheduledEvents()  
     }
+    
+    @Get('getAllWhere/:idEvent')
+    async getAllScheduledEventsWhere(@Param('idEvent')idEvent :number){
+      return await this.scheduledEventService.findAllScheduledEventsWhere(idEvent) ;
+    }
 
     @Delete('deleteScheduledEvent/:scheduledEventId')
     async deleteScheduledEvent(@Param('scheduledEventId') scheduledEventId:string){

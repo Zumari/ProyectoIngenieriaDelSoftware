@@ -23,6 +23,4 @@ constructor(private authServie:AuthService){}
          console.log("llegamos al backend",forgotUser.email);
          this.authServie.sendEmailForgotPassword(forgotUser);
     }
-
-
 }
