@@ -180,7 +180,9 @@ loginForm = new FormGroup({
 
   getAllUsers(){
     this.generalUserService.getUsers().subscribe(
-      res =>  {console.log(res)},
+      res =>  {
+        // console.log(res)
+      },
       error => console.log(error)
 
     )
@@ -202,7 +204,7 @@ loginForm = new FormGroup({
       if(institutionId == 0){
         this.institutionServ.createInstitution(this.institutionForm.value).subscribe(
           res => {
-            console.log(res);
+            // console.log(res);
             this.registerForm.value.institutionRepresenting = res.InstitutionID;
             this.registerForm.get('repassword_')?.disable();
             this.registerForm.value.profilePhoto=this.urlImage;
@@ -213,7 +215,7 @@ loginForm = new FormGroup({
                     alert('El correo ya esta registrado');
                   }
                 }
-                console.log(res);
+                // console.log(res);
               },
               err =>console.log(err)
             )
@@ -226,7 +228,7 @@ loginForm = new FormGroup({
         this.registerForm.value.profilePhoto=this.urlImage;
         this.generalUserService.createUser(this.registerForm.value).subscribe(
           res => {
-            console.log(res);
+            // console.log(res);
           },
           err =>console.log(err)
         )
@@ -256,9 +258,10 @@ loginForm = new FormGroup({
 
     this.generalUserService.login(this.loginForm.value)
     .subscribe((res)=>{
+      console.log(res);
       if(res){
         this.router.navigate(['usuario/eventos']);   //DENTRO DE CORCHETES PONER DIRECCIÓN A LA QUE REDIRIGE AL HACER CLICK EN BOTON LOGIN
-        console.log("entro a redireccionar",res);
+        // console.log("entro a redireccionar",res);
       }
     },error=> alert(error.error.message));
     $('body').removeClass('modal-open');
