@@ -5,13 +5,18 @@
         <fa-icon [icon]="faPlus"></fa-icon>
         Generar conferencia o taller
       </button>
-      <button class="btn" style="color: orange;">
+      <button class="btn" style="color: orange;" (click)="printPDF()">
         <fa-icon [icon]="faAsterisk"></fa-icon>
         Generar programa
       </button>
       <button class="btn" style="color: orange;" (click)="deleteEvent(event.eventId)">
         <fa-icon [icon]="faTrash"></fa-icon>
         Eliminar evento
+      </button>
+
+      <button class="btn" style="color: orange;" (click)="generateDiploma()">
+        <fa-icon [icon]="faTrash"></fa-icon>
+        Diploma
       </button>
     </div>
   </div>
@@ -29,8 +34,8 @@
   <div class="row mb-3">
     <div class="mb-2">Organizador:</div>
     <div class="d-flex align-items-center" (click)="goToProfile(event.userId)">
-      <!--<div class="sm-avatar mx-2"></div>--> 
-      <div class="cp h5">{{event.userId}}</div>
+      <div class="sm-avatar mx-2"></div>
+      <div class="cp">{{event.userId}}</div>
     </div>
   </div>
   <div class="divider"></div>
@@ -57,9 +62,9 @@
         <div class="mb-2 d-flex justify-content-right ccsss">
           <button  type="button" class="btn btn-warning ml-5" (click)="goToParticipants(evento.scheduledEventId)">Participantes</button>
           <button  type="button" class="btn btn-warning ml-5" >Generar diplomas</button>
-          <button  type="button" class="btn btn-warning ml-5" (click)="deleteScheduledEvent(evento.scheduledEventId)">Eliminar</button>    
+          <button  type="button" class="btn btn-warning ml-5" (click)="deleteScheduledEvent(evento.scheduledEventId)">Eliminar</button>
         </div>
-        
+
       </div>
     </div>
   </div>
@@ -76,7 +81,7 @@
         <form [formGroup]="eventoProgramadoForm">
           <div>
             <div class="row px-5">
-              
+
               <div class="mb-3">
                 <label for="nombre" class="form-label">Nombre:</label>
                 <input type="text" formControlName="name" class="form-control" id="nombre" placeholder="">
@@ -199,7 +204,7 @@
                 <input type="text" formControlName="address" class="form-control" id="nombre" placeholder="">
                 <div class="alert-danger" *ngIf="address?.invalid && (address?.dirty || address?.touched)">
                   <div class="container-error-message" *ngIf="address?.errors?.required">
-                    Campo obligatorio 
+                    Campo obligatorio
                   </div>
                 </div>
               </div>
