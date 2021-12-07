@@ -1,5 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { EventsService } from 'src/events/events.service';
 import { ScheduledEventService } from 'src/scheduled-event/scheduled-event.service';
 import { UsersService } from 'src/users/users.service';
 import { Repository } from 'typeorm';
@@ -11,7 +12,8 @@ export class InscriptionsService {
         @InjectRepository(Inscriptions)
         private inscriptionRepository: Repository<Inscriptions>,
         private scheduledEventService: ScheduledEventService,
-        private usersService: UsersService){}
+        private usersService: UsersService,
+        private eventService:EventsService){}
     
     
     async findAllInscriptions(): Promise<Inscriptions[]>{
@@ -20,17 +22,39 @@ export class InscriptionsService {
 
     async createInscription(body){
         const scheduledEvent=this.scheduledEventService.getOneScheduledEvent(body.idScheduledEvent)
+        let existInWhiteList=false;
         if(!scheduledEvent) throw new NotFoundException('No existe este ScheduledEvent') 
         const user=this.usersService.findOne(body.idUser)
         if(!user) throw new NotFoundException('No existe este user') 
-        body.nameUser = (await user).firstName + " " + (await user).lastName;
-        const newInscription = this.inscriptionRepository.create(body)
-        await this.inscriptionRepository.save(newInscription);
-        return  {
-             "message":`Inscripcíon correcta`
-              
-        }
-        
+        const event=this.eventService.findOneEvent((await scheduledEvent).eventId);
+        if(!(await event).listWhite){
+            body.nameUser = (await user).firstName + " " + (await user).lastName;
+            const newInscription = this.inscriptionRepository.create(body)
+            await this.inscriptionRepository.save(newInscription);
+            return  {
+                 "message":`Inscripcíon correcta`  
+            }
+        }else{
+            const formato =JSON.parse((await event).listWhite);
+            formato.forEach(element => {
+                if(element.email==body.idUser){
+                    existInWhiteList=true;
+                }
+
+              });
+              if(existInWhiteList){
+                body.nameUser = (await user).firstName + " " + (await user).lastName;
+                const newInscription = this.inscriptionRepository.create(body)
+                await this.inscriptionRepository.save(newInscription);
+                return  {
+                     "message":`Inscripcíon orrecta`   
+                }
+              }else{
+                return  {
+                    "message":`Usuario no tiene permisos para inscribirse en este evento`   
+               }
+              }
+        } 
     }
 
     async getOneInscription(ID){
@@ -60,5 +84,6 @@ export class InscriptionsService {
         return await this.inscriptionRepository.save(editInscription);
         
     }
+
 
 }

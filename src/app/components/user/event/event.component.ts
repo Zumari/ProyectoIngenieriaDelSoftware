@@ -9,6 +9,7 @@ import { InstitutionService  } from "../../../services/institutions/institutions
 import {Inscription } from 'src/app/interfaces/inscription';
 import { CheckInService } from 'src/app/services/check in/check-in.service';
 import { GeneralUserService } from 'src/app/services/user/general-user/general-user.service';
+import { elementEventFullName } from '@angular/compiler/src/view_compiler/view_compiler';
 
 
 @Component({
@@ -18,11 +19,10 @@ import { GeneralUserService } from 'src/app/services/user/general-user/general-u
 })
 export class EventComponent implements OnInit {
 
-  boton_pulsadoC: boolean=false
-  boton_pulsadoI: boolean=true
 
   faPlus = faPlusCircle;
   faTrash = faTrash;
+  devolver=false;
   event: any = {
     name: '',
     startDate: '',
@@ -38,30 +38,10 @@ export class EventComponent implements OnInit {
     image: ''
   };
 
-  inscriptions:Inscription={
-    idInscription:0,
-    idScheduledEvent:0, 
-    idUser:'',
-    nameUser:'',
-    attendance:false
-  } 
+  inscriptions:Inscription[]=[]
+  
 
-  eventosProgramados: ScheduledEvent[]=[{
-    scheduledEventId: 0,
-    name:'',
-    description_: '',
-    startDate: '',
-    endDate: '',
-    startHour: '',
-    endHour: '',
-    //Cada que se registre un participante nuevo deberia editarse este campo y reducir una unidad
-    places: '',
-    modality:'',
-    statusId:0,
-    managerId:'',
-    eventId:0,
-    address: ''
-   }  ]
+  eventosProgramados: ScheduledEvent[]=[]
 
   inst: any ={
     institutionId:0,
@@ -74,7 +54,7 @@ export class EventComponent implements OnInit {
      private insc: CheckInService,
      private generalUserService:GeneralUserService,
      private router: Router
-     ) { }
+     ) {this.getInscriptions()}
 
   ngOnInit(): void {
     let params= this.activatedRoute.snapshot.params;
@@ -118,20 +98,17 @@ export class EventComponent implements OnInit {
     }
     
     this.insc.createInscription(inscription).subscribe(
-       res =>  alert(res.message),
+       res =>  {alert(res.message)},
       error=> alert(error.error.message)
       )
-      this.boton_pulsadoC=true
-      this.boton_pulsadoI=false
   }
 
   deleteInscription(idScheduledEventF:number){
     this.insc.deleteInscription(idScheduledEventF,this.generalUserService.getEmail()).subscribe(
-       res =>  alert(res.message),
+       res =>  {alert(res.message)},
       error=> alert(error.error.message)
     )
-    this.boton_pulsadoC=false
-    this.boton_pulsadoI=true
+
   }
 
   /*getOneInscription(){
@@ -143,9 +120,20 @@ export class EventComponent implements OnInit {
 
   getInscriptions(){
     this.insc.getInscriptions().subscribe(
-      res =>  {this.inscriptions=res},
+      res =>  {this.inscriptions=res,console.log(res)},
       error=> alert(error.error.message)
     )
+  }
+
+  getExist(idSheduleEvent:number){
+    console.log("id de evento y email",idSheduleEvent,this.generalUserService.getEmail());
+    this.inscriptions.forEach(element=>{
+      if(element.idScheduledEvent==idSheduleEvent && element.idUser==this.generalUserService.getEmail()){
+        console.log("coincidio");
+        this.devolver=true;
+      }
+    })
+    return this.devolver;
   }
    
 

@@ -11,10 +11,12 @@ import { InstitutionsModule } from 'src/institutions/institutions.module';
 import { InstitutionsService } from 'src/institutions/institutions.service';
 import { MailModule } from 'src/mail/mail.module';
 import { MailService } from 'src/mail/mail.service';
+import { EventsModule } from 'src/events/events.module';
+import { EventsService } from 'src/events/events.service';
 
-@Module({imports:[TypeOrmModule.forFeature([Inscriptions]),UsersModule,ScheduledEventModule,InstitutionsModule,MailModule],
+@Module({imports:[TypeOrmModule.forFeature([Inscriptions]),UsersModule,ScheduledEventModule,InstitutionsModule,MailModule,EventsModule],
   controllers: [InscriptionsController],
-  providers: [InscriptionsService,ScheduledEventService,UsersService,InstitutionsService,MailService],
+  providers: [InscriptionsService,ScheduledEventService,UsersService,InstitutionsService,MailService,EventsService],
   exports:[InscriptionsService,TypeOrmModule]
 })
 export class InscriptionsModule {}

@@ -32,7 +32,7 @@
   <div class="divider"></div>
   <div class="row mb-3">
     <div class="row my-3">Agenda</div>
-    <div class="row mb-3 py-2" style="background-color: #d5caca82; border-radius: 5px;"  *ngFor="let evento of eventosProgramados; let i = index" >
+    <div class="row mb-3 py-2" style="background-color: #d5caca82; border-radius: 5px;"  *ngFor="let evento of eventosProgramados" >
       <div class="col-lg-3 col-md-3 col-sm-12 col-12">
         <div class="d-flex justify-content-between"><div>Fecha de inicio:</div> <div>{{evento.startDate|date:'dd-MM-yyyy'}}</div></div>
         <div class="d-flex justify-content-between"><div>Fecha de fin:</div> <div>{{evento.endDate|date:'dd-MM-yyyy'}}</div></div>
@@ -51,8 +51,8 @@
           </div>
         </div>
         <div class="mb-2 d-flex justify-content-right">
-          <button *ngIf="boton_pulsadoI" type="button" class="btn btn-warning" (click)="createInscription(evento.scheduledEventId)">Inscribirme</button>
-          <button *ngIf="boton_pulsadoC" type="button" class="btn btn-warning" (click)="deleteInscription(evento.scheduledEventId)">Cancelar inscripción</button>
+          <button [disabled]="" style="margin-right: 10px;" type="button" class="btn btn-warning" (click)="createInscription(evento.scheduledEventId)">Inscribirme</button>
+           <button [disabled]="" type="button" class="btn btn-warning" (click)="deleteInscription(evento.scheduledEventId)">Cancelar inscripción</button>
         </div>
       </div>
     </div>

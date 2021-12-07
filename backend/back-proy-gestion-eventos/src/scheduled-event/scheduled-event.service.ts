@@ -50,10 +50,12 @@ export class ScheduledEventService {
         //EN caso de que ya exista un evento programado con ese mismo nombre en la BD para ese evento
  /*        const scheduledEvent=await this.scheduledEventRepository.findOne(body.name);
         if(scheduledEvent) throw new NotFoundException('Ya existe un taller o conferencia con ese nombre') */
-        const newScheduledEvent= this.scheduledEventRepository.create(body)
         await this.mailService.sendCharge(body.managerId,manager.firstName,body.name,body.startDate.toString(),body.endDate.toString(),body.startHour.toString(),body.endHour.toString(),body.modality);
+        const newScheduledEvent= this.scheduledEventRepository.create(body)
+      console.log("no llego por errores");
         //    async sendCharge(emailCharge:string, nameOrganizer:string, nameCharge:string, nameEvent:string, emailOrganizer:string,startDate:string,endDate:string,startHour:string,endHour:string,modality:string)
         return await this.scheduledEventRepository.save(newScheduledEvent);
+        
     }
     async getOneScheduledEvent(scheduledEventId: string) {
         const scheduledEvent = await this.scheduledEventRepository.findOne(scheduledEventId)
