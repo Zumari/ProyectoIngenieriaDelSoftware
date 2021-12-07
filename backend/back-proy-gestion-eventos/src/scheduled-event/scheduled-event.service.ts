@@ -21,13 +21,6 @@ export class ScheduledEventService {
         const editedScheduledEvent =Object.assign(scheduledEvent,body);
         return await this.scheduledEventRepository.save(editedScheduledEvent);
     }
-    async updateScheduledEventPlaces(scheduledEventId: number) {
-        const scheduledEvent = await this.scheduledEventRepository.findOne(scheduledEventId);
-        if(!scheduledEvent) throw new NotFoundException('No se encontraron coincidencias para el evento programado');
-        scheduledEvent.places=scheduledEvent.places-1;
-        return await this.scheduledEventRepository.save(scheduledEvent);
-        
-    }
 
 /*     async inscribe(email:string, scheduledEventId:number){
         const userSol= await this.usersService.findOne(email);

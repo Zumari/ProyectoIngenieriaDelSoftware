@@ -28,7 +28,7 @@ export class ScheduledEventDTO {
 
     @IsOptional()
     @IsInt()
-    places: number;
+    places: string;
 
     @IsOptional()
     @IsString()
