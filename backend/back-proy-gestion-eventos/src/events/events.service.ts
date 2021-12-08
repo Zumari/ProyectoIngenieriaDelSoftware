@@ -13,7 +13,6 @@ import { Not } from "typeorm";
 export class EventsService extends TypeOrmCrudService<Event> {
   constructor(@InjectRepository(Event) repo,
     private institutionService: InstitutionsService,
-    private statusService: StatusService,
     private userService: UsersService) {
     super(repo);
   }
@@ -34,7 +33,11 @@ export class EventsService extends TypeOrmCrudService<Event> {
     console.log("esta vacia la lista blanca");
    }else{
     const formato =JSON.parse(createEventDto.listWhite);
-    console.log("primer elemento de la lista desde el back",formato[0].email);
+   // console.log("primer elemento de la lista desde el back",formato[0].email);
+    formato.forEach(element => {
+      console.log(element)
+    });
+    
    }
 
 
@@ -60,6 +63,8 @@ export class EventsService extends TypeOrmCrudService<Event> {
   findAllWhere(email: string): Promise<Event[]> {
     return this.repo.find({ where: { userId: (email) } });
   }
+
+
  /*  findFilter(type: string, keyword: string): Promise<Event[]> {
     let filter = {
       keyword: keyword
@@ -74,6 +79,9 @@ export class EventsService extends TypeOrmCrudService<Event> {
     return this.repo.findOne(id);
   }
 
+  findOneEvent(id: number){
+    return this.repo.findOne(id);
+  }
   async update(id: number, updateEventDto: UpdateEventDto) {
     /*
       Añadir:

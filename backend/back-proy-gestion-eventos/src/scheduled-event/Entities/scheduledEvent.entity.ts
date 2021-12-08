@@ -16,21 +16,21 @@ export class ScheduledEvent {
     @Column({type:'varchar',length:500,nullable:false})
     description_: string;
 
-    @Column({ type: 'datetime', nullable:false, default: () => "CURRENT_TIMESTAMP"})
+    @Column({ type: 'datetime', nullable:false, })
     startDate: Date;
 
     @Column({ type: 'datetime', nullable:false})
     endDate: Date;
 
-    @Column({ type: 'time', nullable:false, default: () => "CURRENT_TIMESTAMP"})
+    @Column({ type: 'datetime', nullable:false,})
     startHour: Date;
 
-    @Column({ type: 'time', nullable:false})
+    @Column({ type: 'datetime', nullable:false})
     endHour: Date;
 
     //Cada que se registre un participante nuevo deberia editarse este campo y reducir una unidad
     @Column({type: 'int', nullable:true, default:0})
-    places: string;
+    places: number;
         
     @Column({type: 'varchar', nullable:false})
     modality:string

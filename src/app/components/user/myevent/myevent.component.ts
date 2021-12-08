@@ -56,7 +56,7 @@ export class MyeventComponent implements OnInit {
     startHour: '',
     endHour: '',
     //Cada que se registre un participante nuevo deberia editarse este campo y reducir una unidad
-    places: '',
+    places: 0,
     modality:'',
     statusId:0,
     managerId:'',
@@ -80,7 +80,7 @@ export class MyeventComponent implements OnInit {
     endDate: new FormControl('', [Validators.required]),
     startHour: new FormControl('', [Validators.required]),
     endHour: new FormControl('', [Validators.required]),
-    places:  new FormControl(0, [ Validators.min(0)]),
+    places:  new FormControl(undefined, [ Validators.min(1)]),
     modality: new FormControl('', Validators.required),
     managerId: new FormControl('', [Validators.required, Validators.pattern(/^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i)]),
     address: new FormControl('',Validators.required),
@@ -180,14 +180,17 @@ export class MyeventComponent implements OnInit {
   }
 
 
-  createScheduledEvent(){
+  createScheduledEvent(){ 
+/*     console.log("crear evento programado",this.eventoProgramadoForm.value) */
     this.eventoProgramadoForm.value.eventId=Number(this.activatedRoute.snapshot.params.name)
+/*     console.log( "hora inicio: ",this.eventoProgramadoForm.value.startHour)
+    console.log( "hora final: ",this.eventoProgramadoForm.value.endHour) */
     this.eventoProgramadoForm.value.startHour=this.eventoProgramadoForm.value.startDate+' '+this.eventoProgramadoForm.value.startHour
     this.eventoProgramadoForm.value.endHour=this.eventoProgramadoForm.value.endDate+' '+this.eventoProgramadoForm.value.endHour
     this.schEvent.createScheduledEvent(this.eventoProgramadoForm.value).subscribe(
       res =>  alert(res),
       error=> alert(error.error.message))
-      window.location.reload();
+       window.location.reload(); 
   }
 
 

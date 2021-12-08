@@ -44,20 +44,33 @@ export class ScheduledEventService {
     }
     async createScheduledEvent(body: ScheduledEventDTO) {
         //Validar que exista el MANAGER 
+     
         console.log(body.managerId)
         const manager=await this.usersService.findOne(body.managerId)
         if(!manager) throw new NotFoundException('No existe ningún usuario con ese correo, no se puede asignar el MANAGER') 
         //EN caso de que ya exista un evento programado con ese mismo nombre en la BD para ese evento
  /*        const scheduledEvent=await this.scheduledEventRepository.findOne(body.name);
         if(scheduledEvent) throw new NotFoundException('Ya existe un taller o conferencia con ese nombre') */
-        const newScheduledEvent= this.scheduledEventRepository.create(body)
         await this.mailService.sendCharge(body.managerId,manager.firstName,body.name,body.startDate.toString(),body.endDate.toString(),body.startHour.toString(),body.endHour.toString(),body.modality);
+        const newScheduledEvent= this.scheduledEventRepository.create(body)
+        console.log("no llego por errores");
         //    async sendCharge(emailCharge:string, nameOrganizer:string, nameCharge:string, nameEvent:string, emailOrganizer:string,startDate:string,endDate:string,startHour:string,endHour:string,modality:string)
+/*         console.log("Body",body)
+        console.log("Evento Programado",newScheduledEvent) */
         return await this.scheduledEventRepository.save(newScheduledEvent);
+        
     }
     async getOneScheduledEvent(scheduledEventId: string) {
         const scheduledEvent = await this.scheduledEventRepository.findOne(scheduledEventId)
         if(!scheduledEvent) throw new NotFoundException('No se econtraron coincidencias para el evento programado')
         return scheduledEvent
+    }
+    
+    async updateScheduledEventPlaces(scheduledEventId: number) {
+        const scheduledEvent = await this.scheduledEventRepository.findOne(scheduledEventId);
+        if(!scheduledEvent) throw new NotFoundException('No se encontraron coincidencias para el evento programado');
+        scheduledEvent.places=scheduledEvent.places-1;
+        return await this.scheduledEventRepository.save(scheduledEvent);
+        
     }
 }
