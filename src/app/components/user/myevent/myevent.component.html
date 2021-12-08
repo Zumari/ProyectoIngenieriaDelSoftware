@@ -153,8 +153,8 @@
 
               </div>
               <div class="mb-3">
-                <label for="final" class="form-label">Hora inicio:</label>
-                <input formControlName="startHour" type="time" [min]="fechaStrMinima" class="form-control" id="final" placeholder="">
+                <label for="inicial" class="form-label">Hora inicio:</label>
+                <input formControlName="startHour" type="time" [min]="fechaStrMinima" class="form-control" id="inicial" placeholder="">
                 <div class="alert-danger" *ngIf="startHour?.invalid && eventoProgramadoForm?.invalid && (startHour?.dirty || startHour?.touched)">
                   <div class="container-error-message" *ngIf="startHour?.errors?.required">
                     Campo obligatorio

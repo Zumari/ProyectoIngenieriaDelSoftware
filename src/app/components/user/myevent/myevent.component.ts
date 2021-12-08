@@ -180,14 +180,16 @@ export class MyeventComponent implements OnInit {
 
 
   createScheduledEvent(){ 
-    console.log("crear evento programado",this.eventoProgramadoForm.value)
+/*     console.log("crear evento programado",this.eventoProgramadoForm.value) */
     this.eventoProgramadoForm.value.eventId=Number(this.activatedRoute.snapshot.params.name)
+/*     console.log( "hora inicio: ",this.eventoProgramadoForm.value.startHour)
+    console.log( "hora final: ",this.eventoProgramadoForm.value.endHour) */
     this.eventoProgramadoForm.value.startHour=this.eventoProgramadoForm.value.startDate+' '+this.eventoProgramadoForm.value.startHour
     this.eventoProgramadoForm.value.endHour=this.eventoProgramadoForm.value.endDate+' '+this.eventoProgramadoForm.value.endHour
     this.schEvent.createScheduledEvent(this.eventoProgramadoForm.value).subscribe(
       res =>  alert(res),
       error=> alert(error.error.message))
-      window.location.reload();
+       window.location.reload(); 
   }
 
 
