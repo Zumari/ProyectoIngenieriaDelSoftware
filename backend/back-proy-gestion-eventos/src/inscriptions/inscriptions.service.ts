@@ -109,7 +109,8 @@ export class InscriptionsService {
         return await this.inscriptionRepository.save(editInscription);
         
     }
-    
 
-
+async getDataCertificate(idScheduledEvent:number){
+    return this.inscriptionRepository.find({ where: { idScheduledEvent: (idScheduledEvent) } });
+}
 }

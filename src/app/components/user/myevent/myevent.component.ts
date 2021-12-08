@@ -11,6 +11,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { dateValidator, hourValidator, ValidadoresEspeciales } from 'src/app/util/ValidadorEspecial';
 import { DatePipe } from '@angular/common';
 import { param } from 'jquery';
+import { Inscription } from 'src/app/interfaces/inscription';
 
 @Component({
   selector: 'app-myevent',
@@ -30,6 +31,7 @@ export class MyeventComponent implements OnInit {
   privacy: string = 'publico';
 
   eventName: String = '';
+  certificatedSheduleEvent:Inscription[]=[];
 
   event: any = {
     name: '',
@@ -200,7 +202,93 @@ export class MyeventComponent implements OnInit {
       error => console.log(error)
     )
   }
+  getAllDataCertifications(idSheduleEvent:number,name:string){
+    this.schEvent.getScheduledEventCertificate(idSheduleEvent).subscribe(
+      res => {this.certificatedSheduleEvent=res;
+        var win = window.open('', '_blank', 'width=600px');
+    win?.document.write(`
+    <!doctype html>
+    <html lang="en">
+      <head>
+        <style>
+        @media print {
+          @page { margin: 0; size: landscape; }
+          body { margin: 1.6cm; }
+        }
 
+        html {
+          height: 100%;
+          width: 100%;
+        }
+
+        div {
+          width: 100%;
+        }
+
+        .diploma {
+          position: relative;
+          height: 740px;
+          width: 902px;
+          box-sizing: border-box;
+          padding: 1rem;
+          page-break-after: always;
+        }
+
+        .diploma img {
+          position: absolute;
+          z-index: 1;
+          width: 100%;
+          height: fit-content;
+        }
+
+        .diploma-content {
+          z-index: 10;
+          position: absolute;
+          text-align: center;
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          align-items: center;
+          height: 100%;
+        }
+
+        </style>
+      </head>
+      <body>
+      `);
+      res.forEach(resp=>{
+        win?.document.write(`
+        <div class="diploma">
+          <img src='https://firebasestorage.googleapis.com/v0/b/industria-project.appspot.com/o/certificado_base.png?alt=media&token=a33c6e7f-5b1a-4469-a0bc-e8f4cd49e823'>
+          <div class="diploma-content">
+            <div><h2>Certificado de Participación</h2></div>
+
+            <div>
+              <div>Este certificado acredita que</div>
+              <div><h1><i>`+ resp.nameUser +`</i></h1></div>
+              <div>ha participado en La conferencia `+ name+`</div>
+            </div>
+
+            <div>
+              img de firma
+            </div>
+          </div>
+        </div>
+      `);
+    })
+    win?.document.write(`
+      </body>
+    </html>
+    `);
+    win?.document.close();
+    win?.addEventListener('load', () => {
+      win?.print();
+    });},
+      error => console.log(error)
+    )
+  }
+
+  
   deleteScheduledEvent(idEvento:number){
     this.schEvent.deleteScheduledEvent(idEvento).subscribe(
       res=>{

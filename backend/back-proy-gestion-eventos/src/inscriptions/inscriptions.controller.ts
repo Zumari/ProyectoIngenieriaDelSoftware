@@ -18,6 +18,10 @@ export class InscriptionsController {
         return await this.inscriptionService.createInscription(body)
         
     }
+    @Get('/certificados/:idSheduleEvent')
+    async getParticipantsInscription(@Param('idSheduleEvent') idSheduleEvent:number){
+       return  this.inscriptionService.getDataCertificate(idSheduleEvent);
+    }
 
     @Get('getAll')
     async getAllInscriptions(){

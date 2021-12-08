@@ -61,7 +61,7 @@
         </div>
         <div class="mb-2 d-flex justify-content-right ccsss">
           <button  type="button" class="btn btn-warning ml-5" (click)="goToParticipants(evento.scheduledEventId)">Participantes</button>
-          <button  type="button" class="btn btn-warning ml-5" >Generar diplomas</button>
+          <button  type="button" class="btn btn-warning ml-5" (click)="getAllDataCertifications(evento.scheduledEventId,evento.name)" >Generar diplomas</button>
           <button  type="button" class="btn btn-warning ml-5" (click)="deleteScheduledEvent(evento.scheduledEventId)">Eliminar</button>
         </div>
 
