@@ -1,1 +1,20 @@
-<p>statistics works!</p>
+<div class="container">
+    <ul class="nav nav-tabs">
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/bar-chart">Eventos por hora</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/doughnut-chart">Eventos por institución</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/radar-chart">Eventos por estado</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/pie-chart">Eventos por organizador</a>
+      </li>
+    </ul>
+  
+    <div>
+      <router-outlet></router-outlet>
+    </div>
+  </div>
