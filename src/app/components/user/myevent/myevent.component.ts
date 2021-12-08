@@ -63,8 +63,9 @@ export class MyeventComponent implements OnInit {
     eventId:0,
     address: ''
    }
-  ]
+  ];
 
+  participants: any = [];
 
   inst: any ={
     institutionId:0,
@@ -325,36 +326,63 @@ for (let i = 0; i < this.eventosProgramados.length; i++) {
           width: 100%;
         }
 
-        body {
-          background-image: url('https://firebasestorage.googleapis.com/v0/b/industria-project.appspot.com/o/certificado_base.png?alt=media&token=a33c6e7f-5b1a-4469-a0bc-e8f4cd49e823');
-          background-size: cover;
-          background-repeat: no-repeat;
+        div {
+          width: 100%;
+        }
+
+        .diploma {
+          position: relative;
+          height: 740px;
+          width: 902px;
+          box-sizing: border-box;
+          padding: 1rem;
+          page-break-after: always;
+        }
+
+        .diploma img {
+          position: absolute;
+          z-index: 1;
+          width: 100%;
+          height: fit-content;
+        }
+
+        .diploma-content {
+          z-index: 10;
+          position: absolute;
           text-align: center;
           display: flex;
           flex-wrap: wrap;
           justify-content: center;
-          height: 70%;
           align-items: center;
-          padding: 50px 0 150px 0;
+          height: 100%;
         }
 
-        div {
-          width: 100%;
-        }
         </style>
       </head>
       <body>
-        <div><h2>Certificado de Participación</h2></div>
+      `);
+      let limite = this.participants.length(); //sustituir el valor 10 por el tamaño del arreglo que contiene los nombres
+      for(let i = 0; i < limite; i++) {
+        win?.document.write(`
+        <div class="diploma">
+          <img src='https://firebasestorage.googleapis.com/v0/b/industria-project.appspot.com/o/certificado_base.png?alt=media&token=a33c6e7f-5b1a-4469-a0bc-e8f4cd49e823'>
+          <div class="diploma-content">
+            <div><h2>Certificado de Participación</h2></div>
 
-        <div>
-          <div>Este certificado acredita que</div>
-          <div><h1><i>Fernanda Zuniga</i></h1></div>
-          <div>ha participado en "La conferencia de prueba"</div>
-        </div>
+            <div>
+              <div>Este certificado acredita que</div>
+              <div><h1><i>`+ this.participants[i] +`</i></h1></div>
+              <div>ha participado en "La conferencia de prueba"</div>
+            </div>
 
-        <div>
-          img de firma
+            <div>
+              img de firma
+            </div>
+          </div>
         </div>
+      `);
+      }
+    win?.document.write(`
       </body>
     </html>
     `);
