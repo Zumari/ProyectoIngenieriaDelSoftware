@@ -79,7 +79,7 @@ export class MyeventComponent implements OnInit {
     endDate: new FormControl('', [Validators.required]),
     startHour: new FormControl('', [Validators.required]),
     endHour: new FormControl('', [Validators.required]),
-    places:  new FormControl(undefined, [ Validators.min(0)]),
+    places:  new FormControl(undefined, [ Validators.min(1)]),
     modality: new FormControl('', Validators.required),
     managerId: new FormControl('', [Validators.required, Validators.pattern(/^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i)]),
     address: new FormControl('',Validators.required),
