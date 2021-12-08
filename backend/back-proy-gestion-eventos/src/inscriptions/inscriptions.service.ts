@@ -20,8 +20,9 @@ export class InscriptionsService {
         return await this.inscriptionRepository.find();
     }
     async findInscriptionWhere(idSE:number,idU:string){
-        const inscription = await this.inscriptionRepository.findOne({idScheduledEvent:idSE,idUser:idU})
-        if(!inscription){
+        const inscription = await this.inscriptionRepository.findOne({where:{idScheduledEvent:idSE,idUser:idU}})
+        console.log(inscription)
+        if(inscription==undefined){
             return false
         }else{
             return true
@@ -29,7 +30,7 @@ export class InscriptionsService {
     }
 
     async createInscription(body){
-        if(this.findInscriptionWhere(body.idScheduledEvent,body.idUser)){
+        if(await this.findInscriptionWhere(body.idScheduledEvent,body.idUser)==true){
             return{
                 "message":"Usted ya está inscrito en este evento"
             }
@@ -90,7 +91,7 @@ export class InscriptionsService {
     async deleteInscription(idScheduledEventF:number , idUserF:string){
 /*         const inscription=await this.inscriptionRepository.findOne(id);
         if(!inscription) throw new NotFoundException('No se econtraron coincidencias de esta Inscripción') */
-        if(!(this.findInscriptionWhere(idScheduledEventF,idUserF))){
+        if((await this.findInscriptionWhere(idScheduledEventF,idUserF)==false)){
             return{
                 "message":"Para cancelar la inscripción debe estar inscrito en el evento :)"
             }
