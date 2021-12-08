@@ -22,6 +22,11 @@ export class InscriptionsService {
 
     async createInscription(body){
         const scheduledEvent=this.scheduledEventService.getOneScheduledEvent(body.idScheduledEvent)
+        if((await scheduledEvent).places==0){
+            return {
+                "message":"Lo sentimos, ya no hay cupos para este evento :C"
+            }
+        }
         let existInWhiteList=false;
         if(!scheduledEvent) throw new NotFoundException('No existe este ScheduledEvent') 
         const user=this.usersService.findOne(body.idUser)
@@ -31,6 +36,7 @@ export class InscriptionsService {
             body.nameUser = (await user).firstName + " " + (await user).lastName;
             const newInscription = this.inscriptionRepository.create(body)
             await this.inscriptionRepository.save(newInscription);
+            this.scheduledEventService.updateScheduledEventPlaces((await scheduledEvent).scheduledEventId)
             return  {
                  "message":`Inscripcíon correcta`  
             }
@@ -84,6 +90,7 @@ export class InscriptionsService {
         return await this.inscriptionRepository.save(editInscription);
         
     }
+    
 
 
 }

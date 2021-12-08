@@ -62,4 +62,12 @@ export class ScheduledEventService {
         if(!scheduledEvent) throw new NotFoundException('No se econtraron coincidencias para el evento programado')
         return scheduledEvent
     }
+    
+    async updateScheduledEventPlaces(scheduledEventId: number) {
+        const scheduledEvent = await this.scheduledEventRepository.findOne(scheduledEventId);
+        if(!scheduledEvent) throw new NotFoundException('No se encontraron coincidencias para el evento programado');
+        scheduledEvent.places=scheduledEvent.places-1;
+        return await this.scheduledEventRepository.save(scheduledEvent);
+        
+    }
 }
