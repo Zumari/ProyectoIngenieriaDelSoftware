@@ -45,8 +45,8 @@
       <div class="col-lg-3 col-md-3 col-sm-12 col-12">
         <div class="d-flex justify-content-between"><div>Fecha de inicio:</div> <div>{{evento.startDate|date:'dd-MM-yyyy'}}</div></div>
         <div class="d-flex justify-content-between"><div>Fecha de fin:</div> <div>{{evento.endDate|date:'dd-MM-yyyy'}}</div></div>
-         <div class="d-flex justify-content-between"><div>Hora de inicio:</div> <div>{{evento.startHour}}</div></div>
-        <div class="d-flex justify-content-between"><div>Hora de fin:</div> <div>{{evento.endHour}}</div></div>
+         <div class="d-flex justify-content-between"><div>Hora de inicio:</div> <div>{{evento.startHour|date:'h:mma'}}</div></div>
+        <div class="d-flex justify-content-between"><div>Hora de fin:</div> <div>{{evento.endHour|date:'h:mma'}}</div></div>
       </div>
       <div class="col-lg-9 col-md-9 col-sm-12 col-12" style="border-left: solid 2px gray;">
         <div class="title-conference">{{evento.name}}</div>

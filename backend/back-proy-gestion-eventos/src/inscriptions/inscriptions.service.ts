@@ -36,13 +36,17 @@ export class InscriptionsService {
             }
         }
         const scheduledEvent=this.scheduledEventService.getOneScheduledEvent(body.idScheduledEvent)
+        
         if((await scheduledEvent).places==0){
             return {
                 "message":"Lo sentimos, ya no hay cupos para este evento :C"
             }
+        }else if(await scheduledEvent){
+
         }
         let existInWhiteList=false;
         if(!scheduledEvent) throw new NotFoundException('No existe este ScheduledEvent') 
+        console.log('El evento',scheduledEvent);
         const user=this.usersService.findOne(body.idUser)
         if(!user) throw new NotFoundException('No existe este user') 
         const event=this.eventService.findOneEvent((await scheduledEvent).eventId);

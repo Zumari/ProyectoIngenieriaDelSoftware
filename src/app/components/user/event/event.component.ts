@@ -81,7 +81,8 @@ export class EventComponent implements OnInit {
 
   getAllScheduledEvents(idEvent:number){
     this.schEvent.getAllScheduledEventsWhere(idEvent).subscribe(
-      res =>  {this.eventosProgramados=res},
+      res =>  {
+      this.eventosProgramados=res},
       error => console.log(error)
     )
   }
@@ -108,7 +109,6 @@ export class EventComponent implements OnInit {
        res =>  {alert(res.message)},
       error=> alert(error.error.message)
     )
-
   }
 
   /*getOneInscription(){
