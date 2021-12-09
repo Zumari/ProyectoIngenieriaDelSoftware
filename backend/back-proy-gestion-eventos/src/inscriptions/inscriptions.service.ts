@@ -103,6 +103,14 @@ export class InscriptionsService {
                 "message":"Para cancelar la inscripción debe estar inscrito en el evento :)"
             }
         }
+        const SE=this.scheduledEventService.getOneScheduledEvent(String(idScheduledEventF))
+        let today =new Date()
+        if(today>(await SE).endDate){
+            return{
+                "message":"El evento ya ha finalizado, No se puede cancelar la inscripción :)"
+            }
+        }
+        
         await this.inscriptionRepository.delete({idScheduledEvent:idScheduledEventF,idUser:idUserF})
         return {
             "message":"Inscripción cancelada"
