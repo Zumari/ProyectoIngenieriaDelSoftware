@@ -27,7 +27,7 @@ export class ScheduledEventService {
     return this.http.get<any>(`http://localhost:3000/scheduled-event/getScheduledEvent/${scheduledEventId}`,);
   }
 
-  createScheduledEvent(schEvent:ScheduledEvent):Observable<ScheduledEvent>{
+  createScheduledEvent(schEvent:ScheduledEvent):Observable<any>{
     return this.http.post<ScheduledEvent>(`http://localhost:3000/scheduled-event/createScheduledEvent`,schEvent);
   }
 

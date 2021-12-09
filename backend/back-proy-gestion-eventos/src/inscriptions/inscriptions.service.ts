@@ -46,7 +46,6 @@ export class InscriptionsService {
         }
         let existInWhiteList=false;
         if(!scheduledEvent) throw new NotFoundException('No existe este ScheduledEvent') 
-        console.log('El evento',scheduledEvent);
         const user=this.usersService.findOne(body.idUser)
         if(!user) throw new NotFoundException('No existe este user') 
         const event=this.eventService.findOneEvent((await scheduledEvent).eventId);
