@@ -218,9 +218,9 @@ export class MyeventComponent implements OnInit {
     this.eventoProgramadoForm.value.startHour=this.eventoProgramadoForm.value.startDate+' '+this.eventoProgramadoForm.value.startHour
     this.eventoProgramadoForm.value.endHour=this.eventoProgramadoForm.value.endDate+' '+this.eventoProgramadoForm.value.endHour
     this.schEvent.createScheduledEvent(this.eventoProgramadoForm.value).subscribe(
-      res =>  alert(res),
+      res =>  {alert(res.message)},
       error=> alert(error.error.message))
-       window.location.reload();
+      window.location.reload();
   }
 
 

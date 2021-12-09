@@ -30,12 +30,19 @@ export class InscriptionsService {
     }
 
     async createInscription(body){
+        const scheduledEvent=this.scheduledEventService.getOneScheduledEvent(body.idScheduledEvent)
+        let currentDate = new Date()
+        if(currentDate>(await scheduledEvent).endDate){
+            return{
+                "message":"Lo sentimos, este evento ya ha finalizado"
+            }
+        }
         if(await this.findInscriptionWhere(body.idScheduledEvent,body.idUser)==true){
             return{
                 "message":"Usted ya está inscrito en este evento"
             }
         }
-        const scheduledEvent=this.scheduledEventService.getOneScheduledEvent(body.idScheduledEvent)
+        
         if((await scheduledEvent).places==0){
             return {
                 "message":"Lo sentimos, ya no hay cupos para este evento :C"
@@ -67,7 +74,7 @@ export class InscriptionsService {
                 const newInscription = this.inscriptionRepository.create(body)
                 await this.inscriptionRepository.save(newInscription);
                 return  {
-                     "message":`Inscripcíon orrecta`   
+                     "message":`Inscripcíon correcta`   
                 }
               }else{
                 return  {
@@ -96,6 +103,14 @@ export class InscriptionsService {
                 "message":"Para cancelar la inscripción debe estar inscrito en el evento :)"
             }
         }
+        const SE=this.scheduledEventService.getOneScheduledEvent(String(idScheduledEventF))
+        let today =new Date()
+        if(today>(await SE).endDate){
+            return{
+                "message":"El evento ya ha finalizado, No se puede cancelar la inscripción :)"
+            }
+        }
+        
         await this.inscriptionRepository.delete({idScheduledEvent:idScheduledEventF,idUser:idUserF})
         return {
             "message":"Inscripción cancelada"
