@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container fz-l">
   <div class="row">
     <div class="d-flex">
       <button class="btn" style="color: orange;" data-bs-toggle="modal" data-bs-target="#creartaller">
@@ -20,8 +20,24 @@
       </button>
     </div>
   </div>
-  <div class="row mb-3">
-    <img style="height: 50vh;" [src]="event.photo" alt="">
+  <div class="row mb-3 adjust-back" style="background-image: url({{event.photo}})">
+    <!-- <img style="height: 50vh;" [src]="event.photo" alt=""> -->
+  </div>
+  <div class="imgs-cont">
+    <div class="micro-img cp">
+      <label for="img1"></label>
+      <input type="file" name="img1" id="img1" style="visibility: hidden;" (change)="uploadImage('img1')">
+    </div>
+    <div class="micro-img cp">
+
+      <label for="img2"></label>
+      <input type="file" name="img2" id="img2" style="visibility: hidden;" (change)="uploadImage('img2')">
+    </div>
+    <div class="micro-img cp">
+
+      <label for="img3"></label>
+      <input type="file" name="img3" id="img3" style="visibility: hidden;" (change)="uploadImage('img3s')">
+    </div>
   </div>
   <div class="d-flex mb-3">
     <div>Fecha de inicio: <label for="" class="mx-2">{{event.startDate|date:'dd-MM-yyyy'}}</label></div>

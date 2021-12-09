@@ -12,6 +12,9 @@ import { dateValidator, hourValidator, ValidadoresEspeciales } from 'src/app/uti
 import { DatePipe } from '@angular/common';
 import { param } from 'jquery';
 import { Inscription } from 'src/app/interfaces/inscription';
+import { Observable } from 'rxjs';
+import { finalize } from 'rxjs/operators';
+import { AngularFireStorage } from '@angular/fire/storage';
 
 @Component({
   selector: 'app-myevent',
@@ -32,6 +35,9 @@ export class MyeventComponent implements OnInit {
 
   eventName: String = '';
   certificatedSheduleEvent:Inscription[]=[];
+  urlImage: string="";
+  nameImage="";
+  uploadPercent:Observable<number|undefined> | undefined;
 
   event: any = {
     name: '',
@@ -95,7 +101,8 @@ export class MyeventComponent implements OnInit {
      private institutionService: InstitutionService,
      private pipe:DatePipe,
      private schEvent : ScheduledEventService,
-     private router: Router ) {
+     private router: Router,
+     private storage: AngularFireStorage ) {
 
       this.fechaMinima= new Date(new Date().getFullYear(),new Date().getMonth(), new Date().getDate());
       this.fechaStrMinima= this.pipe.transform(this.fechaMinima, "yyyy-MM-dd")!;
@@ -109,6 +116,27 @@ export class MyeventComponent implements OnInit {
     }
     this.getAllScheduledEvents(params.name);
   }
+
+  uploadImage(inputname: string) {
+    const id = Math.random().toString(36).substring(2);
+    var input: any = document.getElementById(inputname);
+    const file = input.files[0];
+    const ruta = `upload/${id}`;
+    const ref = this.storage.ref(ruta);
+
+    const carga = this.storage.upload(ruta, file);
+    this.uploadPercent = carga.percentageChanges();
+    carga.snapshotChanges().pipe(
+      finalize(() => {
+        ref.getDownloadURL().subscribe(url => {
+          this.urlImage=url;
+          //Aqui deben mandar a guardar la url
+          console.log(url)
+          console.log(this.urlImage);
+        });
+      })
+    ).subscribe();
+   }
 
 
   get name(){
@@ -182,7 +210,7 @@ export class MyeventComponent implements OnInit {
   }
 
 
-  createScheduledEvent(){ 
+  createScheduledEvent(){
 /*     console.log("crear evento programado",this.eventoProgramadoForm.value) */
     this.eventoProgramadoForm.value.eventId=Number(this.activatedRoute.snapshot.params.name)
 /*     console.log( "hora inicio: ",this.eventoProgramadoForm.value.startHour)
@@ -192,7 +220,7 @@ export class MyeventComponent implements OnInit {
     this.schEvent.createScheduledEvent(this.eventoProgramadoForm.value).subscribe(
       res =>  alert(res),
       error=> alert(error.error.message))
-       window.location.reload(); 
+       window.location.reload();
   }
 
 
@@ -288,7 +316,7 @@ export class MyeventComponent implements OnInit {
     )
   }
 
-  
+
   deleteScheduledEvent(idEvento:number){
     this.schEvent.deleteScheduledEvent(idEvento).subscribe(
       res=>{

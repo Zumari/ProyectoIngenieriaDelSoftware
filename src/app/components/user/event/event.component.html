@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container fz-l">
   <div class="row mb-3">
     <div class="d-flex justify-content-start">
       <button class="btn" style="color: orange;" data-bs-toggle="modal" data-bs-target="#crearevento">
@@ -14,6 +14,22 @@
   <div class="row mb-3">
     <img style="height: 50vh;" [src]="event.photo" alt="">
   </div>
+  <div class="imgs-cont">
+    <div class="micro-img cp">
+      <label for="img1"></label>
+      <input type="file" name="img1" id="img1" style="visibility: hidden;" (change)="uploadImage('img1')">
+    </div>
+    <div class="micro-img cp">
+
+      <label for="img2"></label>
+      <input type="file" name="img2" id="img2" style="visibility: hidden;" (change)="uploadImage('img2')">
+    </div>
+    <div class="micro-img cp">
+
+      <label for="img3"></label>
+      <input type="file" name="img3" id="img3" style="visibility: hidden;" (change)="uploadImage('img3s')">
+    </div>
+  </div>
   <div class="d-flex mb-3">
     <div>Fecha de inicio: <label for="" class="mx-2">{{event.startDate|date:'dd-MM-yyyy'}}</label></div>
     <div>Fecha de finalización: <label for="" class="mx-2">{{event.endDate|date:'dd-MM-yyyy'}}</label></div>
@@ -25,7 +41,7 @@
   <div class="row mb-3">
     <div class="mb-2">Organizador:</div>
     <div class="d-flex align-items-center" (click)="goToProfile(event.userId)">
-      <!--<div class="sm-avatar mx-2"></div>--> 
+      <!--<div class="sm-avatar mx-2"></div>-->
       <div class="cp h5">{{event.userId}}</div>
     </div>
   </div>
@@ -37,7 +53,7 @@
         <div class="d-flex justify-content-between"><div>Fecha de inicio:</div> <div>{{evento.startDate|date:'dd-MM-yyyy'}}</div></div>
         <div class="d-flex justify-content-between"><div>Fecha de fin:</div> <div>{{evento.endDate|date:'dd-MM-yyyy'}}</div></div>
          <div class="d-flex justify-content-between"><div>Hora de inicio:</div> <div>{{evento.startHour}}</div></div>
-        <div class="d-flex justify-content-between"><div>Hora de fin:</div> <div>{{evento.endHour}}</div></div> 
+        <div class="d-flex justify-content-between"><div>Hora de fin:</div> <div>{{evento.endHour}}</div></div>
       </div>
       <div class="col-lg-9 col-md-9 col-sm-12 col-12" style="border-left: solid 2px gray;" >
         <div class="title-conference">{{evento.name}}</div>

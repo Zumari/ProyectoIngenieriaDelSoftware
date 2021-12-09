@@ -10,6 +10,9 @@ import {Inscription } from 'src/app/interfaces/inscription';
 import { CheckInService } from 'src/app/services/check in/check-in.service';
 import { GeneralUserService } from 'src/app/services/user/general-user/general-user.service';
 import { elementEventFullName } from '@angular/compiler/src/view_compiler/view_compiler';
+import { AngularFireStorage } from '@angular/fire/storage';
+import { Observable } from 'rxjs';
+import { finalize } from 'rxjs/operators';
 
 
 @Component({
@@ -38,8 +41,11 @@ export class EventComponent implements OnInit {
     image: ''
   };
 
+  urlImage: string="";
+  nameImage="";
+  uploadPercent:Observable<number|undefined> | undefined;
   inscriptions:Inscription[]=[]
-  
+
 
   eventosProgramados: ScheduledEvent[]=[]
 
@@ -53,7 +59,8 @@ export class EventComponent implements OnInit {
      private schEvent: ScheduledEventService,
      private insc: CheckInService,
      private generalUserService:GeneralUserService,
-     private router: Router
+     private router: Router,
+     private storage: AngularFireStorage
      ) {this.getInscriptions()}
 
   ngOnInit(): void {
@@ -79,6 +86,27 @@ export class EventComponent implements OnInit {
     )
   }
 
+  uploadImage(inputname: string) {
+    const id = Math.random().toString(36).substring(2);
+    var input: any = document.getElementById(inputname);
+    const file = input.files[0];
+    const ruta = `upload/${id}`;
+    const ref = this.storage.ref(ruta);
+
+    const carga = this.storage.upload(ruta, file);
+    this.uploadPercent = carga.percentageChanges();
+    carga.snapshotChanges().pipe(
+      finalize(() => {
+        ref.getDownloadURL().subscribe(url => {
+          this.urlImage=url;
+          //Aqui deben mandar a guardar la url
+          console.log(url)
+          console.log(this.urlImage);
+        });
+      })
+    ).subscribe();
+   }
+
   getAllScheduledEvents(idEvent:number){
     this.schEvent.getAllScheduledEventsWhere(idEvent).subscribe(
       res =>  {this.eventosProgramados=res},
@@ -92,11 +120,11 @@ export class EventComponent implements OnInit {
   //Métodos de Inscripción
   createInscription(scheduledEventId: number){
     let inscription ={
-      idScheduledEvent:scheduledEventId, 
+      idScheduledEvent:scheduledEventId,
       idUser:this.generalUserService.getEmail(),
       nameUser:this.generalUserService.getNombreUsuario(),
     }
-    
+
     this.insc.createInscription(inscription).subscribe(
        res =>  {alert(res.message)},
       error=> alert(error.error.message)
@@ -135,7 +163,7 @@ export class EventComponent implements OnInit {
     })
     return this.devolver;
   }
-   
 
-  
+
+
 }
