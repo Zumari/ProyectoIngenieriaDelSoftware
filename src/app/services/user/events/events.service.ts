@@ -3,12 +3,14 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Event } from 'src/app/interfaces/event';
 import { Status } from 'src/app/interfaces/status';
+import { ImageEvent } from 'src/app/interfaces/ImageEvent';
 @Injectable({
   providedIn: 'root'
 })
 export class EventsService {
 
   constructor(private httpClient:HttpClient) { }
+  url:string='';
 
   getAllEvents():Observable<Event[]>{
     return this.httpClient.get<Event[]>(`http://localhost:3000/events/getAllEvents`,{});
@@ -41,6 +43,17 @@ export class EventsService {
   deleteEvent(idEvento:number):Observable<Event>{
    return this.httpClient.delete<Event>(`http://localhost:3000/events/deleteEvent/${idEvento}`,{});
   }
+
+  addImageEvent(idEvent:number,url:any):Observable<any>{
+    this.url=url;
+    console.log("llego al service")
+    return this.httpClient.post<any>(`http://localhost:3000/event-images/addImageEvent`,Object({'eventId':idEvent,'URL':this.url}));
+   }
+
+   
+  getImageByEvent(idEvent:number):Observable<ImageEvent[]>{
+    return this.httpClient.get<ImageEvent[]>(`http://localhost:3000/event-images/getImageByEvent/${idEvent}`);
+   }
 
 
 

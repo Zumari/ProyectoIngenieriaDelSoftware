@@ -107,6 +107,7 @@ export class EventComponent implements OnInit {
     ).subscribe();
    }
 
+
   getAllScheduledEvents(idEvent:number){
     this.schEvent.getAllScheduledEventsWhere(idEvent).subscribe(
       res =>  {

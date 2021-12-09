@@ -1,6 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { EventsService } from 'src/events/events.service';
+import { MailService } from 'src/mail/mail.service';
 import { ScheduledEventService } from 'src/scheduled-event/scheduled-event.service';
 import { UsersService } from 'src/users/users.service';
 import { Repository } from 'typeorm';
@@ -13,7 +14,8 @@ export class InscriptionsService {
         private inscriptionRepository: Repository<Inscriptions>,
         private scheduledEventService: ScheduledEventService,
         private usersService: UsersService,
-        private eventService:EventsService){}
+        private eventService:EventsService,
+        private mailService:MailService){}
     
     
     async findAllInscriptions(): Promise<Inscriptions[]>{
@@ -57,6 +59,7 @@ export class InscriptionsService {
             body.nameUser = (await user).firstName + " " + (await user).lastName;
             const newInscription = this.inscriptionRepository.create(body)
             await this.inscriptionRepository.save(newInscription);
+            await this.mailService.sendUserInscription(body.idUser,(await user).firstName,(await scheduledEvent).name,(await scheduledEvent).startDate.toString(),(await scheduledEvent).endDate.toString(),(await scheduledEvent).startHour.toString(),(await scheduledEvent).endHour.toString(),(await scheduledEvent).modality);
             this.scheduledEventService.updateScheduledEventPlaces((await scheduledEvent).scheduledEventId)
             return  {
                  "message":`Inscripcíon correcta`  
@@ -73,6 +76,8 @@ export class InscriptionsService {
                 body.nameUser = (await user).firstName + " " + (await user).lastName;
                 const newInscription = this.inscriptionRepository.create(body)
                 await this.inscriptionRepository.save(newInscription);
+                await this.mailService.sendUserInscription(body.idUser,(await user).firstName,(await scheduledEvent).name,(await scheduledEvent).startDate.toString(),(await scheduledEvent).endDate.toString(),(await scheduledEvent).startHour.toString(),(await scheduledEvent).endHour.toString(),(await scheduledEvent).modality);
+                await this.scheduledEventService.updateScheduledEventPlaces((await scheduledEvent).scheduledEventId)
                 return  {
                      "message":`Inscripcíon correcta`   
                 }
@@ -126,6 +131,6 @@ export class InscriptionsService {
     }
 
 async getDataCertificate(idScheduledEvent:number){
-    return this.inscriptionRepository.find({ where: { idScheduledEvent: (idScheduledEvent) } });
+    return this.inscriptionRepository.find({ where: { idScheduledEvent:idScheduledEvent,attendance:true} });
 }
 }

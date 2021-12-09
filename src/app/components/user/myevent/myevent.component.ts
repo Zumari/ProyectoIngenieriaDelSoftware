@@ -15,6 +15,7 @@ import { Inscription } from 'src/app/interfaces/inscription';
 import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 import { AngularFireStorage } from '@angular/fire/storage';
+import { ImageEvent } from 'src/app/interfaces/ImageEvent';
 
 @Component({
   selector: 'app-myevent',
@@ -53,6 +54,8 @@ export class MyeventComponent implements OnInit {
     endHour: '',
     image: ''
   };
+
+  imagesEvent: ImageEvent[]=[] //este arreglo es el de las imagenes de cada evento MARYA PILAS CHAVALA
 
 
   eventosProgramados: ScheduledEvent[]=[{
@@ -113,6 +116,7 @@ export class MyeventComponent implements OnInit {
     if(params){
       this.eventName = params.name;
       this.getEvent(params.name);
+      this.getIimageByEvent(params.name);
     }
     this.getAllScheduledEvents(params.name);
   }
@@ -130,13 +134,25 @@ export class MyeventComponent implements OnInit {
       finalize(() => {
         ref.getDownloadURL().subscribe(url => {
           this.urlImage=url;
-          //Aqui deben mandar a guardar la url
+          this.eventServ.addImageEvent(Number(this.activatedRoute.snapshot.params.name),url).subscribe(
+            res=>console.log(res),
+            error=>console.log(error)
+          )
+          console.log(Number(this.activatedRoute.snapshot.params.name),url)
           console.log(url)
           console.log(this.urlImage);
         });
       })
     ).subscribe();
    }
+
+
+   getIimageByEvent(id:number){
+   this.eventServ.getImageByEvent(id).subscribe(
+    res=>{this.imagesEvent=res;console.log(res)},
+    error=>console.log(error)
+  )
+  }
 
 
   get name(){
@@ -284,7 +300,8 @@ export class MyeventComponent implements OnInit {
       </head>
       <body>
       `);
-      res.forEach(resp=>{
+
+      res.forEach(resp=>{ 
         win?.document.write(`
         <div class="diploma">
           <img src='https://firebasestorage.googleapis.com/v0/b/industria-project.appspot.com/o/certificado_base.png?alt=media&token=a33c6e7f-5b1a-4469-a0bc-e8f4cd49e823'>
