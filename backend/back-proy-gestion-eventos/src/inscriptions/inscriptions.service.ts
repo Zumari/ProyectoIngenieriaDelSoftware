@@ -30,19 +30,23 @@ export class InscriptionsService {
     }
 
     async createInscription(body){
+        const scheduledEvent=this.scheduledEventService.getOneScheduledEvent(body.idScheduledEvent)
+        let currentDate = new Date()
+        if(currentDate>(await scheduledEvent).endDate){
+            return{
+                "message":"Lo sentimos, este evento ya ha finalizado"
+            }
+        }
         if(await this.findInscriptionWhere(body.idScheduledEvent,body.idUser)==true){
             return{
                 "message":"Usted ya está inscrito en este evento"
             }
         }
-        const scheduledEvent=this.scheduledEventService.getOneScheduledEvent(body.idScheduledEvent)
         
         if((await scheduledEvent).places==0){
             return {
                 "message":"Lo sentimos, ya no hay cupos para este evento :C"
             }
-        }else if(await scheduledEvent){
-
         }
         let existInWhiteList=false;
         if(!scheduledEvent) throw new NotFoundException('No existe este ScheduledEvent') 
@@ -70,7 +74,7 @@ export class InscriptionsService {
                 const newInscription = this.inscriptionRepository.create(body)
                 await this.inscriptionRepository.save(newInscription);
                 return  {
-                     "message":`Inscripcíon orrecta`   
+                     "message":`Inscripcíon correcta`   
                 }
               }else{
                 return  {
