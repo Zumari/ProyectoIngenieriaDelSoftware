@@ -393,7 +393,7 @@ export class MyeventComponent implements OnInit {
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
   <style>
   @media print {
-    @page { margin: 0; }
+    @page { margin: 0; size: landscape; }
     body { margin: 1.6cm; }
   }
   </style>
@@ -429,8 +429,8 @@ for (let i = 0; i < this.eventosProgramados.length; i++) {
       <div class="col-lg-3 col-md-3 col-sm-12 col-12">
         <div class="d-flex justify-content-between"><div>Fecha de inicio:</div> <div>` + this.pipe.transform(this.eventosProgramados[i].startDate, 'dd-MM-yyyy') + `</div></div>
         <div class="d-flex justify-content-between"><div>Fecha de fin:</div> <div>` + this.pipe.transform(this.eventosProgramados[i].endDate, 'dd-MM-yyyy') + `</div></div>
-         <div class="d-flex justify-content-between"><div>Hora de inicio:</div> <div>` + this.eventosProgramados[i].startHour + `</div></div>
-        <div class="d-flex justify-content-between"><div>Hora de fin:</div> <div>` + this.eventosProgramados[i].endHour + `</div></div>
+         <div class="d-flex justify-content-between"><div>Hora de inicio:</div> <div>` + this.pipe.transform(this.eventosProgramados[i].startHour, 'HH:mm a') + `</div></div>
+        <div class="d-flex justify-content-between"><div>Hora de fin:</div> <div>` + this.pipe.transform(this.eventosProgramados[i].endHour, 'HH:mm a') + `</div></div>
       </div>
       <div class="col-lg-9 col-md-9 col-sm-12 col-12" style="border-left: solid 2px gray;">
         <div class="title-conference">` + this.eventosProgramados[i].name + `</div>
