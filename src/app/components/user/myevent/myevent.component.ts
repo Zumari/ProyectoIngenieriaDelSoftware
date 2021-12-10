@@ -116,7 +116,6 @@ export class MyeventComponent implements OnInit {
     if(params){
       this.eventName = params.name;
       this.getEvent(params.name);
-      this.getIimageByEvent(params.name);
     }
     this.getAllScheduledEvents(params.name);
   }
@@ -147,11 +146,17 @@ export class MyeventComponent implements OnInit {
    }
 
 
-   getIimageByEvent(id:number){
+   getIimageByEvent(id:number, photo?: string){
    this.eventServ.getImageByEvent(id).subscribe(
-    res=>{this.imagesEvent=res;console.log(res)},
+    res=>{
+      this.imagesEvent=res;
+      if (photo != undefined) {
+        this.imagesEvent.push({'URL': photo, imageId: 0, eventId: 0});
+      }
+      console.log(res)
+    },
     error=>console.log(error)
-  )
+    )
   }
 
 
@@ -216,7 +221,9 @@ export class MyeventComponent implements OnInit {
     this.eventServ.getEvent(id).subscribe(
       res =>  {
         this.event=res;
-        this.urls.push(this.event.photo);
+        console.log(this.event);
+        this.getIimageByEvent(id, this.event.photo);
+        // this.urls.push(this.event.photo);
         this.institutionService.getInstitution(this.event.institutionId).subscribe(
           res =>  {
             this.event.institutionId=res.name
@@ -307,7 +314,7 @@ export class MyeventComponent implements OnInit {
       <body>
       `);
 
-      res.forEach(resp=>{ 
+      res.forEach(resp=>{
         win?.document.write(`
         <div class="diploma">
           <img src='https://firebasestorage.googleapis.com/v0/b/industria-project.appspot.com/o/certificado_base.png?alt=media&token=a33c6e7f-5b1a-4469-a0bc-e8f4cd49e823'>

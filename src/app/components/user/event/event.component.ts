@@ -13,6 +13,7 @@ import { elementEventFullName } from '@angular/compiler/src/view_compiler/view_c
 import { AngularFireStorage } from '@angular/fire/storage';
 import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
+import { ImageEvent } from 'src/app/interfaces/ImageEvent';
 
 
 @Component({
@@ -45,8 +46,8 @@ export class EventComponent implements OnInit {
   urlImage: string="";
   nameImage="";
   uploadPercent:Observable<number|undefined> | undefined;
-  inscriptions:Inscription[]=[]
-
+  inscriptions:Inscription[]=[];
+  imagesEvent: ImageEvent[]=[];
 
   eventosProgramados: ScheduledEvent[]=[]
 
@@ -78,6 +79,8 @@ export class EventComponent implements OnInit {
     this.eventServ.getEvent(id).subscribe(
       res =>  {
         this.event=res;
+        console.log(this.event);
+        this.getIimageByEvent(id, this.event.photo);
         this.institutionService.getInstitution(this.event.institutionId).subscribe(
           res =>  {this.event.institutionId=res.name},
           error => console.log(error)
@@ -86,6 +89,19 @@ export class EventComponent implements OnInit {
       error => console.log(error)
     )
   }
+
+  getIimageByEvent(id:number, photo?: string){
+    this.eventServ.getImageByEvent(id).subscribe(
+     res=>{
+       this.imagesEvent=res;
+       if (photo != undefined) {
+         this.imagesEvent.push({'URL': photo, imageId: 0, eventId: 0});
+       }
+       console.log(res)
+     },
+     error=>console.log(error)
+     )
+   }
 
   uploadImage(inputname: string) {
     const id = Math.random().toString(36).substring(2);
