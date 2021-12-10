@@ -41,4 +41,26 @@ export class MailService {
         },
       });
     }
+
+
+    async sendUserInscription(emailUser:string,
+      nameUser:string,
+      nameEvent:string,
+      startDate:string,endDate:string,startHour:string,endHour:string,modality:string) {
+      console.log("a este correo se manda la confirmaccion de la inscripcion evento",emailUser);
+      await this.mailerService.sendMail({
+        to: emailUser,
+        subject: 'Inscripcion Realizada con Exito',
+        template: './userInscription', 
+        context: { 
+          name: nameUser,
+          nameEvent:nameEvent,
+          startDate:startDate,
+          endDate:endDate,
+          startHour:startHour,
+          endHour:endHour,
+          modality:modality
+        },
+      });
+    }
 }

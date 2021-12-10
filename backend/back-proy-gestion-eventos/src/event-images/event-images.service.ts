@@ -12,13 +12,19 @@ export class EventImagesService {
     
     async findAllImages(): Promise<EventImages[]>{
         return await this.eventImagesRepository.find();
+        
+    }
+
+    async findImageByEvent(eventId:number): Promise<EventImages[]>{
+        return await this.eventImagesRepository.find({ where: { eventId:eventId}});
     }
     //ADD IMAGE
     async createImage(body){
-        const image=await this.eventImagesRepository.findOne(body.URL);
-        if(image) throw new NotFoundException('Ya existe una imagen con la misma direccíon')
+       /* const image=await this.eventImagesRepository.findOne(body.URL);
+        if(image) throw new NotFoundException('Ya existe una imagen con la misma direccíon')*/
         const newImage = this.eventImagesRepository.create(body)
-        return await this.eventImagesRepository.save(newImage);
+        await this.eventImagesRepository.save(newImage);
+        return{'message':"imagen agregada con exito"}
     }
     async getOneImage(ID){
         const image = await this.eventImagesRepository.findOne(ID)
