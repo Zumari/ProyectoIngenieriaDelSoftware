@@ -13,6 +13,10 @@ import { MyeventComponent } from './components/user/myevent/myevent.component';
 import { EventComponent } from './components/user/event/event.component';
 import { ParticipantsComponent } from './components/user/myevent/participants/participants.component';
 import { PublicProfileComponent } from './components/user/public-profile/public-profile.component';
+import { EventHourComponent } from './components/user/statistics/event-hour/event-hour.component';
+import { EventInstitutionComponent } from './components/user/statistics/event-institution/event-institution.component';
+import { EventStateComponent } from './components/user/statistics/event-state/event-state.component';
+import { EventUserComponent } from './components/user/statistics/event-user/event-user.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/inicio', pathMatch: 'full'},
@@ -23,7 +27,12 @@ const routes: Routes = [
     {path: 'eventos', component: DashboardComponent},
     {path: 'mis-eventos', component: MyeventsComponent},
     {path: 'perfil', component: ProfileComponent},
-    {path: 'estadisticas', component: StatisticsComponent},
+    {path: 'estadisticas', component: StatisticsComponent, children: [
+      {path: 'estadisticas/evento-hora', component: EventHourComponent},
+      {path: 'estadisticas/evento-institucion', component: EventInstitutionComponent},
+      {path: 'estadisticas/evento-estado', component: EventStateComponent},
+      {path: 'estadisticas/evento-usuario', component: EventUserComponent},
+    ]},
     {path: 'mi-evento/:name', component: MyeventComponent},
     {path: 'evento/:name', component: EventComponent},
     {path: 'mi-evento/:name/participants/:id', component: ParticipantsComponent},

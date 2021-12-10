@@ -33,6 +33,13 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { PublicProfileComponent } from './components/user/public-profile/public-profile.component';
 import { ParticipantsComponent } from './components/user/myevent/participants/participants.component';
+import { EventHourComponent } from './components/user/statistics/event-hour/event-hour.component';
+import { EventInstitutionComponent } from './components/user/statistics/event-institution/event-institution.component';
+import { EventStateComponent } from './components/user/statistics/event-state/event-state.component';
+import { EventUserComponent } from './components/user/statistics/event-user/event-user.component';
+
+import { NgChartsModule } from 'ng2-charts';
+import { Chart } from 'chart.js';
 
 
  const config={
@@ -59,10 +66,15 @@ import { ParticipantsComponent } from './components/user/myevent/participants/pa
     ChangePasswordComponent,
     RestartPasswordComponent,
     PublicProfileComponent,
-    ParticipantsComponent
+    ParticipantsComponent,
+    EventHourComponent,
+    EventInstitutionComponent,
+    EventStateComponent,
+    EventUserComponent,
   ],
   imports: [
     BrowserModule,
+    NgChartsModule,
     AppRoutingModule,
     FontAwesomeModule,
     HttpClientModule,
@@ -72,7 +84,8 @@ import { ParticipantsComponent } from './components/user/myevent/participants/pa
     Ng2SearchPipeModule,
     AngularFireAuthModule,
     AngularFireStorageModule,// storagec
-    AngularFireDatabaseModule
+    AngularFireDatabaseModule,
+    
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]
