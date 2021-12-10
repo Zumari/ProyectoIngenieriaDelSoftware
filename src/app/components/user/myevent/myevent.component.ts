@@ -32,9 +32,9 @@ export class MyeventComponent implements OnInit {
   mode: string = 'virtual';
   typeEvent: string = 'conferencia';
   privacy: string = 'publico';
-
   eventName: String = '';
   certificatedSheduleEvent:Inscription[]=[];
+  urls: any = [];
   urlImage: string="";
   nameImage="";
   uploadPercent:Observable<number|undefined> | undefined;
@@ -200,8 +200,11 @@ export class MyeventComponent implements OnInit {
     this.eventServ.getEvent(id).subscribe(
       res =>  {
         this.event=res;
+        this.urls.push(this.event.photo);
         this.institutionService.getInstitution(this.event.institutionId).subscribe(
-          res =>  {this.event.institutionId=res.name},
+          res =>  {
+            this.event.institutionId=res.name
+          },
           error => console.log(error)
         )
       },
@@ -230,6 +233,8 @@ export class MyeventComponent implements OnInit {
       error => console.log(error)
     )
   }
+
+
   getAllDataCertifications(idSheduleEvent:number,name:string){
     this.schEvent.getScheduledEventCertificate(idSheduleEvent).subscribe(
       res => {this.certificatedSheduleEvent=res;
@@ -260,6 +265,7 @@ export class MyeventComponent implements OnInit {
           box-sizing: border-box;
           padding: 1rem;
           page-break-after: always;
+          page-break-before: always;
         }
 
         .diploma img {

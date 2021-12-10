@@ -33,6 +33,7 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { PublicProfileComponent } from './components/user/public-profile/public-profile.component';
 import { ParticipantsComponent } from './components/user/myevent/participants/participants.component';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 
  const config={
@@ -72,7 +73,7 @@ import { ParticipantsComponent } from './components/user/myevent/participants/pa
     Ng2SearchPipeModule,
     AngularFireAuthModule,
     AngularFireStorageModule,// storagec
-    AngularFireDatabaseModule
+    AngularFireDatabaseModule, NoopAnimationsModule
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]

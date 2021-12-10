@@ -92,7 +92,7 @@ loginForm = new FormGroup({
     $('#interests').prop('readonly', false);
     $('#institutionRepresenting').prop('readonly', false);
     $('#institutionForm').prop('readonly', false);
-    $('#faperfil').css({"visibility": "visible"});  
+    $('#faperfil').css({"visibility": "visible"});
     $('#email').prop('readonly', false);
     $('#password').prop('readonly', false);
     $('#repassword_').prop('readonly', false);
@@ -232,20 +232,24 @@ loginForm = new FormGroup({
     )
   }
 
-  CreateUser(){
+  CreateUser() {
+    console.log(this.registerForm.valid);
+    console.log(this.registerForm.controls);
     const institutionId = this.registerForm.value.institutionRepresenting;
 
     // Sino se selecciono institución obtener el nombre de la nueva institucion
     if (this.registerForm.get('repassword_')?.value == this.registerForm.get('password_')?.value) {
+      console.log('instituto', institutionId);
       if(institutionId == 0){
         this.institutionServ.createInstitution(this.institutionForm.value).subscribe(
           res => {
-            // console.log(res);
+            console.log('2', res);
             this.registerForm.value.institutionRepresenting = res.InstitutionID;
             this.registerForm.get('repassword_')?.disable();
             this.registerForm.value.profilePhoto=this.urlImage;
             this.generalUserService.createUser(this.registerForm.value).subscribe(
               res => {
+                console.log('3', res);
                 for (const key in res){
                   if (key == 'error-001'){
                     alert('El correo ya esta registrado');
@@ -258,21 +262,22 @@ loginForm = new FormGroup({
           },
           err =>console.log('No se intento crear una institucion')
         )
-   
+
       }else{
         this.registerForm.value.institutionRepresenting = Number(this.registerForm.value.institutionRepresenting);
         this.registerForm.get('repassword_')?.disable();
         this.registerForm.value.profilePhoto=this.urlImage;
         this.generalUserService.createUser(this.registerForm.value).subscribe(
           res => {
-            // console.log(res);
+            console.log(res);
           },
           err =>console.log(err)
         )
-    
+
       }
     } else {
       //pongan mensaje de contraseñas no coinciden
+      alert('Contraseñas no coinciden');
     }
 
     $('body').removeClass('modal-open');

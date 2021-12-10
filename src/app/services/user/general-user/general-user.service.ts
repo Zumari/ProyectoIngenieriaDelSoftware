@@ -19,22 +19,22 @@ export class GeneralUserService {
   getUsers():Observable<User[]>{
     return this.httpClient.get<User[]>('http://localhost:3000/users/getAllUsers',);
    }
-   
+
   getUser(email:String):Observable<User>{
     return this.httpClient.get<User>(`http://localhost:3000/users/getUser/${email}`,);
-   } 
-  
+   }
+
   deleteUser(email:String):Observable<User>{
     return this.httpClient.delete<User>(`http://localhost:3000/users/deleteUser/${email}`,);
-   } 
-  
-    
+   }
+
+
   updateUser(email:String, user:User):Observable<User>{
     return this.httpClient.put<User>(`http://localhost:3000/users/updateUser/${email}`,user);
-   } 
+   }
 
 
-   
+
   login(userAuth:Auth):Observable<UserResponse>{
     return this.httpClient.post<UserResponse>(`http://localhost:3000/auth/login`,userAuth)
     .pipe(
@@ -43,12 +43,13 @@ export class GeneralUserService {
           console.log('Res =>>>', res);
           this.setToken(JSON.stringify(res))
         }
-        
+
       }));
   }
 
   logout():void{
     localStorage.removeItem('token');
+    localStorage.clear();
   }
 
   /*forgotPassword(forgotUser:ForgotUser): Observable<ForgotUser>{
@@ -70,9 +71,10 @@ export class GeneralUserService {
    setToken(token: string):void{
     localStorage.setItem('token',token) ;
   }
-  
+
   getToken():string{
   const userToken = JSON.stringify(localStorage.getItem('token'));
+  console.log(localStorage.getItem('token'));
   return userToken;
   }
 
@@ -91,7 +93,7 @@ export class GeneralUserService {
     const payload = token.split('.')[1];
     console.log(payload);
     console.log("si es el atob el del pedo");
-    const values = atob(payload);
+    const values = decodeURIComponent(escape(window.atob(payload.replace(/\s/g, ''))));
     console.log("despues del atob",values);
     const valuesJson = JSON.parse(values);
     const nombreUsuario = valuesJson.firstName;
@@ -112,7 +114,7 @@ export class GeneralUserService {
     //console.log("url del usuario",urlPhotoUser);
     return urlPhotoUser;
   }
- 
+
   getEmail(): string {
     if (!this.isLogged()) {
       return 'user loco'

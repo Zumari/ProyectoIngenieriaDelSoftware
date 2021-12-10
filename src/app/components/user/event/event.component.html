@@ -1,31 +1,38 @@
 <div class="container fz-l">
   <div class="row mb-3">
     <div class="d-flex justify-content-start">
-      <button class="btn" style="color: orange;" data-bs-toggle="modal" data-bs-target="#crearevento">
+      <!-- <button class="btn btn-primary m-2 text-ligth" data-bs-toggle="modal" data-bs-target="#crearevento">
         <fa-icon [icon]="faPlus"></fa-icon>
         Inscribirme
       </button>
-      <button class="btn mx-2" style="color: orange;">
+      <button class="btn btn-primary m-2 text-ligth">
         <fa-icon [icon]="faTrash"></fa-icon>
         Cancelar inscripción
-      </button>
+      </button> -->
     </div>
   </div>
   <div class="row mb-3">
-    <img style="height: 50vh;" [src]="event.photo" alt="">
+    <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-inner">
+        <div class="carousel-item active" *ngFor="let iimg of urls">
+          <div class="d-block w-100 adjust-back" style="background-image: url({{iimg}})"></div>
+        </div>
+      </div>
+    </div>
   </div>
   <div class="imgs-cont">
     <div class="micro-img cp">
+      <img [src]="urls[0] !== undefined ? urls[0]: null" alt="">
       <label for="img1"></label>
       <input type="file" name="img1" id="img1" style="visibility: hidden;" (change)="uploadImage('img1')">
     </div>
     <div class="micro-img cp">
-
+      <img [src]="urls[1] !== undefined ? urls[1]: null" alt="">
       <label for="img2"></label>
       <input type="file" name="img2" id="img2" style="visibility: hidden;" (change)="uploadImage('img2')">
     </div>
     <div class="micro-img cp">
-
+      <img [src]="urls[2] !== undefined ? urls[2]: null" alt="">
       <label for="img3"></label>
       <input type="file" name="img3" id="img3" style="visibility: hidden;" (change)="uploadImage('img3s')">
     </div>

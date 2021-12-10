@@ -14,14 +14,15 @@ export class ProfileService {
 
   getUser(email:String):Observable<User>{
     return this.httpClient.get<User>(`http://localhost:3000/users/getUserInfo/${email}`);
-   } 
-  
+   }
+
   updateUser(email:String, user:User):Observable<User>{
     return this.httpClient.put<User>(`http://localhost:3000/users/updateUserInfo/${email}`,user);
-   } 
+   }
 
   logout():void{
     localStorage.removeItem('token');
+    localStorage.clear();
   }
 
   /*forgotPassword(forgotUser:ForgotUser): Observable<ForgotUser>{
@@ -67,7 +68,7 @@ export class ProfileService {
     console.log("url del usuario",urlPhotoUser);
     return urlPhotoUser;
   }
- 
+
   getEmail(): string {
     if (!this.isLogged()) {
       return 'user loco'

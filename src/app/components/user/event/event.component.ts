@@ -26,6 +26,7 @@ export class EventComponent implements OnInit {
   faPlus = faPlusCircle;
   faTrash = faTrash;
   devolver=false;
+  urls: any = [];
   event: any = {
     name: '',
     startDate: '',
