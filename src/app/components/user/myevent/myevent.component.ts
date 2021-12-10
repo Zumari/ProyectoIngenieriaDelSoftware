@@ -153,7 +153,6 @@ export class MyeventComponent implements OnInit {
       if (photo != undefined) {
         this.imagesEvent.push({'URL': photo, imageId: 0, eventId: 0});
       }
-      location.reload();
       console.log(res)
     },
     error=>console.log(error)
